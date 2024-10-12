@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>InFeed</title>
     <link rel="stylesheet" href="student.css">
 </head>
@@ -9,7 +10,7 @@
     <!--PESU LOGO-->
     <div class="logo-container">
         <img src="logoPesu.png" alt="College Logo" class="logo">
-        <button class="home-btn">HOME</button>  
+        <button class="home-btn">HOME</button>
     </div>
 
     <div class="main-content">
@@ -17,7 +18,7 @@
         <div class="align">
 
             <!--Apply for interview-->
-            <div class="card-container">  
+            <div class="card-container">
                 <div class="card-vertical">
                     <div class="card-front">
                         <article class="card-front-content">
@@ -163,26 +164,33 @@
     </div>
 
     <script>
+        const apiUrl = 'http://localhost:8080/api/v1'; // Assuming your API is hosted at this endpoint
 
-        const loadContent = (src) => {
-            document.querySelector('.main-content').innerHTML = '';
-            const iframe = document.createElement('iframe');
-            iframe.src = src;
-            iframe.frameBorder = '0';
-            iframe.width = '100%';
-            iframe.height = '100%';
-            document.querySelector('.main-content').appendChild(iframe);
+        // Function to load content using fetch API
+        const loadContent = (url, method = 'GET') => {
+            fetch(url, {
+                method: method,
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.querySelector('.main-content').innerHTML = JSON.stringify(data, null, 2);
+            })
+            .catch(err => console.error(err));
         };
 
-        document.querySelector('.home-btn').addEventListener('click', () => {location.reload();});  //CURRENTLY ACTS LIKE RELOAD
-        document.querySelector('.register-btn').addEventListener('click', () => loadContent('Register.html'));
-        document.querySelector('.student-btn').addEventListener('click', () => loadContent('student_profile.html'));
-        document.querySelector('.apply-interviews-btn').addEventListener('click', () => loadContent('apply_for_interviews.html'));
-        document.querySelector('.view-interview-schedule-btn').addEventListener('click', () => loadContent('view_interview_schedule.html'));
-        document.querySelector('.view-feedback-btn').addEventListener('click', () => loadContent('view_feedback.html'));
-        document.querySelector('.track-progress-btn').addEventListener('click', () => loadContent('track_progress.html'));
-        document.querySelector('.edit-profile-btn').addEventListener('click', () => loadContent('edit_profile.html'));
-        document.querySelector('.contact-support-btn').addEventListener('click', () => loadContent('contact_support.html'));
+        document.querySelector('.home-btn').addEventListener('click', () => location.reload());
+
+        document.querySelector('.register-btn').addEventListener('click', () => loadContent('student/Register.html'));
+        document.querySelector('.student-btn').addEventListener('click', () => loadContent('student/student_profile.html'));
+        document.querySelector('.apply-interviews-btn').addEventListener('click', () => loadContent('student/apply_for_interviews.html'));
+        document.querySelector('.view-interview-schedule-btn').addEventListener('click', () => loadContent('student/view_interview_schedule.html'));
+        document.querySelector('.view-feedback-btn').addEventListener('click', () => loadContent('student/view_feedback.html'));
+        document.querySelector('.track-progress-btn').addEventListener('click', () => loadContent('student/track_progress.html'));
+        document.querySelector('.edit-profile-btn').addEventListener('click', () => loadContent('student/edit_profile.html'));
+        document.querySelector('.contact-support-btn').addEventListener('click', () => loadContent('student/contact_support.html'));
 
     </script>
 </body>
