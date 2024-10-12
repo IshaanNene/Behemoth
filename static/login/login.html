@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <link rel="stylesheet" href="login.css">
+</head>
+<body>
+
+    <div class="img-container">
+        <img class="bg-img" src="login_bg_acdemy.png">
+    </div>
+
+    <div class="logo-container">
+        <img src="logoPesu.png" alt="College Logo" class="logo">
+        <button class="home-btn">HOME</button>  
+    </div>
+
+    <div class="login-container">
+
+        <h1>Login</h1>
+        <div class="role-selector">
+            <button class="student-btn" onclick="showForm('student')"> 
+                <img class="student-btn-img" src="student-btn-img.png">
+                STUDENT 
+            </button>
+            <br>
+
+            <button class="interviewer-btn" onclick="showForm('interviewer')"> 
+                <img class="interviewer-btn-img" src="interviewer-btn-img.png">
+                INTERVIEWER
+            </button>
+            <br>
+
+            <button class="admin-btn" onclick="showForm('admin')"> 
+                <img class="admin-btn-img" src="admin-btn-img.png">
+                ADMIN 
+            </button>
+        </div>
+
+
+
+        <!-- FORM -->
+        <div class="login-form" id="login-form">
+            <form action="/login" method="post">
+                <input type="text" name="username" placeholder="Username" required>
+                <input type="password" name="password" placeholder="Password" required>
+                <input type="submit" value="Login">
+            </form>
+            <a href="https://www.google.co.in/" class="forgot-pwd" target="_blank"> Forgot Password? </a>
+        </div>
+    </div>
+
+
+    <script>
+        function showForm(role) 
+        {
+            
+            const buttons = document.querySelectorAll('.role-selector button');
+            buttons.forEach(button => {
+                button.style.opacity = '0';
+                setTimeout(() => {
+                    button.style.display = 'none'; 
+                }, 500); 
+            });
+
+            const loginForm = document.getElementById('login-form');
+            loginForm.classList.add('show');
+        }
+
+        document.querySelector('.home-btn').addEventListener('click', () => {location.reload();});  //CURRENTLY ACTS LIKE RELOAD
+
+    </script>
+
+</body>
+</html>

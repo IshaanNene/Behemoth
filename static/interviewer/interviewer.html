@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>InFeed</title>
+    <link rel="stylesheet" href="interviewer.css">
+</head>
+<body>
+    <!--PESU LOGO-->
+    <div class="logo-container">
+        <img src="logoPesu.png" alt="College Logo" class="logo">
+        <button class="home-btn">HOME</button>
+    </div>
+
+    <div class="main-content">
+
+        <div class="align">
+
+            <!--Schedule interview-->
+            <div class="card-container">  
+                <div class="card-vertical">
+                    <div class="card-front">
+                        <article class="card-front-content">
+                            <img src="schedule.png" class="card-img" alt="interviewer">
+                            <h1><b>Schedule interview</b></h1>
+                        </article>
+                    </div>
+                    <div class="card-back">
+                        <article class="card-back-content">
+                            <img src="schedule.png" class="card-img" alt="interviewer">
+                            <button class="schedule-interview-btn">Schedule Interviews</button>
+                        </article>
+                    </div>
+                </div>
+            </div>
+
+            <!--Provide feedback-->
+            <div class="card-container">
+                <div class="card-vertical">
+                    <div class="card-front">
+                        <article class="card-front-content">
+                            <img src="feedback.png" class="card-img" alt="profile">
+                            <h1><b>Provide Feedback</b></h1>
+                        </article>
+                    </div>
+                    <div class="card-back">
+                        <article class="card-back-content">
+                            <img src="feedback.png" class="card-img" alt="profile">
+                            <button class="provide-feedback-btn">Provide Feedback</button>
+                        </article>
+                    </div>
+                </div>
+            </div>
+
+            <!--View Candidate Profiles-->
+            <div class="card-container">
+                <div class="card-vertical">
+                    <div class="card-front">
+                        <article class="card-front-content">
+                            <img src="view-candidate-profile.png" class="card-img" alt="register">
+                            <h1><b>View Candidate Profiles</b></h1>
+                        </article>
+                    </div>
+                    <div class="card-back">
+                        <article class="card-back-content">
+                            <img src="view-candidate-profile.png" class="card-img" alt="register">
+                            <button class="view-candidate-profiles-btn">View Candidate Profiles</button>
+                        </article>
+                    </div>
+                </div>
+            </div>
+
+            <!--Generate Report-->
+            <div class="card-container">
+                <div class="card-vertical">
+                    <div class="card-front">
+                        <article class="card-front-content">
+                            <img src="register.png" class="card-img" alt="interview-schedule">
+                            <h1><b>Generate Report</b></h1>
+                        </article>
+                    </div>
+                    <div class="card-back">
+                        <article class="card-back-content">
+                            <img src="register.png" class="card-img" alt="interview-schedule">
+                            <button class="generate-reports-btn">Generate Report</button>
+                        </article>
+                    </div>
+                </div>
+            </div>
+
+            <!--Manage Interview Slots-->
+            <div class="card-container">
+                <div class="card-vertical">
+                    <div class="card-front">
+                        <article class="card-front-content">
+                            <img src="manage-interview-slots.png" class="card-img" alt="feedback">
+                            <h1><b>Manage Interview Slots</b></h1>
+                        </article>
+                    </div>
+                    <div class="card-back">
+                        <article class="card-back-content">
+                            <img src="manage-interview-slots.png" class="card-img" alt="feedback">
+                            <button class="manage-interview-slots-btn">Manage Interview Slots</button>
+                        </article>
+                    </div>
+                </div>
+            </div>
+
+            <!--View Feedback History-->
+            <div class="card-container">
+                <div class="card-vertical">
+                    <div class="card-front">
+                        <article class="card-front-content">
+                            <img src="feedback-history.png" class="card-img" alt="progress">
+                            <h1><b>View Feedback History</b></h1>
+                        </article>
+                    </div>
+                    <div class="card-back">
+                        <article class="card-back-content">
+                            <img src="feedback-history.png" class="card-img" alt="progress">
+                            <button class="view-feedback-history-btn">View Feedback History</button>
+                        </article>
+                    </div>
+                </div>
+            </div>
+
+            <!--Communicate With Students-->
+            <div class="card-container">
+                <div class="card-vertical">
+                    <div class="card-front">
+                        <article class="card-front-content">
+                            <img src="communicate.png" class="card-img" alt="edit">
+                            <h1><b>Communicate With Students</b></h1>
+                        </article>
+                    </div>
+                    <div class="card-back">
+                        <article class="card-back-content">
+                            <img src="communicate.png" class="card-img" alt="edit">
+                            <button class="communicate-with-students-btn">Communicate With Students</button>
+                        </article>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+
+        const loadContent = (src) => {
+            document.querySelector('.main-content').innerHTML = '';
+            const iframe = document.createElement('iframe');
+            iframe.src = src;
+            iframe.frameBorder = '0';
+            iframe.width = '100%';
+            iframe.height = '100%';
+            document.querySelector('.main-content').appendChild(iframe);
+        };
+
+
+        document.querySelector('.home-btn').addEventListener('click', () => {location.reload();});  //CURRENTLY ACTS LIKE RELOAD
+        document.querySelector('.schedule-interview-btn').addEventListener('click', () => loadContent('schedule_interviews.html'));
+        document.querySelector('.provide-feedback-btn').addEventListener('click', () => loadContent('provide_feedback.html'));
+        document.querySelector('.view-candidate-profiles-btn').addEventListener('click', () => loadContent('view_candidate_profiles.html'));
+        document.querySelector('.generate-reports-btn').addEventListener('click', () => loadContent('generate_reports.html'));
+        document.querySelector('.manage-interview-slots-btn').addEventListener('click', () => loadContent('manage_interview_slots.html'));
+        document.querySelector('.view-feedback-history-btn').addEventListener('click', () => loadContent('view_feedback_history.html'));
+        document.querySelector('.communicate-with-students-btn').addEventListener('click', () => loadContent('communicate_with_students.html'));
+
+    </script>
+</body>
+</html>
