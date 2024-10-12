@@ -8,6 +8,7 @@ import (
 	"net/http"
 )
 
+// InterviewApplication structure for interview applications
 type InterviewApplication struct {
 	Company       string `json:"company" binding:"required"`
 	Position      string `json:"position" binding:"required"`
@@ -16,6 +17,7 @@ type InterviewApplication struct {
 	Resume        string `json:"resume" binding:"required"`
 }
 
+// ApplyForInterviews handles applications for interviews
 func ApplyForInterviews(c *gin.Context) {
 	var application InterviewApplication
 	if err := c.ShouldBind(&application); err != nil {
@@ -36,6 +38,7 @@ func ApplyForInterviews(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"message": "Application submitted successfully", "application": application})
 }
 
+// GetStudentBySRN retrieves a student by their SRN
 func GetStudentBySRN(srn string) (*models.Student, error) {
 	var student models.Student
 	if err := database.DB.Where("srn = ?", srn).First(&student).Error; err != nil {
@@ -44,6 +47,7 @@ func GetStudentBySRN(srn string) (*models.Student, error) {
 	return &student, nil
 }
 
+// ViewProfile displays the student's profile
 func ViewProfile(c *gin.Context) {
 	srn := c.Query("srn")
 	student, err := GetStudentBySRN(srn)
@@ -54,6 +58,7 @@ func ViewProfile(c *gin.Context) {
 	c.HTML(http.StatusOK, "student/student_profile.html", student)
 }
 
+// RegisterStudent handles student registration
 func RegisterStudent(c *gin.Context) {
 	var student models.Student
 	if err := c.ShouldBindJSON(&student); err != nil {
@@ -70,6 +75,7 @@ func RegisterStudent(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"message": "Registration successful", "student": student})
 }
 
+// SupportRequest structure for support requests
 type SupportRequest struct {
 	Name    string `json:"name" binding:"required"`
 	Email   string `json:"email" binding:"required,email"`
@@ -77,6 +83,7 @@ type SupportRequest struct {
 	Message string `json:"message" binding:"required"`
 }
 
+// ContactSupport handles support requests
 func ContactSupport(c *gin.Context) {
 	var request SupportRequest
 	if err := c.ShouldBind(&request); err != nil {
@@ -88,6 +95,7 @@ func ContactSupport(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"message": "Support request sent successfully", "request": request})
 }
 
+// EditProfileRequest structure for editing student profiles
 type EditProfileRequest struct {
 	Name       string `json:"name" binding:"required"`
 	DOB        string `json:"dob" binding:"required"`
@@ -98,6 +106,7 @@ type EditProfileRequest struct {
 	Contact    string `json:"contact" binding:"required"`
 }
 
+// EditProfile handles profile editing
 func EditProfile(c *gin.Context) {
 	var request EditProfileRequest
 	if err := c.ShouldBindJSON(&request); err != nil {
@@ -129,6 +138,7 @@ func EditProfile(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"message": "Profile updated successfully", "profile": student})
 }
 
+// TrackProgress retrieves and displays the student's progress
 func TrackProgress(c *gin.Context) {
 	var progressData map[string]interface{}
 	if err := database.DB.Raw("SELECT COUNT(*) as applications_sent FROM applications WHERE srn = ?", c.Query("srn")).Scan(&progressData).Error; err != nil {
@@ -138,6 +148,7 @@ func TrackProgress(c *gin.Context) {
 	c.HTML(http.StatusOK, "admin/track_progress.html", progressData)
 }
 
+// ViewFeedback retrieves and displays feedback for the student
 func ViewFeedback(c *gin.Context) {
 	var feedbackData []models.Feedback
 	if err := database.DB.Where("student_srn = ?", c.Query("srn")).Find(&feedbackData).Error; err != nil {
@@ -148,12 +159,13 @@ func ViewFeedback(c *gin.Context) {
 	c.HTML(http.StatusOK, "student/view_feedback.html", feedbackData)
 }
 
-func ViewInterviewSchedule(c *gin.Context) {
-	var scheduleData []models.InterviewSchedule
-	if err := database.DB.Where("student_srn = ?", c.Query("srn")).Find(&scheduleData).Error; err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to retrieve interview schedule"})
+// GetStudents retrieves a list of all students
+func GetStudents(c *gin.Context) {
+	var students []models.Student
+	if err := database.DB.Find(&students).Error; err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to retrieve students"})
 		return
 	}
 
-	c.HTML(http.StatusOK, "student/view_interview_schedule.html", scheduleData)
+	c.JSON(http.StatusOK, students)
 }

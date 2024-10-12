@@ -6,7 +6,6 @@ import (
 
 type Student struct {
 	gorm.Model
-
 	Name          string  `json:"name" gorm:"not null"`
 	DOB           string  `json:"dob" gorm:"not null"`
 	YearOfPassing int     `json:"year_of_passing" gorm:"not null"`
