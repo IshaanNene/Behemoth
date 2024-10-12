@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View and Export Data</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <h1>Admin Dashboard - View and Export Data</h1>
+    </header>
+
+    <!-- Navigation -->
+    <nav>
+        <a href="admin.html">Dashboard</a>
+        <a href="user-management.html">User Management</a>
+        <a href="interview-management.html">Interview Management</a>
+        <a href="manage-feedback-templates.html">Feedback Templates</a>
+        <a href="analytics-and-reporting.html">Analytics and Reporting</a>
+        <a href="view-and-export-data.html" class="active">View and Export Data</a>
+        <a href="communication-management.html">Communication Management</a>
+        <a href="system-configurations.html">System Configurations</a>
+        <a href="audit-logs.html">Audit Logs</a>
+        <a href="support-and-issue-resolution.html">Support and Issue Resolution</a>
+    </nav>
+
+    <!-- Main Content -->
+    <main>
+        <section>
+            <h2>View Interview Data</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Candidate Name</th>
+                        <th>Interviewer Name</th>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>John Doe</td>
+                        <td>Jane Smith</td>
+                        <td>2024-10-15</td>
+                        <td>10:00 AM</td>
+                        <td>Completed</td>
+                    </tr>
+                    <tr>
+                        <td>Alice Johnson</td>
+                        <td>Michael Brown</td>
+                        <td>2024-10-16</td>
+                        <td>11:30 AM</td>
+                        <td>Scheduled</td>
+                    </tr>
+                    <tr>
+                        <td>Bob Williams</td>
+                        <td>Emily Davis</td>
+                        <td>2024-10-17</td>
+                        <td>02:00 PM</td>
+                        <td>Pending</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>Export Data</h2>
+            <form>
+                <label for="export-type">Select Data to Export:</label>
+                <select id="export-type" name="export-type" required>
+                    <option value="interview-data">Interview Data</option>
+                    <option value="candidate-data">Candidate Data</option>
+                    <option value="feedback-data">Feedback Data</option>
+                </select>
+
+                <button type="submit">Export</button>
+            </form>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Interviewer Portal - Admin Dashboard</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Support and Issue Resolution</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <h1>Admin Dashboard - Support and Issue Resolution</h1>
+    </header>
+
+    <!-- Navigation -->
+    <nav>
+        <a href="admin.html">Dashboard</a>
+        <a href="user-management.html">User Management</a>
+        <a href="interview-management.html">Interview Management</a>
+        <a href="manage-feedback-templates.html">Feedback Templates</a>
+        <a href="analytics-and-reporting.html">Analytics and Reporting</a>
+        <a href="view-and-export-data.html">View and Export Data</a>
+        <a href="communication-management.html">Communication Management</a>
+        <a href="system-configurations.html">System Configurations</a>
+        <a href="audit-logs.html">Audit Logs</a>
+        <a href="support-and-issue-resolution.html" class="active">Support and Issue Resolution</a>
+    </nav>
+
+    <!-- Main Content -->
+    <main>
+        <section>
+            <h2>Manage Support Requests</h2>
+            <form>
+                <label for="support-request">New Support Request:</label>
+                <textarea id="support-request" name="support-request" rows="4" cols="50" placeholder="Describe the issue or request here..."></textarea>
+                <button type="submit">Submit Support Request</button>
+            </form>
+        </section>
+
+        <section>
+            <h2>Recent Support Requests</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>User</th>
+                        <th>Request</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>2024-10-11</td>
+                        <td>student456</td>
+                        <td>Unable to access interview slots.</td>
+                        <td>Pending</td>
+                        <td><button>Resolve</button></td>
+                    </tr>
+                    <tr>
+                        <td>2024-10-09</td>
+                        <td>interviewer2</td>
+                        <td>Feedback form not loading.</td>
+                        <td>In Progress</td>
+                        <td><button>Resolve</button></td>
+                    </tr>
+                    <tr>
+                        <td>2024-10-08</td>
+                        <td>admin</td>
+                        <td>System maintenance required.</td>
+                        <td>Resolved</td>
+                        <td><button disabled>Resolved</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>Resolved Issues</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>User</th>
+                        <th>Issue</th>
+                        <th>Resolution</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>2024-10-07</td>
+                        <td>student789</td>
+                        <td>Forgotten password reset request.</td>
+                        <td>Password reset link sent.</td>
+                    </tr>
+                    <tr>
+                        <td>2024-10-06</td>
+                        <td>interviewer1</td>
+                        <td>Profile picture upload failed.</td>
+                        <td>Profile picture successfully updated.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Interviewer Portal - Admin Dashboard</p>
+    </footer>
+</body>
+</html>

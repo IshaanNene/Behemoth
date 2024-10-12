@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>System Configurations</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <h1>Admin Dashboard - System Configurations</h1>
+    </header>
+
+    <!-- Navigation -->
+    <nav>
+        <a href="admin.html">Dashboard</a>
+        <a href="user-management.html">User Management</a>
+        <a href="interview-management.html">Interview Management</a>
+        <a href="manage-feedback-templates.html">Feedback Templates</a>
+        <a href="analytics-and-reporting.html">Analytics and Reporting</a>
+        <a href="view-and-export-data.html">View and Export Data</a>
+        <a href="communication-management.html">Communication Management</a>
+        <a href="system-configurations.html" class="active">System Configurations</a>
+        <a href="audit-logs.html">Audit Logs</a>
+        <a href="support-and-issue-resolution.html">Support and Issue Resolution</a>
+    </nav>
+
+    <!-- Main Content -->
+    <main>
+        <section>
+            <h2>General Settings</h2>
+            <form>
+                <label for="site-name">Site Name:</label>
+                <input type="text" id="site-name" name="site-name" placeholder="Enter site name..." required>
+
+                <label for="admin-email">Admin Email:</label>
+                <input type="email" id="admin-email" name="admin-email" placeholder="Enter admin email..." required>
+
+                <label for="timezone">Timezone:</label>
+                <select id="timezone" name="timezone" required>
+                    <option value="UTC">UTC</option>
+                    <option value="IST">IST</option>
+                    <option value="EST">EST</option>
+                    <option value="PST">PST</option>
+                </select>
+
+                <button type="submit">Save Settings</button>
+            </form>
+        </section>
+
+        <section>
+            <h2>API Configurations</h2>
+            <form>
+                <label for="api-key">API Key:</label>
+                <input type="text" id="api-key" name="api-key" placeholder="Enter API key..." required>
+
+                <label for="api-url">API URL:</label>
+                <input type="url" id="api-url" name="api-url" placeholder="Enter API URL..." required>
+
+                <button type="submit">Update API Configurations</button>
+            </form>
+        </section>
+
+        <section>
+            <h2>Notification Settings</h2>
+            <form>
+                <label for="email-notifications">Email Notifications:</label>
+                <select id="email-notifications" name="email-notifications" required>
+                    <option value="enabled">Enabled</option>
+                    <option value="disabled">Disabled</option>
+                </select>
+
+                <label for="sms-notifications">SMS Notifications:</label>
+                <select id="sms-notifications" name="sms-notifications" required>
+                    <option value="enabled">Enabled</option>
+                    <option value="disabled">Disabled</option>
+                </select>
+
+                <button type="submit">Save Notification Settings</button>
+            </form>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Interviewer Portal - Admin Dashboard</p>
+    </footer>
+</body>
+</html>

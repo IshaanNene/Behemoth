@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Communication Management</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <h1>Admin Dashboard - Communication Management</h1>
+    </header>
+
+    <!-- Navigation -->
+    <nav>
+        <a href="admin.html">Dashboard</a>
+        <a href="user-management.html">User Management</a>
+        <a href="interview-management.html">Interview Management</a>
+        <a href="manage-feedback-templates.html">Feedback Templates</a>
+        <a href="analytics-and-reporting.html">Analytics and Reporting</a>
+        <a href="view-and-export-data.html">View and Export Data</a>
+        <a href="support-and-issue-resolution.html">Support</a>
+        <a href="system-configurations.html">System Configurations</a>
+        <a href="audit-logs.html">Audit Logs</a>
+        <a href="communication-management.html" class="active">Communication Management</a>
+    </nav>
+
+    <!-- Main Content -->
+    <main>
+        <section>
+            <h2>Manage Announcements</h2>
+            <form>
+                <label for="announcement">New Announcement:</label>
+                <textarea id="announcement" name="announcement" rows="4" cols="50" placeholder="Enter your announcement here..."></textarea>
+                <button type="submit">Send Announcement</button>
+            </form>
+            <h3>Recent Announcements</h3>
+            <ul>
+                <li><strong>2024-10-10:</strong> Reminder: Interview scheduling closes on October 15th.</li>
+                <li><strong>2024-10-05:</strong> New feedback template added for technical interviews.</li>
+                <li><strong>2024-09-30:</strong> System maintenance scheduled for October 1st.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Manage Notifications</h2>
+            <form>
+                <label for="notification-type">Notification Type:</label>
+                <select id="notification-type" name="notification-type">
+                    <option value="email">Email</option>
+                    <option value="sms">SMS</option>
+                    <option value="in-app">In-app Notification</option>
+                </select>
+
+                <label for="notification-message">Notification Message:</label>
+                <textarea id="notification-message" name="notification-message" rows="3" cols="50" placeholder="Enter your message here..."></textarea>
+
+                <button type="submit">Send Notification</button>
+            </form>
+        </section>
+
+        <section>
+            <h2>Messages and Inquiries</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Sender</th>
+                        <th>Message</th>
+                        <th>Reply</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>2024-10-09</td>
+                        <td>student123</td>
+                        <td>Can I reschedule my interview?</td>
+                        <td><button>Reply</button></td>
+                    </tr>
+                    <tr>
+                        <td>2024-10-08</td>
+                        <td>interviewer1</td>
+                        <td>When is the next feedback template update?</td>
+                        <td><button>Reply</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Interviewer Portal - Admin Dashboard</p>
+    </footer>
+</body>
+</html>

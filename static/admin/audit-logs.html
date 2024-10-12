@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Audit Logs</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <h1>Admin Dashboard - Audit Logs</h1>
+    </header>
+
+    <!-- Navigation -->
+    <nav>
+        <a href="admin.html">Dashboard</a>
+        <a href="user-management.html">User Management</a>
+        <a href="interview-management.html">Interview Management</a>
+        <a href="manage-feedback-templates.html">Feedback Templates</a>
+        <a href="analytics-and-reporting.html">Analytics and Reporting</a>
+        <a href="view-and-export-data.html">View and Export Data</a>
+        <a href="support-and-issue-resolution.html">Support</a>
+        <a href="system-configurations.html">System Configurations</a>
+        <a href="audit-logs.html" class="active">Audit Logs</a>
+    </nav>
+
+    <!-- Main Content -->
+    <main>
+        <section>
+            <h2>Audit Logs Overview</h2>
+            <p>View recent activity and actions performed by users in the system.</p>
+        </section>
+
+        <section>
+            <h2>Audit Logs</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>User</th>
+                        <th>Action</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>2024-10-10</td>
+                        <td>admin</td>
+                        <td>Created User</td>
+                        <td>Admin created a new user account for John Doe.</td>
+                    </tr>
+                    <tr>
+                        <td>2024-10-11</td>
+                        <td>interviewer1</td>
+                        <td>Updated Interview Slot</td>
+                        <td>Interviewer1 updated the slot for candidate #1234.</td>
+                    </tr>
+                    <tr>
+                        <td>2024-10-12</td>
+                        <td>student123</td>
+                        <td>Submitted Feedback</td>
+                        <td>Student123 submitted feedback for interview #456.</td>
+                    </tr>
+                    <tr>
+                        <td>2024-10-12</td>
+                        <td>admin</td>
+                        <td>Deleted User</td>
+                        <td>Admin deleted user account for Jane Doe.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>Filter Audit Logs</h2>
+            <form>
+                <label for="user">User:</label>
+                <input type="text" id="user" name="user" placeholder="Search by user">
+
+                <label for="action">Action:</label>
+                <select id="action" name="action">
+                    <option value="all">All Actions</option>
+                    <option value="created">Created</option>
+                    <option value="updated">Updated</option>
+                    <option value="deleted">Deleted</option>
+                    <option value="submitted">Submitted</option>
+                </select>
+
+                <label for="start-date">Start Date:</label>
+                <input type="date" id="start-date" name="start-date">
+
+                <label for="end-date">End Date:</label>
+                <input type="date" id="end-date" name="end-date">
+
+                <button type="submit">Filter Logs</button>
+            </form>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Interviewer Portal - Admin Dashboard</p>
+    </footer>
+</body>
+</html>

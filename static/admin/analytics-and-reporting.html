@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analytics and Reporting</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <h1>Admin Dashboard - Analytics and Reporting</h1>
+    </header>
+
+    <!-- Navigation -->
+    <nav>
+        <a href="admin.html">Dashboard</a>
+        <a href="user-management.html">User Management</a>
+        <a href="interview-management.html">Interview Management</a>
+        <a href="manage-feedback-templates.html">Feedback Templates</a>
+        <a href="analytics-and-reporting.html" class="active">Analytics and Reporting</a>
+        <a href="view-and-export-data.html">View and Export Data</a>
+        <a href="support-and-issue-resolution.html">Support</a>
+        <a href="system-configurations.html">System Configurations</a>
+        <a href="audit-logs.html">Audit Logs</a>
+    </nav>
+
+    <!-- Main Content -->
+    <main>
+        <section>
+            <h2>Overview of Interview Statistics</h2>
+            <div class="card-container">
+                <div class="card">
+                    <h3>Total Interviews</h3>
+                    <p>250</p>
+                </div>
+                <div class="card">
+                    <h3>Interviews This Month</h3>
+                    <p>45</p>
+                </div>
+                <div class="card">
+                    <h3>Pass Rate</h3>
+                    <p>60%</p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>User Activity and Performance Reports</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Report</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Top Performers Report</td>
+                        <td>
+                            <button>View</button>
+                            <button>Download</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Interviewer Activity Report</td>
+                        <td>
+                            <button>View</button>
+                            <button>Download</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Company-wise Performance Report</td>
+                        <td>
+                            <button>View</button>
+                            <button>Download</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>Generate Custom Reports</h2>
+            <form>
+                <label for="start-date">Start Date:</label>
+                <input type="date" id="start-date" name="start-date" required>
+
+                <label for="end-date">End Date:</label>
+                <input type="date" id="end-date" name="end-date" required>
+
+                <label for="report-type">Report Type:</label>
+                <select id="report-type" name="report-type">
+                    <option value="interview-summary">Interview Summary</option>
+                    <option value="performance-report">Performance Report</option>
+                    <option value="activity-log">Activity Log</option>
+                </select>
+
+                <button type="submit">Generate Report</button>
+            </form>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Interviewer Portal - Admin Dashboard</p>
+    </footer>
+</body>
+</html>

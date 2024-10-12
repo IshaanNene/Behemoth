@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Management</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #333;
+            color: white;
+            padding: 10px 0;
+            text-align: center;
+        }
+        nav a {
+            color: white;
+            margin: 0 15px;
+            text-decoration: none;
+        }
+        nav a.active {
+            text-decoration: underline;
+        }
+        main {
+            padding: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        button {
+            padding: 5px 10px;
+            margin-right: 5px;
+        }
+        section {
+            background-color: white;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        form label {
+            margin-bottom: 5px;
+        }
+        form input, form select {
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        form button {
+            background-color: #333;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        footer {
+            text-align: center;
+            padding: 10px 0;
+            background-color: #333;
+            color: white;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>User Management</h1>
+        <nav>
+            <a href="admin.html">Dashboard</a>
+            <a href="user-management.html" class="active">User Management</a>
+            <a href="interview-management.html">Interview Management</a>
+            <a href="manage-feedback-templates.html">Feedback Templates</a>
+            <a href="analytics-and-reporting.html">Analytics & Reporting</a>
+            <a href="view-and-export-data.html">View & Export Data</a>
+            <a href="support-and-issue-resolution.html">Support & Issue Resolution</a>
+            <a href="communication-management.html">Communication Management</a>
+            <a href="system-configurations.html">System Configurations</a>
+            <a href="audit-logs.html">Audit Logs</a>
+        </nav>
+    </header>
+
+    <main>
+        <section>
+            <h2>All Users</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>User ID</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Role</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Example user rows, replace with dynamic data -->
+                    <tr>
+                        <td>1</td>
+                        <td>John Doe</td>
+                        <td>john.doe@example.com</td>
+                        <td>Interviewer</td>
+                        <td>
+                            <button>Edit</button>
+                            <button>Delete</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Jane Smith</td>
+                        <td>jane.smith@example.com</td>
+                        <td>Admin</td>
+                        <td>
+                            <button>Edit</button>
+                            <button>Delete</button>
+                        </td>
+                    </tr>
+                    <!-- Add more user rows dynamically -->
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>Add New User</h2>
+            <form action="/admin/add-user" method="POST">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" placeholder="Enter full name" required>
+
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" placeholder="Enter email" required>
+
+                <label for="role">Role:</label>
+                <select id="role" name="role">
+                    <option value="student">Student</option>
+                    <option value="interviewer">Interviewer</option>
+                    <option value="admin">Admin</option>
+                </select>
+
+                <button type="submit">Add User</button>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Interviewer Portal</p>
+    </footer>
+</body>
+</html>
