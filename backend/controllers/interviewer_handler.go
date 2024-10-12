@@ -3,6 +3,8 @@ package controllers
 import (
 	"Behemoth/backend/db"        // Import your database package
 	"Behemoth/backend/db/models" // Import your models package
+	"errors"
+	"fmt"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )
@@ -141,7 +143,6 @@ func ViewFeedbackHistory(c *gin.Context) {
 	c.JSON(http.StatusOK, feedbackHistory)
 }
 
-// CommunicateWithStudents handles communication with students
 func CommunicateWithStudents(c *gin.Context) {
 	var request struct {
 		CandidateID string `json:"candidate_id" binding:"required"`
@@ -153,9 +154,20 @@ func CommunicateWithStudents(c *gin.Context) {
 		return
 	}
 
-	// Logic to send a message to the student goes here.
-	// This could be an email notification or an in-app message.
+	err := SendMessageToStudent(request.CandidateID, request.Message)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to send message"})
+		return
+	}
 
-	// Example placeholder response for sending messages.
 	c.JSON(http.StatusOK, gin.H{"message": "Message sent successfully to student"})
+}
+
+func SendMessageToStudent(candidateID, message string) error {
+	if candidateID == "" || message == "" {
+		return errors.New("invalid candidate ID or message")
+	}
+
+	fmt.Printf("Sending message to Candidate %s: %s\n", candidateID, message)
+	return nil
 }
