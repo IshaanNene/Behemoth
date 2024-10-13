@@ -1,0 +1,270 @@
+/* Basic reset */
+* 
+{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body 
+{
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    padding: 20px;
+    line-height: 1.6;
+    color: #333;
+}
+
+
+/*HOME BUTTON START*/
+.home-btn
+{
+    position: absolute;
+    top: 70px;
+    right: 60px;
+    color: #e6e6e6;
+    background-color: #246cb4;
+    border-radius: 8px;
+    border-width: 2px;
+    font-weight: bold;
+    font-size: medium;
+    text-align: center;
+    transition: background-color 0.3s, color 0.3s, box-shadow 0.4s, sacle 0.5s;
+    padding: 8px;
+    cursor: pointer;
+    width: 10%;
+}
+
+.home-btn:hover
+{
+    color: #333232;
+    background-color: #db1111;
+    font-weight: bold;
+    text-align: center;
+    box-shadow: 5px 5px 10px rgb(56, 56, 56);
+    scale: 1.05;
+}
+
+.home-btn:active
+{
+    opacity: 0.7;
+    transition: opacity 0.2s;
+}
+/*HOME BUTTON END*/
+
+
+/*LOGO START*/
+.logo 
+{
+    height: 92px;
+    width: 200px;
+}
+
+.logo-container
+{
+    width:1466px;
+    background-color: #6d93b6;
+    padding: 10px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+}
+/*LOGO END*/
+
+/*CARD START*/
+.card-container 
+{
+    -webkit-perspective: 1200px;
+    -moz-perspective: 1200px;
+    perspective: 1200px;
+    margin-right: 25px;
+    margin-top: 25px;
+    margin-left: 25px;
+    border-radius: 14px;
+}
+
+
+/*CARD BACK BUTTON*/
+
+.schedule-interview-btn,
+.provide-feedback-btn,
+.view-candidate-profiles-btn,
+.generate-reports-btn,
+.manage-interview-slots-btn,
+.view-feedback-history-btn,
+.communicate-with-students-btn
+{
+    font-weight: bold;
+    text-align: center;
+    transition: background-color 0.3s, color 0.3s, box-shadow 0.4s;
+}
+
+/*CARD BACK BUTTON HOVER*/
+.schedule-interview-btn:hover,
+.provide-feedback-btn:hover,
+.view-candidate-profiles-btn:hover,
+.generate-reports-btn:hover,
+.manage-interview-slots-btn:hover,
+.view-feedback-history-btn:hover,
+.communicate-with-students-btn:hover
+{
+    font-weight: bold;
+    text-align: center;
+    box-shadow: 5px 5px 10px rgb(56, 56, 56);
+}
+
+.card-vertical 
+{
+    height: 250px;
+    width: 250px;
+    box-shadow: 0 6px 8px #bbb;
+    -moz-transform-style: preserve-3d;
+    -webkit-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    transition: all .4s ease;
+    position: relative;
+    border-radius: 14px;
+}
+
+.card-front, 
+.card-back 
+{
+    color: #fafafa;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    background: #246ea7;
+    -moz-backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-transform-style: preserve-3d;
+    -moz-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1em;
+    border-radius: 14px;
+}
+
+.card-back 
+{
+    -moz-transform: rotateY(179.9deg);
+    -webkit-transform: rotateY(179.9deg);
+    transform: rotateY(179.9deg);
+    background: #dee7e6;
+    border: #246ea7;
+    border-radius: 14px;
+}
+
+.card-front-content, 
+.card-back-content 
+{
+    text-align: center;
+    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+    padding: 1em;
+}
+
+.card-back-content 
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.card-back-content img 
+{
+    margin-bottom: 10px;
+}
+
+.card-back-content button 
+{
+    width: 80%;
+    height: auto;
+    padding: 10px 20px;
+    font-size: 1em;
+    background-color: #f5821e;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 2px 2px 5px rgb(50, 50, 50);
+    transition: background-color 0.3s, color 0.3s; 
+}
+
+.card-back-content button:hover 
+{
+    background-color: #fff;
+    color: #f5821e;
+}
+
+.card-vertical:hover 
+{
+    -webkit-transform: rotateY(179.9deg);
+    -moz-transform: rotateY(179.9deg);
+    transform: rotateY(179.9deg);
+}
+.card-img
+{
+    width: 120px;
+    height: 120px;
+}
+
+.align
+{
+    display: flex;
+    flex-wrap: wrap;
+    padding: 20px;
+    margin-top: 120px;
+}
+
+
+p
+{
+    color: #2e2e2e;
+    font-weight: bold;
+    font-size: large;
+    padding: 5px;
+    margin-bottom: 15px;
+}
+/*CARD END*/
+
+
+
+/*MAIN CONTENT START*/
+.main-content 
+{
+    margin-left: 100px;
+    padding: 20px;
+    justify-content: center;
+}
+
+.main-content iframe 
+{
+    width: 80%;
+    height: 100vh;
+    border: none;
+    position: absolute;
+    top: 20%;
+    left: 11%;
+}
+/*MAIN CONTENT END*/
+
+
+/* Results and feedback display */
+#schedule-results,
+#feedback-results,
+#candidate-profiles,
+#report-results,
+#slot-management,
+#feedback-history,
+#communication-results 
+{
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}

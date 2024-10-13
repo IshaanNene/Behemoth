@@ -14,7 +14,7 @@ body
 {
     position: absolute;
     left: 0%;
-    width: 57%;
+    width: 40%;
     height: 100%;
     align-content: center;
 }
@@ -25,9 +25,9 @@ body
 .bg-img
 {
     align-content: center;
-    opacity: 0.8;
-    width: 95%;
+    opacity: 0.9;
     height: 100%;
+    width: 118%;
     background-position: center;
     background-size: cover;
 }
@@ -42,10 +42,9 @@ body
     top: 15%;
     background: white;
     padding: 20px;
-    border-radius: 8px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    width: 43%;
-    height: 80%;
+    width: 50%;
+    height: 79%;
 }
 /*LOGIN CONTAINER END*/
 
@@ -65,9 +64,8 @@ body
     position: absolute;
     right: 0%;
     top: 0%;
-    width: 46%;
+    width: 53%;
     background-color: #6d93b6;
-    border-radius: 5px;
 }
 /*LOGO CONTAINER END*/
 
@@ -115,6 +113,7 @@ body
     display: flex;
     flex-wrap: wrap;
     width: 100%;
+    max-height: 120px;
     align-content: center;
     text-align: center;
     border-radius: 10px;
@@ -207,6 +206,12 @@ input[type="submit"]:hover
     background-color: #4cae4c;
     box-shadow: 5px 3px 10px rgb(81, 80, 80);
     scale: 1.05;
+}
+
+#error-message 
+{
+    color: red;
+    margin-top: 10px;
 }
 
 .forgot-pwd

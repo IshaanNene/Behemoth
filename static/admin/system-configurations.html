@@ -4,87 +4,101 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>System Configurations</title>
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="/static/css/admin-styles.css">
 </head>
 <body>
-    <!-- Header -->
-    <header>
-        <h1>Admin Dashboard - System Configurations</h1>
-    </header>
 
-    <!-- Navigation -->
-    <nav>
-        <a href="admin.html">Dashboard</a>
-        <a href="user-management.html">User Management</a>
-        <a href="interview-management.html">Interview Management</a>
-        <a href="manage-feedback-templates.html">Feedback Templates</a>
-        <a href="analytics-and-reporting.html">Analytics and Reporting</a>
-        <a href="view-and-export-data.html">View and Export Data</a>
-        <a href="communication-management.html">Communication Management</a>
-        <a href="system-configurations.html" class="active">System Configurations</a>
-        <a href="audit-logs.html">Audit Logs</a>
-        <a href="support-and-issue-resolution.html">Support and Issue Resolution</a>
-    </nav>
+    <div class="main-content">
+        <h1>System Configurations</h1>
 
-    <!-- Main Content -->
-    <main>
-        <section>
-            <h2>General Settings</h2>
-            <form>
-                <label for="site-name">Site Name:</label>
-                <input type="text" id="site-name" name="site-name" placeholder="Enter site name..." required>
+        <div class="configuration-form">
+            <h2>Update System Settings</h2>
+            <form id="config-form">
+                <label for="app-name">Application Name:</label>
+                <input type="text" id="app-name" name="appName" required>
 
-                <label for="admin-email">Admin Email:</label>
-                <input type="email" id="admin-email" name="admin-email" placeholder="Enter admin email..." required>
-
-                <label for="timezone">Timezone:</label>
-                <select id="timezone" name="timezone" required>
-                    <option value="UTC">UTC</option>
-                    <option value="IST">IST</option>
-                    <option value="EST">EST</option>
-                    <option value="PST">PST</option>
+                <label for="app-name">Application Version:</label>
+                <input type="text" id="app-version" name="appVersion" required>
+                
+                <label for="theme">Select Theme:</label>
+                <select id="theme" name="theme">
+                    <option value="light">Light</option>
+                    <option value="dark">Dark</option>
                 </select>
 
-                <button type="submit">Save Settings</button>
+                <label for="notifications">Enable Notifications: <input type="checkbox" id="notifications" name="notifications"> </label>
+
+                <button type="submit">Save Configurations</button>
             </form>
-        </section>
+        </div>
 
-        <section>
-            <h2>API Configurations</h2>
-            <form>
-                <label for="api-key">API Key:</label>
-                <input type="text" id="api-key" name="api-key" placeholder="Enter API key..." required>
+        <div class="current-configurations">
+            <h2>Current Configurations</h2>
+            <table class="table" id="config-table">
+                <thead>
+                    <tr>
+                        <th>Configuration</th>
+                        <th>Value</th>
+                    </tr>
+                </thead>
+                <tbody id="config-table-body">
+                    <tr>
+                        <td>Application Name</td>
+                        <td id="current-app-name">My Application</td>
+                    </tr>
+                    <tr>
+                        <td>Application Version</td>
+                        <td id="current-app-version">v1.0.1</td>
+                    </tr>
+                    <tr>
+                        <td>Theme</td>
+                        <td id="current-theme">Light</td>
+                    </tr>
+                    <tr>
+                        <td>Notifications</td>
+                        <td id="current-notifications">Enabled</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 
-                <label for="api-url">API URL:</label>
-                <input type="url" id="api-url" name="api-url" placeholder="Enter API URL..." required>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            //Default settings
+            const configurations = {
+                appName: 'My Application',
+                appVersion: 'v1.0.1',
+                theme: 'light',
+                notifications: true
+            };
 
-                <button type="submit">Update API Configurations</button>
-            </form>
-        </section>
+            //Display existing configurations
+            displayConfigurations();
 
-        <section>
-            <h2>Notification Settings</h2>
-            <form>
-                <label for="email-notifications">Email Notifications:</label>
-                <select id="email-notifications" name="email-notifications" required>
-                    <option value="enabled">Enabled</option>
-                    <option value="disabled">Disabled</option>
-                </select>
+            //Handle form submission for updating configurations
+            document.getElementById('config-form').addEventListener('submit', function(event) {
+                event.preventDefault();
 
-                <label for="sms-notifications">SMS Notifications:</label>
-                <select id="sms-notifications" name="sms-notifications" required>
-                    <option value="enabled">Enabled</option>
-                    <option value="disabled">Disabled</option>
-                </select>
+                configurations.appName = this.appName.value;
+                configurations.appVersion = this.appVersion.value;
+                configurations.theme = this.theme.value;
+                configurations.notifications = this.notifications.checked;
 
-                <button type="submit">Save Notification Settings</button>
-            </form>
-        </section>
-    </main>
+                displayConfigurations(); //Refresh displayed configurations
+                this.reset(); //Reset the form
+            });
 
-    <!-- Footer -->
-    <footer>
-        <p>&copy; 2024 Interviewer Portal - Admin Dashboard</p>
-    </footer>
+            //Display current configurations
+            function displayConfigurations() 
+            {
+                document.getElementById('current-app-name').innerText = configurations.appName;
+                document.getElementById('current-app-version').innerText = configurations.appVersion;
+                document.getElementById('current-theme').innerText = configurations.theme.charAt(0).toUpperCase() + configurations.theme.slice(1);
+                document.getElementById('current-notifications').innerText = configurations.notifications ? 'Enabled' : 'Disabled';
+            }
+        });
+    </script>
+
 </body>
 </html>

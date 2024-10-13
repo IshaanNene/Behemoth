@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <title>InFeed</title>
-    <link rel="stylesheet" href="interviewer.css">
+    <link rel="stylesheet" href="/static/css/interviewer.css">
 </head>
 <body>
     <!--PESU LOGO-->
     <div class="logo-container">
-        <img src="logoPesu.png" alt="College Logo" class="logo">
+        <img src="/static/photos/logoPesu.png" alt="College Logo" class="logo">
         <button class="home-btn">HOME</button>
     </div>
 
@@ -21,13 +21,13 @@
                 <div class="card-vertical">
                     <div class="card-front">
                         <article class="card-front-content">
-                            <img src="schedule.png" class="card-img" alt="interviewer">
+                            <img src="/static/photos/schedule.png" class="card-img" alt="interviewer">
                             <h1><b>Schedule interview</b></h1>
                         </article>
                     </div>
                     <div class="card-back">
                         <article class="card-back-content">
-                            <img src="schedule.png" class="card-img" alt="interviewer">
+                            <p> Schedule an Interview with a Candidate </p>
                             <button class="schedule-interview-btn">Schedule Interviews</button>
                         </article>
                     </div>
@@ -39,13 +39,13 @@
                 <div class="card-vertical">
                     <div class="card-front">
                         <article class="card-front-content">
-                            <img src="feedback.png" class="card-img" alt="profile">
+                            <img src="/static/photos/feedback.png" class="card-img" alt="profile">
                             <h1><b>Provide Feedback</b></h1>
                         </article>
                     </div>
                     <div class="card-back">
                         <article class="card-back-content">
-                            <img src="feedback.png" class="card-img" alt="profile">
+                            <p> Provide feedback to a Candidate </p>
                             <button class="provide-feedback-btn">Provide Feedback</button>
                         </article>
                     </div>
@@ -57,13 +57,13 @@
                 <div class="card-vertical">
                     <div class="card-front">
                         <article class="card-front-content">
-                            <img src="view-candidate-profile.png" class="card-img" alt="register">
+                            <img src="/static/photos/view-candidate-profile.png" class="card-img" alt="register">
                             <h1><b>View Candidate Profiles</b></h1>
                         </article>
                     </div>
                     <div class="card-back">
                         <article class="card-back-content">
-                            <img src="view-candidate-profile.png" class="card-img" alt="register">
+                            <p> View all Candidate Profiles </p>
                             <button class="view-candidate-profiles-btn">View Candidate Profiles</button>
                         </article>
                     </div>
@@ -75,13 +75,13 @@
                 <div class="card-vertical">
                     <div class="card-front">
                         <article class="card-front-content">
-                            <img src="register.png" class="card-img" alt="interview-schedule">
+                            <img src="/static/photos/register.png" class="card-img" alt="interview-schedule">
                             <h1><b>Generate Report</b></h1>
                         </article>
                     </div>
                     <div class="card-back">
                         <article class="card-back-content">
-                            <img src="register.png" class="card-img" alt="interview-schedule">
+                            <p> Generate Statistical Reports </p>
                             <button class="generate-reports-btn">Generate Report</button>
                         </article>
                     </div>
@@ -93,13 +93,13 @@
                 <div class="card-vertical">
                     <div class="card-front">
                         <article class="card-front-content">
-                            <img src="manage-interview-slots.png" class="card-img" alt="feedback">
+                            <img src="/static/photos/manage-interview-slots.png" class="card-img" alt="feedback">
                             <h1><b>Manage Interview Slots</b></h1>
                         </article>
                     </div>
                     <div class="card-back">
                         <article class="card-back-content">
-                            <img src="manage-interview-slots.png" class="card-img" alt="feedback">
+                            <p> Manage Upcoming Interview Slots </p>
                             <button class="manage-interview-slots-btn">Manage Interview Slots</button>
                         </article>
                     </div>
@@ -111,13 +111,13 @@
                 <div class="card-vertical">
                     <div class="card-front">
                         <article class="card-front-content">
-                            <img src="feedback-history.png" class="card-img" alt="progress">
+                            <img src="/static/photos/feedback-history.png" class="card-img" alt="progress">
                             <h1><b>View Feedback History</b></h1>
                         </article>
                     </div>
                     <div class="card-back">
                         <article class="card-back-content">
-                            <img src="feedback-history.png" class="card-img" alt="progress">
+                            <p> View detailed Feedback History </p>
                             <button class="view-feedback-history-btn">View Feedback History</button>
                         </article>
                     </div>
@@ -129,13 +129,13 @@
                 <div class="card-vertical">
                     <div class="card-front">
                         <article class="card-front-content">
-                            <img src="communicate.png" class="card-img" alt="edit">
+                            <img src="/static/photos/communicate.png" class="card-img" alt="edit">
                             <h1><b>Communicate With Students</b></h1>
                         </article>
                     </div>
                     <div class="card-back">
                         <article class="card-back-content">
-                            <img src="communicate.png" class="card-img" alt="edit">
+                            <p> Send message to a Candidate </p>
                             <button class="communicate-with-students-btn">Communicate With Students</button>
                         </article>
                     </div>
@@ -156,8 +156,9 @@
             document.querySelector('.main-content').appendChild(iframe);
         };
 
-
-        document.querySelector('.home-btn').addEventListener('click', () => {location.reload();});  //CURRENTLY ACTS LIKE RELOAD
+        document.querySelector('.home-btn').addEventListener('click', () => {
+            window.location.href = 'interviewer.html';
+        });
         document.querySelector('.schedule-interview-btn').addEventListener('click', () => loadContent('schedule_interviews.html'));
         document.querySelector('.provide-feedback-btn').addEventListener('click', () => loadContent('provide_feedback.html'));
         document.querySelector('.view-candidate-profiles-btn').addEventListener('click', () => loadContent('view_candidate_profiles.html'));

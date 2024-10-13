@@ -4,95 +4,65 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Interview Management</title>
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="/static/css/admin-styles.css">
 </head>
 <body>
-    <!-- Header -->
-    <header>
-        <h1>Admin Dashboard - Interview Management</h1>
-    </header>
 
-    <!-- Navigation -->
-    <nav>
-        <a href="admin.html">Dashboard</a>
-        <a href="user-management.html">User Management</a>
-        <a href="interview-management.html" class="active">Interview Management</a>
-        <a href="manage-feedback-templates.html">Feedback Templates</a>
-        <a href="analytics-and-reporting.html">Analytics and Reporting</a>
-        <a href="view-and-export-data.html">View and Export Data</a>
-        <a href="communication-management.html">Communication Management</a>
-        <a href="system-configurations.html">System Configurations</a>
-        <a href="audit-logs.html">Audit Logs</a>
-        <a href="support-and-issue-resolution.html">Support and Issue Resolution</a>
-    </nav>
+    <div class="main-content">
+        <h1>Interview Management</h1>
+        
+        <div class="form-container">
+            <input type="text" id="interview-title" placeholder="Interview Title" required>
+            <input type="date" id="interview-date" required>
+            <button id="add-interview-btn">Add Interview</button>
+        </div>
 
-    <!-- Main Content -->
-    <main>
-        <section>
-            <h2>Schedule a New Interview</h2>
-            <form>
-                <label for="candidate-name">Candidate Name:</label>
-                <input type="text" id="candidate-name" name="candidate-name" placeholder="Enter candidate's name..." required>
+        <h2>Scheduled Interviews</h2>
+        <table class="table" id="interview-table">
+            <thead>
+                <tr>
+                    <th>Interview Title</th>
+                    <th>Date</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="interview-list"></tbody>
+        </table>
+    </div>
 
-                <label for="interviewer-name">Interviewer Name:</label>
-                <input type="text" id="interviewer-name" name="interviewer-name" placeholder="Enter interviewer's name..." required>
+    <script>
+        document.getElementById('add-interview-btn').addEventListener('click', function() {
+            const title = document.getElementById('interview-title').value;
+            const date = document.getElementById('interview-date').value;
 
-                <label for="interview-date">Date:</label>
-                <input type="date" id="interview-date" name="interview-date" required>
+            if (title && date) 
+            {
+                const tableBody = document.getElementById('interview-list');
+                const newRow = document.createElement('tr');
 
-                <label for="interview-time">Time:</label>
-                <input type="time" id="interview-time" name="interview-time" required>
+                newRow.innerHTML = `
+                    <td>${title}</td>
+                    <td>${date}</td>
+                    <td><button class="delete-btn">Delete</button></td>
+                `;
 
-                <button type="submit">Schedule Interview</button>
-            </form>
-        </section>
+                tableBody.appendChild(newRow);
 
-        <section>
-            <h2>Upcoming Interviews</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Candidate Name</th>
-                        <th>Interviewer Name</th>
-                        <th>Date</th>
-                        <th>Time</th>
-                        <th>Status</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>John Doe</td>
-                        <td>Jane Smith</td>
-                        <td>2024-10-15</td>
-                        <td>10:00 AM</td>
-                        <td>Scheduled</td>
-                        <td><button>Cancel</button></td>
-                    </tr>
-                    <tr>
-                        <td>Alice Johnson</td>
-                        <td>Michael Brown</td>
-                        <td>2024-10-16</td>
-                        <td>11:30 AM</td>
-                        <td>Scheduled</td>
-                        <td><button>Cancel</button></td>
-                    </tr>
-                    <tr>
-                        <td>Bob Williams</td>
-                        <td>Emily Davis</td>
-                        <td>2024-10-17</td>
-                        <td>02:00 PM</td>
-                        <td>Scheduled</td>
-                        <td><button>Cancel</button></td>
-                    </tr>
-                </tbody>
-            </table>
-        </section>
-    </main>
+                //Clear input
+                document.getElementById('interview-title').value = '';
+                document.getElementById('interview-date').value = '';
 
-    <!-- Footer -->
-    <footer>
-        <p>&copy; 2024 Interviewer Portal - Admin Dashboard</p>
-    </footer>
+                //Delete button
+                newRow.querySelector('.delete-btn').addEventListener('click', function() {
+                    tableBody.removeChild(newRow);
+                });
+            } 
+            else 
+            {
+                alert('Please fill in both fields.');
+            }
+        });
+
+    </script>
 </body>
 </html>

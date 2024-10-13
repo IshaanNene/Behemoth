@@ -4,109 +4,116 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Support and Issue Resolution</title>
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="/static/css/admin-styles.css">
 </head>
 <body>
-    <!-- Header -->
-    <header>
-        <h1>Admin Dashboard - Support and Issue Resolution</h1>
-    </header>
 
-    <!-- Navigation -->
-    <nav>
-        <a href="admin.html">Dashboard</a>
-        <a href="user-management.html">User Management</a>
-        <a href="interview-management.html">Interview Management</a>
-        <a href="manage-feedback-templates.html">Feedback Templates</a>
-        <a href="analytics-and-reporting.html">Analytics and Reporting</a>
-        <a href="view-and-export-data.html">View and Export Data</a>
-        <a href="communication-management.html">Communication Management</a>
-        <a href="system-configurations.html">System Configurations</a>
-        <a href="audit-logs.html">Audit Logs</a>
-        <a href="support-and-issue-resolution.html" class="active">Support and Issue Resolution</a>
-    </nav>
+    <div class="main-content">
+        <h1>Support and Issue Resolution</h1>
 
-    <!-- Main Content -->
-    <main>
-        <section>
-            <h2>Manage Support Requests</h2>
-            <form>
-                <label for="support-request">New Support Request:</label>
-                <textarea id="support-request" name="support-request" rows="4" cols="50" placeholder="Describe the issue or request here..."></textarea>
-                <button type="submit">Submit Support Request</button>
+        <div class="report-issue">
+            <h2>Report an Issue</h2>
+            <form id="issue-form">
+                <input type="text" name="issueTitle" placeholder="Issue Title" required>
+                <textarea name="issueDescription" placeholder="Issue Description" required></textarea>
+                <button type="submit"> Submit Issue </button>
             </form>
-        </section>
+        </div>
 
-        <section>
-            <h2>Recent Support Requests</h2>
-            <table>
+        <div class="ticket-display">
+            <h2>Support Tickets</h2>
+            <table class="table" id="table">
                 <thead>
                     <tr>
-                        <th>Date</th>
-                        <th>User</th>
-                        <th>Request</th>
+                        <th>Issue ID</th>
+                        <th>Title</th>
+                        <th>Description</th>
                         <th>Status</th>
-                        <th>Action</th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <td>2024-10-11</td>
-                        <td>student456</td>
-                        <td>Unable to access interview slots.</td>
-                        <td>Pending</td>
-                        <td><button>Resolve</button></td>
-                    </tr>
-                    <tr>
-                        <td>2024-10-09</td>
-                        <td>interviewer2</td>
-                        <td>Feedback form not loading.</td>
-                        <td>In Progress</td>
-                        <td><button>Resolve</button></td>
-                    </tr>
-                    <tr>
-                        <td>2024-10-08</td>
-                        <td>admin</td>
-                        <td>System maintenance required.</td>
-                        <td>Resolved</td>
-                        <td><button disabled>Resolved</button></td>
-                    </tr>
+                <tbody id="issue-table-body">
+                    <!-- More issues will be added dynamically here -->
                 </tbody>
             </table>
-        </section>
+        </div>
+    </div>
 
-        <section>
-            <h2>Resolved Issues</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Date</th>
-                        <th>User</th>
-                        <th>Issue</th>
-                        <th>Resolution</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>2024-10-07</td>
-                        <td>student789</td>
-                        <td>Forgotten password reset request.</td>
-                        <td>Password reset link sent.</td>
-                    </tr>
-                    <tr>
-                        <td>2024-10-06</td>
-                        <td>interviewer1</td>
-                        <td>Profile picture upload failed.</td>
-                        <td>Profile picture successfully updated.</td>
-                    </tr>
-                </tbody>
-            </table>
-        </section>
-    </main>
+    <script>
+        const tickets = []; // Array for ticket data
+        let ticketId = 1;
 
-    <!-- Footer -->
-    <footer>
-        <p>&copy; 2024 Interviewer Portal - Admin Dashboard</p>
-    </footer>
+        //Form for reporting issue
+        document.getElementById('issue-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const title = this.issueTitle.value;
+            const description = this.issueDescription.value;
+            const newTicket = {
+                id: ticketId++, //Increment ID
+                title,
+                description,
+                status: 'Open',
+            };
+
+            tickets.push(newTicket);
+            this.reset(); //Reset form
+            displayTickets(); //Refresh ticket display
+        });
+
+        //Display tickets in table
+        function displayTickets() 
+        {
+            const ticketTableBody = document.querySelector('#table tbody');
+            ticketTableBody.innerHTML = ''; //Clear existing tickets
+
+            tickets.forEach(ticket => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${ticket.id}</td>
+                    <td>${ticket.title}</td>
+                    <td>${ticket.description}</td>
+                    <td>${ticket.status}</td>
+                    <td>
+                        <button class="close-issue-btn" data-id="${ticket.id}">Close Issue</button>
+                        <button class="delete-issue-btn" data-id="${ticket.id}">Delete Issue</button>
+                    </td>
+                `;
+                ticketTableBody.appendChild(row);
+            });
+
+            attachEventListeners();
+        }
+
+        //Attach event listeners for close and delete
+        function attachEventListeners() 
+        {
+            document.querySelectorAll('.close-issue-btn').forEach(button => {
+                button.addEventListener('click', () => {
+                    const ticketId = button.getAttribute('data-id');
+                    const ticket = tickets.find(t => t.id == ticketId);
+                    if (ticket) 
+                    {
+                        ticket.status = 'Closed'; //Change to Closed
+                        displayTickets(); //Refresh display
+                    }
+                });
+            });
+
+            document.querySelectorAll('.delete-issue-btn').forEach(button => {
+                button.addEventListener('click', () => {
+                    const ticketId = button.getAttribute('data-id');
+                    const index = tickets.findIndex(t => t.id == ticketId);
+                    if (index > -1) 
+                    {
+                        tickets.splice(index, 1); //Remove ticket from array
+                        displayTickets(); //Refresh display
+                    }
+                });
+            });
+        }
+
+    </script>
+
 </body>
 </html>

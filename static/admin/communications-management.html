@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Communication Management</title>
+    <link rel="stylesheet" href="/static/css/admin-styles.css">
+</head>
+<body>
+
+    <div class="main-content">
+        <h1>Communication Management</h1>
+
+        <div class="send-message">
+            <h2>Send a Message</h2>
+            <form id="message-form">
+                <input type="text" name="recipient" placeholder="Recipient (User ID)" required>
+                <textarea name="message" placeholder="Message" required></textarea>
+                <button type="submit">Send Message</button>
+            </form>
+        </div>
+
+        <div class="message-display">
+            <h2>Sent Messages</h2>
+            <table class="table" id="message-table">
+                <thead>
+                    <tr>
+                        <th>Message ID</th>
+                        <th>Recipient (User ID)</th>
+                        <th>Message</th>
+                        <th>Date Sent</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="message-table-body">
+                    <!-- Sent messages will be dynamically added here -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const messages = []; //Array for message data
+            let messageId = 1;
+
+            //Form for sending message
+            document.getElementById('message-form').addEventListener('submit', function(event) {
+                event.preventDefault();
+
+                const recipient = this.recipient.value;
+                const message = this.message.value;
+                const newMessage = {
+                    id: messageId++, //Increment ID
+                    recipient,
+                    message,
+                    dateSent: new Date().toLocaleString(), //Current date and time
+                };
+
+                messages.push(newMessage);
+                this.reset(); //Reset form
+                displayMessages(); //Refresh message display
+            });
+
+            //Display messages in table
+            function displayMessages() 
+            {
+                const messageTableBody = document.querySelector('#message-table-body');
+                messageTableBody.innerHTML = ''; // Clear existing messages
+
+                messages.forEach(msg => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${msg.id}</td>
+                        <td>${msg.recipient}</td>
+                        <td>${msg.message}</td>
+                        <td>${msg.dateSent}</td>
+                        <td>
+                            <button class="delete-message-btn" data-id="${msg.id}">Delete</button>
+                        </td>
+                    `;
+                    messageTableBody.appendChild(row);
+                });
+
+                attachEventListeners(); //Attach event listeners
+            }
+
+            //Attach event listeners 
+            function attachEventListeners() 
+            {
+                document.querySelectorAll('.delete-message-btn').forEach(button => {
+                    button.addEventListener('click', () => {
+                        const messageId = button.getAttribute('data-id');
+                        const index = messages.findIndex(msg => msg.id == messageId);
+                        if (index > -1) 
+                        {
+                            messages.splice(index, 1); //Remove message from array
+                            displayMessages(); //Refresh display
+                        }
+                    });
+                });
+            }
+        });
+    </script>
+
+</body>
+</html>

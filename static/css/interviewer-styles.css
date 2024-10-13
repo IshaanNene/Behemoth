@@ -24,6 +24,11 @@ h1
     color: #333;
 }
 
+h2
+{
+    text-align: center;
+}
+
 
 /* Form styles */
 form,
@@ -94,6 +99,82 @@ button[type="submit"]:hover,
     box-shadow: 5px 3px 10px rgb(81, 80, 80);
     scale: 1.05;
 }
+
+/*TABLE START*/
+.add-user-btn 
+{
+    margin-bottom: 20px;
+    padding: 10px 15px;
+    background-color: #246cb4;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, box-shadow 0.5s, scale 0.5s;
+    font-weight: bold;
+}
+
+.add-user-btn:hover 
+{
+    background-color: #1e5b8a;
+    scale: 1.05;
+    box-shadow: 5px 3px 10px rgb(81, 80, 80);
+}
+
+.table
+{
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table th, 
+.table td 
+{
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+    border-radius: 3px;
+}
+
+.table th
+{
+    background-color: #246ea7;
+    color: white;
+}
+
+.table td button
+{
+    padding: 5px 10px;
+    margin-right: 5px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s, box-shadow 0.5s, scale 0.5s;
+}
+
+.table td .edit-btn, 
+.close-issue-btn
+{
+    background-color: #f5821e;
+    color: white;
+}
+
+.table td .delete-btn, 
+.delete-issue-btn,
+.delete-message-btn
+{
+    background-color: #db1111;
+    color: white;
+}
+
+/* .table td button:hover
+{
+    opacity: 0.8;
+    scale: 1.05;
+    box-shadow: 5px 3px 10px rgb(81, 80, 80);
+} */
+/*TABLE END*/
 
 @media (max-width: 768px) 
 {

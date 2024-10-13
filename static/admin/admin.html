@@ -1,74 +1,210 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard</title>
-    <link rel="stylesheet" href="../css/style.css">
+    <meta charset="UTF-8" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/css/admin.css">
+    <title>InFeed</title>
 </head>
 <body>
-    <header>
-        <h1>Admin Dashboard</h1>
-        <nav>
-            <a href="admin.html" class="active">Dashboard</a>
-            <a href="user-management.html">User Management</a>
-            <a href="interview-management.html">Interview Management</a>
-            <a href="manage-feedback-templates.html">Feedback Templates</a>
-            <a href="analytics-and-reporting.html">Analytics & Reporting</a>
-            <a href="view-and-export-data.html">View & Export Data</a>
-            <a href="support-and-issue-resolution.html">Support & Issue Resolution</a>
-            <a href="communication-management.html">Communication Management</a>
-            <a href="system-configurations.html">System Configurations</a>
-            <a href="audit-logs.html">Audit Logs</a>
-        </nav>
-    </header>
+    <!--PESU LOGO-->
+    <div class="logo-container">
+        <img src="/static/photos/logoPesu.png" alt="College Logo" class="logo">
+        <button class="home-btn">HOME</button>
+    </div>
 
-    <main>
-        <section>
-            <h2>Admin Tools</h2>
-            <div class="card-container">
-                <div class="card">
-                    <h3>User Management</h3>
-                    <a href="user-management.html">Manage Users</a>
-                </div>
-                <div class="card">
-                    <h3>Interview Management</h3>
-                    <a href="interview-management.html">Manage Interviews</a>
-                </div>
-                <div class="card">
-                    <h3>Feedback Templates</h3>
-                    <a href="manage-feedback-templates.html">Manage Templates</a>
-                </div>
-                <div class="card">
-                    <h3>Analytics & Reporting</h3>
-                    <a href="analytics-and-reporting.html">View Reports</a>
-                </div>
-                <div class="card">
-                    <h3>Data Export</h3>
-                    <a href="view-and-export-data.html">View & Export Data</a>
-                </div>
-                <div class="card">
-                    <h3>Support & Issue Resolution</h3>
-                    <a href="support-and-issue-resolution.html">Manage Support</a>
-                </div>
-                <div class="card">
-                    <h3>Communication Management</h3>
-                    <a href="communication-management.html">Manage Communications</a>
-                </div>
-                <div class="card">
-                    <h3>System Configurations</h3>
-                    <a href="system-configurations.html">Configure System</a>
-                </div>
-                <div class="card">
-                    <h3>Audit Logs</h3>
-                    <a href="audit-logs.html">View Logs</a>
+    <div class="main-content">
+
+        <div class="align">
+
+            <!--User Management-->
+            <div class="card-container">  
+                <div class="card-vertical">
+                    <div class="card-front">
+                        <article class="card-front-content">
+                            <img src="/static/photos/user-management.png" class="card-img" alt="profile">
+                            <h1><b>User Management</b></h1>
+                        </article>
+                    </div>
+                    <div class="card-back">
+                        <article class="card-back-content">
+                            <p> Add, Edit and Delete Users </p>
+                            <button class="user-management-btn">User Management</button>
+                        </article>
+                    </div>
                 </div>
             </div>
-        </section>
-    </main>
 
-    <footer>
-        <p>&copy; 2024 Interviewer Portal</p>
-    </footer>
+            <!--Interview Management-->
+            <div class="card-container">
+                <div class="card-vertical">
+                    <div class="card-front">
+                        <article class="card-front-content">
+                            <img src="/static/photos/interview-management.png" class="card-img" alt="profile">
+                            <h1><b>Interview Management</b></h1>
+                        </article>
+                    </div>
+                    <div class="card-back">
+                        <article class="card-back-content">
+                            <p> Add, Schedule and Manage Interviews </p>
+                            <button class="interview-management-btn">Interview Management</button>
+                        </article>
+                    </div>
+                </div>
+            </div>
+
+            <!--Manage Feedback Templates-->
+            <div class="card-container">
+                <div class="card-vertical">
+                    <div class="card-front">
+                        <article class="card-front-content">
+                            <img src="/static/photos/feedback.png" class="card-img" alt="profile">
+                            <h1><b>Manage Feedback Templates</b></h1>
+                        </article>
+                    </div>
+                    <div class="card-back">
+                        <article class="card-back-content">
+                            <p> Add and Manage Feedback Templates </p>
+                            <button class="manage-feedback-templates-btn">Manage Feedback Templates</button>
+                        </article>
+                    </div>
+                </div>
+            </div>
+
+            <!--Analytics and Reporting-->
+            <div class="card-container">
+                <div class="card-vertical">
+                    <div class="card-front">
+                        <article class="card-front-content">
+                            <img src="/static/photos/analytics-reporting.png" class="card-img" alt="profile">
+                            <h1><b>Analytics and Reporting</b></h1>
+                        </article>
+                    </div>
+                    <div class="card-back">
+                        <article class="card-back-content">
+                            <p> Generate Tabular Reports for Interviews, Users and Feedbacks </p>
+                            <button class="analytics-and-reporting-btn">Analytics and Reporting</button>
+                        </article>
+                    </div>
+                </div>
+            </div>
+
+            <!--View and Export Data-->
+            <div class="card-container">
+                <div class="card-vertical">
+                    <div class="card-front">
+                        <article class="card-front-content">
+                            <img src="/static/photos/view-export.png" class="card-img" alt="profile">
+                            <h1><b>View and Export Data</b></h1>
+                        </article>
+                    </div>
+                    <div class="card-back">
+                        <article class="card-back-content">
+                            <p> View and Export data for Interviews, Users and Feedbacks </p>
+                            <button class="view-and-export-data-btn">View and Export Data</button>
+                        </article>
+                    </div>
+                </div>
+            </div>
+
+            <!--Support and Issue Resolution-->
+            <div class="card-container">
+                <div class="card-vertical">
+                    <div class="card-front">
+                        <article class="card-front-content">
+                            <img src="/static/photos/support-and-issue.png" class="card-img" alt="profile">
+                            <h1><b>Support and Issue Resolution</b></h1>
+                        </article>
+                    </div>
+                    <div class="card-back">
+                        <article class="card-back-content">
+                            <p> View, Add, Delete or Close any reported issues </p>
+                            <button class="support-and-issue-resolution-btn">Support and Issue Resolution</button>
+                        </article>
+                    </div>
+                </div>
+            </div>
+
+            <!--Communications Management-->
+            <div class="card-container">
+                <div class="card-vertical">
+                    <div class="card-front">
+                        <article class="card-front-content">
+                            <img src="/static/photos/manage-communications.png" class="card-img" alt="profile">
+                            <h1><b>Communications Management</b></h1>
+                        </article>
+                    </div>
+                    <div class="card-back">
+                        <article class="card-back-content">
+                            <p> Send Messages to any User/Recipient </p>
+                            <button class="communications-management-btn">Communications Management</button>
+                        </article>
+                    </div>
+                </div>
+            </div>
+
+            <!--System Configuration-->
+            <div class="card-container">
+                <div class="card-vertical">
+                    <div class="card-front">
+                        <article class="card-front-content">
+                            <img src="/static/photos/system-config.png" class="card-img" alt="profile">
+                            <h1><b>System Configuration</b></h1>
+                        </article>
+                    </div>
+                    <div class="card-back">
+                        <article class="card-back-content">
+                            <p> View and Edit System Configurations </p>
+                            <button class="system-configurations-btn">System Configuration</button>
+                        </article>
+                    </div>
+                </div>
+            </div>
+
+            <!--Audit Logs-->
+            <div class="card-container">
+                <div class="card-vertical">
+                    <div class="card-front">
+                        <article class="card-front-content">
+                            <img src="/static/photos/audit-logs.png" class="card-img" alt="profile">
+                            <h1><b>Audit Logs</b></h1>
+                        </article>
+                    </div>
+                    <div class="card-back">
+                        <article class="card-back-content">
+                            <p> View, Filter and Download Audit Logs </p>
+                            <button class="audit-logs-btn">Audit Logs</button>
+                        </article>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const loadContent = (src) => {
+            document.querySelector('.main-content').innerHTML = '';
+            const iframe = document.createElement('iframe');
+            iframe.src = src;
+            iframe.frameBorder = '0';
+            iframe.width = '100%';
+            iframe.height = '100%';
+            document.querySelector('.main-content').appendChild(iframe);
+        };
+
+        document.querySelector('.home-btn').addEventListener('click', () => {
+            window.location.href = 'admin.html';
+        });
+
+        document.querySelector('.user-management-btn').addEventListener('click', () => loadContent('user-management.html'));
+        document.querySelector('.interview-management-btn').addEventListener('click', () => loadContent('interview-management.html'));
+        document.querySelector('.manage-feedback-templates-btn').addEventListener('click', () => loadContent('manage-feedback-templates.html'));
+        document.querySelector('.analytics-and-reporting-btn').addEventListener('click', () => loadContent('analytics-and-reporting.html'));
+        document.querySelector('.view-and-export-data-btn').addEventListener('click', () => loadContent('view-and-export-data.html'));
+        document.querySelector('.support-and-issue-resolution-btn').addEventListener('click', () => loadContent('support-and-issue-resolution.html'));
+        document.querySelector('.communications-management-btn').addEventListener('click', () => loadContent('communications-management.html'));
+        document.querySelector('.system-configurations-btn').addEventListener('click', () => loadContent('system-configurations.html'));
+        document.querySelector('.audit-logs-btn').addEventListener('click', () => loadContent('audit-logs.html'));
+    </script>
+
 </body>
 </html>

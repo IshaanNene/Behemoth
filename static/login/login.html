@@ -4,16 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Page</title>
-    <link rel="stylesheet" href="login.css">
+    <link rel="stylesheet" href="/static/css/login.css">
 </head>
 <body>
 
     <div class="img-container">
-        <img class="bg-img" src="login_bg_acdemy.png">
+        <img class="bg-img" src="/static/photos/login_bg_logo.png">
     </div>
 
     <div class="logo-container">
-        <img src="logoPesu.png" alt="College Logo" class="logo">
+        <img src="/static/photos/logoPesu.png" alt="College Logo" class="logo">
         <button class="home-btn">HOME</button>  
     </div>
 
@@ -22,19 +22,19 @@
         <h1>Login</h1>
         <div class="role-selector">
             <button class="student-btn" onclick="showForm('student')"> 
-                <img class="student-btn-img" src="student-btn-img.png">
+                <img class="student-btn-img" src="/static/photos/student-btn-img.png">
                 STUDENT 
             </button>
             <br>
 
             <button class="interviewer-btn" onclick="showForm('interviewer')"> 
-                <img class="interviewer-btn-img" src="interviewer-btn-img.png">
+                <img class="interviewer-btn-img" src="/static/photos/interviewer-btn-img.png">
                 INTERVIEWER
             </button>
             <br>
 
             <button class="admin-btn" onclick="showForm('admin')"> 
-                <img class="admin-btn-img" src="admin-btn-img.png">
+                <img class="admin-btn-img" src="/static/photos/admin-btn-img.png">
                 ADMIN 
             </button>
         </div>
@@ -47,6 +47,7 @@
                 <input type="text" name="username" placeholder="Username" required>
                 <input type="password" name="password" placeholder="Password" required>
                 <input type="submit" value="Login">
+                <div id="error-message" style="color: red; display: none;"></div>
             </form>
             <a href="https://www.google.co.in/" class="forgot-pwd" target="_blank"> Forgot Password? </a>
         </div>
@@ -54,9 +55,13 @@
 
 
     <script>
+
+        let selectedRole = '';  //Storing whether it is admin, student or interviewer
+
         function showForm(role) 
         {
-            
+            selectedRole = role;
+
             const buttons = document.querySelectorAll('.role-selector button');
             buttons.forEach(button => {
                 button.style.opacity = '0';
@@ -69,7 +74,62 @@
             loginForm.classList.add('show');
         }
 
-        document.querySelector('.home-btn').addEventListener('click', () => {location.reload();});  //CURRENTLY ACTS LIKE RELOAD
+        document.querySelector('.home-btn').addEventListener('click', () => {
+            window.location.href = 'login.html';
+        });
+
+
+        function validateForm() 
+        {
+            const username = document.querySelector('input[name="username"]').value;
+            const password = document.querySelector('input[name="password"]').value;
+            const errorMessage = document.getElementById('error-message');
+
+            //Backend dependancy
+            const Username = "admin"; // Hardcoded value
+            const Password = "password123"; // Hardcoded value 
+
+            if (!username || !password) 
+            {
+                errorMessage.textContent = 'Both fields are required.';
+                errorMessage.style.display = 'block';
+                return false;
+            }
+
+            //If the username and password match
+            if (username === Username && password === Password) 
+            {
+                // Redirect to the desired page
+                switch (selectedRole) 
+                {
+                    case 'student':
+                        window.location.href = "/static/student/student.html";
+                        break;
+                    case 'interviewer':
+                        window.location.href = "/static/interviewer/interviewer.html";
+                        break;
+                    case 'admin':
+                        window.location.href = "/static/admin/admin.html";
+                        break;
+                    default:
+                        break;
+                }
+                return false; 
+            } 
+            else 
+            {
+                errorMessage.textContent = 'Invalid username or password.';
+                errorMessage.style.display = 'block';
+                return false;
+            }
+        }
+
+        document.querySelector('form').addEventListener('submit', function(event) {
+            if (!validateForm()) 
+            {
+                event.preventDefault(); 
+            }
+        });
 
     </script>
 

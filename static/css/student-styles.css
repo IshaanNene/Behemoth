@@ -20,17 +20,19 @@ body
   height: 100vh;
 }
 
-/*GENERAL TEXT*/
+/*GENERAL TEXT START*/
 p
 {
   padding: 5px;
 }
+/*GENERAL TEXT END*/
 
-/*RESUME LINK*/
+/*RESUME LINK START*/
 a
 {
   font-weight: bold;
 }
+/*RESUME LINK END*/
 
 
 /*PROFILE PIC START*/
@@ -114,21 +116,56 @@ a
   margin-top: 150px;
 }
 
-/* table */
-th, td 
+/*TABLE START*/
+.table-container
 {
-  border: 2px solid #2c2c2c; 
-  padding: 10px; 
-  text-align: center; 
-  border-radius: 5px;
-  background-color: #d4d4d4;
+  background-color: #f5821e;
+  border-radius: 8px;
+  width: 70%;
+  margin: 20px auto;
+  padding: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-th 
+.table
 {
-  background-color: #ffca95; 
-  font-weight: bold; 
+  width: 100%;
+  border-collapse: collapse;
+  padding: 20px;
+  align-content: center;
 }
+
+.table th, 
+.table td 
+{
+  border: 2px solid #868484;
+  padding: 8px;
+  text-align: left;
+  border-radius: 5px;
+}
+
+.table th
+{
+  background-color: #246ea7;
+  color: white;
+}
+
+.table tbody tr 
+{
+  background-color: #d2d9df;
+  transition: background-color 0.3s;
+}
+
+.table tbody tr:nth-child(even) 
+{
+  background-color: #f2f2f2; 
+}
+
+.table tbody tr:hover 
+{
+  background-color: #d1e8e8; 
+}
+/*TABLE END*/
 
 
 .form-container 

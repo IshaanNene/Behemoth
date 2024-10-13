@@ -21,16 +21,25 @@ body
     margin-top: 120px;
 }
 
+p
+{
+    color: #2e2e2e;
+    font-weight: bold;
+    font-size: large;
+    padding: 5px;
+    margin-bottom: 15px;
+}
+
 /*LOGO START*/
 .logo 
 {
-    height: 100%;
-    width: 15%;
+    height: 92px;
+    width: 200px;
 }
 
 .logo-container
 {
-    width:100%;
+    width:1466px;
     background-color: #6d93b6;
     padding: 10px;
     position: absolute;
@@ -60,50 +69,25 @@ body
 /*MAIN CONTENT END*/
 
 
-
-/*HOME BUTTON START*/
-.home-btn
+button[type="submit"] 
 {
-    position: absolute;
-    top: 70px;
-    right: 60px;
-    color: #e6e6e6;
-    background-color: #246cb4;
-    border-radius: 8px;
-    border-width: 2px;
-    font-weight: bold;
-    font-size: medium;
-    text-align: center;
-    transition: background-color 0.3s, color 0.3s, box-shadow 0.4s, sacle 0.5s;
-    padding: 8px;
+    background-color: #f5821e;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
     cursor: pointer;
-    width: 10%;
 }
 
-.home-btn:hover
+button[type="submit"]:hover 
 {
-    color: #333232;
-    background-color: #db1111;
-    font-weight: bold;
-    text-align: center;
-    box-shadow: 5px 5px 10px rgb(56, 56, 56);
-    scale: 1.05;
+    background-color: #fff;
+    color: #f5821e;
 }
 
-.home-btn:active
-{
-    opacity: 0.7;
-    transition: opacity 0.2s;
-}
-/*HOME BUTTON END*/
 
 
-/*CARDS START */
-.card-img
-{
-    width: 120px;
-    height: 120px;
-}
+/*CARDS START*/
 
 .card-container 
 {
@@ -116,32 +100,39 @@ body
     border-radius: 14px;
 }
 
+.card-img
+{
+    width: 120px;
+    height: 120px;
+}
 
 /*CARD BACK BUTTON*/
 
-.register-btn,
-.student-btn,
-.apply-interviews-btn,
-.view-interview-schedule-btn,
-.view-feedback-btn,
-.track-progress-btn,
-.edit-profile-btn,
-.contact-support-btn
+.user-management-btn,
+.interview-management-btn,
+.manage-feedback-templates-btn,
+.analytics-and-reporting-btn,
+.view-and-export-data-btn,
+.support-and-issue-resolution-btn,
+.communications-management-btn,
+.system-configurations-btn,
+.audit-logs-btn
 {
     font-weight: bold;
     text-align: center;
-    transition: background-color 0.3s, color 0.3s, box-shadow 0.5s;
+    transition: background-color 0.3s, color 0.3s, box-shadow 0.4s;
 }
 
 /*CARD BACK BUTTON HOVER*/
-.register-btn:hover,
-.student-btn:hover,
-.apply-interviews-btn:hover,
-.view-interview-schedule-btn:hover,
-.view-feedback-btn:hover,
-.track-progress-btn:hover,
-.edit-profile-btn:hover,
-.contact-support-btn:hover
+.user-management-btn:hover,
+.interview-management-btn:hover,
+.manage-feedback-templates-btn:hover,
+.analytics-and-reporting-btn:hover,
+.view-and-export-data-btn:hover,
+.support-and-issue-resolution-btn:hover,
+.communications-management-btn:hover,
+.system-configurations-btn:hover,
+.audit-logs-btn:hover
 {
     font-weight: bold;
     text-align: center;
@@ -240,23 +231,41 @@ body
     -moz-transform: rotateY(179.9deg);
     transform: rotateY(179.9deg);
 }
-/*CARDS END*/
+/*CARD END*/
 
 
-@media (max-width: 768px) 
+/*HOME BUTTON START*/
+.home-btn
 {
-    .align 
-    {
-        flex-direction: column;
-        align-items: center;
-    }
-    .card-vertical 
-    {
-        width: 100%;
-        margin: 10px 0;
-    }
-    .logo 
-    {
-        width: 50%; 
-    }
+    position: absolute;
+    top: 70px;
+    right: 60px;
+    color: #e6e6e6;
+    background-color: #246cb4;
+    border-radius: 8px;
+    border-width: 2px;
+    font-weight: bold;
+    font-size: medium;
+    text-align: center;
+    transition: background-color 0.3s, color 0.3s, box-shadow 0.4s, sacle 0.5s;
+    padding: 8px;
+    cursor: pointer;
+    width: 10%;
 }
+
+.home-btn:hover
+{
+    color: #333232;
+    background-color: #db1111;
+    font-weight: bold;
+    text-align: center;
+    box-shadow: 5px 5px 10px rgb(56, 56, 56);
+    scale: 1.05;
+}
+
+.home-btn:active
+{
+    opacity: 0.7;
+    transition: opacity 0.2s;
+}
+/*HOME BUTTON END*/

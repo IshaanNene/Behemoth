@@ -4,106 +4,86 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Analytics and Reporting</title>
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="/static/css/admin-styles.css">
 </head>
 <body>
-    <!-- Header -->
-    <header>
-        <h1>Admin Dashboard - Analytics and Reporting</h1>
-    </header>
 
-    <!-- Navigation -->
-    <nav>
-        <a href="admin.html">Dashboard</a>
-        <a href="user-management.html">User Management</a>
-        <a href="interview-management.html">Interview Management</a>
-        <a href="manage-feedback-templates.html">Feedback Templates</a>
-        <a href="analytics-and-reporting.html" class="active">Analytics and Reporting</a>
-        <a href="view-and-export-data.html">View and Export Data</a>
-        <a href="support-and-issue-resolution.html">Support</a>
-        <a href="system-configurations.html">System Configurations</a>
-        <a href="audit-logs.html">Audit Logs</a>
-    </nav>
+    <div class="main-content">
+        <h1>Analytics and Reporting</h1>
+        
+        <div class="report-section">
+            <h2>Generate Reports</h2>
+            <label for="report-type">Select Report Type:</label>
+            <select id="report-type">
+                <option value="interviews">Interviews Report</option>
+                <option value="feedback">Feedback Report</option>
+                <option value="users">User Report</option>
+            </select>
+            <button id="generate-report-btn">Generate Report</button>
+        </div>
 
-    <!-- Main Content -->
-    <main>
-        <section>
-            <h2>Overview of Interview Statistics</h2>
-            <div class="card-container">
-                <div class="card">
-                    <h3>Total Interviews</h3>
-                    <p>250</p>
-                </div>
-                <div class="card">
-                    <h3>Interviews This Month</h3>
-                    <p>45</p>
-                </div>
-                <div class="card">
-                    <h3>Pass Rate</h3>
-                    <p>60%</p>
-                </div>
-            </div>
-        </section>
-
-        <section>
-            <h2>User Activity and Performance Reports</h2>
-            <table>
+        <div class="report-display">
+            <h2>Report Summary</h2>
+            <table class="table" id="table">
                 <thead>
                     <tr>
-                        <th>Report</th>
-                        <th>Actions</th>
+                        <th>ID</th>
+                        <th>Title</th>
+                        <th>Details</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>Top Performers Report</td>
-                        <td>
-                            <button>View</button>
-                            <button>Download</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Interviewer Activity Report</td>
-                        <td>
-                            <button>View</button>
-                            <button>Download</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Company-wise Performance Report</td>
-                        <td>
-                            <button>View</button>
-                            <button>Download</button>
-                        </td>
-                    </tr>
+                    <!-- Reports will be populated here -->
                 </tbody>
             </table>
-        </section>
+        </div>
+    </div>
 
-        <section>
-            <h2>Generate Custom Reports</h2>
-            <form>
-                <label for="start-date">Start Date:</label>
-                <input type="date" id="start-date" name="start-date" required>
+    <script>
+        document.getElementById('generate-report-btn').addEventListener('click', () => {
+            const reportType = document.getElementById('report-type').value;
+            const reportTableBody = document.querySelector('#table tbody');
 
-                <label for="end-date">End Date:</label>
-                <input type="date" id="end-date" name="end-date" required>
+            //Clear previous entries
+            reportTableBody.innerHTML = '';
 
-                <label for="report-type">Report Type:</label>
-                <select id="report-type" name="report-type">
-                    <option value="interview-summary">Interview Summary</option>
-                    <option value="performance-report">Performance Report</option>
-                    <option value="activity-log">Activity Log</option>
-                </select>
+            //Sample data 
+            let reportData = [];
 
-                <button type="submit">Generate Report</button>
-            </form>
-        </section>
-    </main>
+            if (reportType === 'interviews') 
+            {
+                reportData = [
+                    { id: 1, title: 'Interview with Student A', details: 'Completed successfully' },
+                    { id: 2, title: 'Interview with Student B', details: 'Pending feedback' }
+                ];
+            } 
+            else if (reportType === 'feedback') 
+            {
+                reportData = [
+                    { id: 1, title: 'Feedback on Interview 1', details: 'Positive feedback received' },
+                    { id: 2, title: 'Feedback on Interview 2', details: 'Needs improvement' }
+                ];
+            } 
+            else if (reportType === 'users') 
+            {
+                reportData = [
+                    { id: 1, title: 'Total Users', details: '150 active users' },
+                    { id: 2, title: 'New Users This Month', details: '10 new registrations' }
+                ];
+            }
 
-    <!-- Footer -->
-    <footer>
-        <p>&copy; 2024 Interviewer Portal - Admin Dashboard</p>
-    </footer>
+            //Populate table
+            reportData.forEach(report => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${report.id}</td>
+                    <td>${report.title}</td>
+                    <td>${report.details}</td>
+                `;
+                reportTableBody.appendChild(row);
+            });
+        });
+    </script>
+
 </body>
 </html>

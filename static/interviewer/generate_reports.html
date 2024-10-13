@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <title>Generate Reports</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="/static/css/interviewer-styles.css">
 </head>
 <body>
-    <form action="/generate-reports" method="post">
+    <form id="report-form">
         <h1>Generate Reports</h1>
         <div class="form-group">
             <label for="report-type">Select Report Type:</label>
@@ -22,8 +22,74 @@
             <button type="submit">Generate Report</button>
         </div>
     </form>
-    <div id="report-results">
-        <!-- Generated reports will be displayed here -->
+
+    <div id="report-results" style="display: none;">
+        <h2>Generated Report</h2>
+        <table class="table" id="report-table">
+            <thead>
+                <tr>
+                    <th>Candidate Name</th>
+                    <th>Interview Date</th>
+                    <th>Interviewer</th>
+                    <th>Status</th>
+                    <th>Feedback</th>
+                </tr>
+            </thead>
+            <tbody id="report-table-body">
+                <!-- Report data will be inserted here -->
+            </tbody>
+        </table>
     </div>
+
+    <script>
+        document.getElementById('report-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const reportType = document.getElementById('report-type').value;
+            const reportTableBody = document.getElementById('report-table-body');
+            reportTableBody.innerHTML = ''; //Clear existing data
+            document.getElementById('report-results').style.display = 'block'; //Show results section
+
+            let reportData = [];
+
+            switch (reportType) 
+            {
+                case 'interview-schedule':
+                    reportData = [
+                        { name: 'John Doe', date: '2023-10-01', interviewer: 'Jane Smith', status: 'Completed', feedback: 'Strong candidate' },
+                        { name: 'Mary Johnson', date: '2023-10-02', interviewer: 'Bob Brown', status: 'Pending', feedback: 'N/A' },
+                    ];
+                    break;
+
+                case 'feedback-summary':
+                    reportData = [
+                        { name: 'Emily Davis', date: '2023-10-03', interviewer: 'Alice Wilson', status: 'Completed', feedback: 'Needs improvement' },
+                        { name: 'Michael Lee', date: '2023-10-04', interviewer: 'David Kim', status: 'Completed', feedback: 'Excellent communication skills' },
+                    ];
+                    break;
+
+                case 'candidate-profiles':
+                    reportData = [
+                        { name: 'Sarah Connor', date: '2023-10-05', interviewer: 'Linda Taylor', status: 'Completed', feedback: 'Highly recommended' },
+                        { name: 'James Bond', date: '2023-10-06', interviewer: 'Ethan Hunt', status: 'Pending', feedback: 'Awaiting final decision' },
+                    ];
+                    break;
+
+                default:
+                    break;
+            }
+
+            reportData.forEach(entry => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${entry.name}</td>
+                    <td>${entry.date}</td>
+                    <td>${entry.interviewer}</td>
+                    <td>${entry.status}</td>
+                    <td>${entry.feedback}</td>
+                `;
+                reportTableBody.appendChild(row);
+            });
+        });
+    </script>
 </body>
 </html>
