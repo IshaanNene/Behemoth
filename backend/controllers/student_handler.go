@@ -159,13 +159,4 @@ func ViewFeedback(c *gin.Context) {
 	c.HTML(http.StatusOK, "student/view_feedback.html", feedbackData)
 }
 
-// GetStudents retrieves a list of all students
-func GetStudents(c *gin.Context) {
-	var students []models.Student
-	if err := database.DB.Find(&students).Error; err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to retrieve students"})
-		return
-	}
 
-	c.JSON(http.StatusOK, students)
-}
