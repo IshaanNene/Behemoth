@@ -27,6 +27,13 @@ const initDb = async () => {
     try {
         const connection = await pool.getConnection()
 
+        // Drop all existing tables first
+        await connection.query("DROP TABLE IF EXISTS interview")
+        await connection.query("DROP TABLE IF EXISTS student")
+        await connection.query("DROP TABLE IF EXISTS interviewer")
+        await connection.query("DROP TABLE IF EXISTS admin")
+
+        // Recreate tables
         const tables = [CREATE_STUDENTS_TABLE, CREATE_INTERVIEWERS_TABLE, CREATE_ADMINS_TABLE, CREATE_INTERVIEWS_TABLE]
 
         for (const table of tables) {
@@ -34,9 +41,9 @@ const initDb = async () => {
         }
 
         connection.release()
-        console.log("Database tables initialized successfully")
+        console.log("Database tables dropped and recreated successfully")
     } catch (err) {
-        console.error("Error initializing database tables:", err)
+        console.error("Error reinitializing database tables:", err)
     }
 }
 
@@ -91,33 +98,58 @@ const server = serve({
                 if (req.method === "POST") {
                     try {
                         const body = await req.json()
-                        const { username, password } = body
+                        const { username, password, selectedRole } = body as {
+                            username: string
+                            password: string
+                            selectedRole: string
+                        }
 
-                        // Query to check user credentials
-                        const [results] = await pool.execute(
-                            "SELECT * FROM users WHERE username = ? AND password = ?",
-                            [username, password]
-                        )
+                        // First check if user exists
+                        const [existingUsers] = (await pool.execute(
+                            `SELECT * FROM ${selectedRole.toLowerCase()} WHERE username = ?`,
+                            [username]
+                        )) as any
 
-                        console.log("RESULTS:", results)
+                        if (existingUsers.length > 0) {
+                            // User exists, verify password
+                            const [results] = (await pool.execute(
+                                `SELECT * FROM ${selectedRole.toLowerCase()} WHERE username = ? AND password = ?`,
+                                [username, password]
+                            )) as any
 
-                        if (results.length > 0) {
-                            const user = results[0]
+                            if (results.length > 0) {
+                                const user = results[0]
+                                return Response.json(
+                                    {
+                                        success: true,
+                                        role: user.role,
+                                        message: "Login successful",
+                                    },
+                                    { headers: corsHeaders }
+                                )
+                            } else {
+                                return Response.json(
+                                    {
+                                        success: false,
+                                        message: "Invalid password",
+                                    },
+                                    { status: 401, headers: corsHeaders }
+                                )
+                            }
+                        } else {
+                            // Create new user
+                            const id = Math.random().toString(36).substr(2, 9)
+                            await pool.execute(
+                                `INSERT INTO ${selectedRole.toLowerCase()} (id, username, password) VALUES (?, ?, ?)`,
+                                [id, username, password]
+                            )
+
                             return Response.json(
                                 {
                                     success: true,
-                                    role: user.role,
-                                    message: "Login successful",
+                                    message: "Account created and logged in successfully",
                                 },
                                 { headers: corsHeaders }
-                            )
-                        } else {
-                            return Response.json(
-                                {
-                                    success: false,
-                                    message: "Invalid username or password",
-                                },
-                                { status: 401, headers: corsHeaders }
                             )
                         }
                     } catch (err) {

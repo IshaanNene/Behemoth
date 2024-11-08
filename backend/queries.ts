@@ -1,32 +1,35 @@
 export const CREATE_STUDENTS_TABLE = `
-    CREATE TABLE IF NOT EXISTS students (
+    CREATE TABLE IF NOT EXISTS student (
         id VARCHAR(20) PRIMARY KEY,
-        name VARCHAR(100) NOT NULL,
+        username VARCHAR(100) NOT NULL,
         password VARCHAR(100) NOT NULL,
-        email VARCHAR(100) UNIQUE NOT NULL
+        fullname VARCHAR(100) NULL,
+        email VARCHAR(100) UNIQUE NULL
     )
 `
 
 export const CREATE_INTERVIEWERS_TABLE = `
-    CREATE TABLE IF NOT EXISTS interviewers (
+    CREATE TABLE IF NOT EXISTS interviewer (
         id VARCHAR(20) PRIMARY KEY,
-        name VARCHAR(100) NOT NULL,
+        username VARCHAR(100) NOT NULL,
         password VARCHAR(100) NOT NULL,
-        email VARCHAR(100) UNIQUE NOT NULL
+        fullname VARCHAR(100) NULL,
+        email VARCHAR(100) UNIQUE NULL
     )
 `
 
 export const CREATE_ADMINS_TABLE = `
-    CREATE TABLE IF NOT EXISTS admins (
+    CREATE TABLE IF NOT EXISTS admin (
         id VARCHAR(20) PRIMARY KEY,
-        name VARCHAR(100) NOT NULL,
+        username VARCHAR(100) NOT NULL,
         password VARCHAR(100) NOT NULL,
-        email VARCHAR(100) UNIQUE NOT NULL
+        fullname VARCHAR(100) NULL,
+        email VARCHAR(100) UNIQUE NULL
     )
 `
 
 export const CREATE_INTERVIEWS_TABLE = `
-    CREATE TABLE IF NOT EXISTS interviews (
+    CREATE TABLE IF NOT EXISTS interview (
         id INT AUTO_INCREMENT PRIMARY KEY,
         student_id VARCHAR(20),
         interviewer_id VARCHAR(20),

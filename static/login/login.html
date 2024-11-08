@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Login Page</title>
+        <title>Login</title>
         <link rel="stylesheet" href="../css/login.css" />
     </head>
     <body>
@@ -17,7 +17,7 @@
         </div>
 
         <div class="login-container">
-            <h1>Login</h1>
+            <h1>Login/Signup</h1>
             <div class="role-selector">
                 <button class="student-btn" onclick="showForm('student')">
                     <img class="student-btn-img" src="../photos/student-btn-img.png" />
@@ -45,31 +45,12 @@
                     <input type="submit" value="Login" />
                     <div id="error-message" style="color: red; display: none"></div>
                 </form>
-                <a href="https://www.google.co.in/" class="forgot-pwd" target="_blank"> Forgot Password? </a>
+                <a href="https://www.google.com/" class="forgot-pwd" target="_blank"> Forgot Password? </a>
             </div>
         </div>
 
         <script>
             let selectedRole = "" //Storing whether it is admin, student or interviewer
-
-            function showForm(role) {
-                selectedRole = role
-
-                const buttons = document.querySelectorAll(".role-selector button")
-                buttons.forEach((button) => {
-                    button.style.opacity = "0"
-                    setTimeout(() => {
-                        button.style.display = "none"
-                    }, 500)
-                })
-
-                const loginForm = document.getElementById("login-form")
-                loginForm.classList.add("show")
-            }
-
-            document.querySelector(".home-btn").addEventListener("click", () => {
-                window.location.href = "login.html"
-            })
 
             function validateForm() {
                 const username = document.querySelector('input[name="username"]').value
@@ -88,7 +69,7 @@
                     headers: {
                         "Content-Type": "application/json",
                     },
-                    body: JSON.stringify({ username, password }),
+                    body: JSON.stringify({ username, password, selectedRole }),
                 })
                     .then((response) => response.json())
                     .then((data) => {
@@ -125,6 +106,25 @@
                 if (!validateForm()) {
                     event.preventDefault()
                 }
+            })
+
+            function showForm(role) {
+                selectedRole = role
+
+                const buttons = document.querySelectorAll(".role-selector button")
+                buttons.forEach((button) => {
+                    button.style.opacity = "0"
+                    setTimeout(() => {
+                        button.style.display = "none"
+                    }, 500)
+                })
+
+                const loginForm = document.getElementById("login-form")
+                loginForm.classList.add("show")
+            }
+
+            document.querySelector(".home-btn").addEventListener("click", () => {
+                window.location.href = "login.html"
             })
         </script>
     </body>
