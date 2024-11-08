@@ -24,3 +24,4 @@ type Student struct {
 	Contact       string  `json:"contact" gorm:"not null"`
 	Resume        string  `json:"resume" gorm:"not null"`
 }
+

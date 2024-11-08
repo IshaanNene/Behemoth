@@ -7,6 +7,8 @@ import {
     CREATE_INTERVIEWERS_TABLE,
     CREATE_INTERVIEWS_TABLE,
     CREATE_STUDENTS_TABLE,
+    CREATE_FEEDBACK_TABLE,
+    CREATE_INTERVIEW_SLOTS_TABLE,
 } from "./queries"
 
 // mysql://root:uGrAydpKmiGsVQAyyEAfcAzZLMiePrkC@autorack.proxy.rlwy.net:37165/railway
@@ -28,20 +30,29 @@ const initDb = async () => {
         const connection = await pool.getConnection()
 
         // Drop all existing tables first
-        await connection.query("DROP TABLE IF EXISTS interview")
-        await connection.query("DROP TABLE IF EXISTS student")
-        await connection.query("DROP TABLE IF EXISTS interviewer")
-        await connection.query("DROP TABLE IF EXISTS admin")
+        // await connection.query("DROP TABLE IF EXISTS feedback")
+        // await connection.query("DROP TABLE IF EXISTS interview_slot")
+        // await connection.query("DROP TABLE IF EXISTS interview")
+        // await connection.query("DROP TABLE IF EXISTS student")
+        // await connection.query("DROP TABLE IF EXISTS interviewer")
+        // await connection.query("DROP TABLE IF EXISTS admin")
 
         // Recreate tables
-        const tables = [CREATE_STUDENTS_TABLE, CREATE_INTERVIEWERS_TABLE, CREATE_ADMINS_TABLE, CREATE_INTERVIEWS_TABLE]
+        const tables = [
+            CREATE_STUDENTS_TABLE,
+            CREATE_INTERVIEWERS_TABLE,
+            CREATE_ADMINS_TABLE,
+            CREATE_INTERVIEWS_TABLE,
+            CREATE_FEEDBACK_TABLE,
+            CREATE_INTERVIEW_SLOTS_TABLE,
+        ]
 
         for (const table of tables) {
             await connection.query(table)
         }
 
         connection.release()
-        console.log("Database tables dropped and recreated successfully")
+        console.log(">>> Database tables dropped and recreated successfully\n")
     } catch (err) {
         console.error("Error reinitializing database tables:", err)
     }
@@ -110,12 +121,16 @@ const server = serve({
                             [username]
                         )) as any
 
+                        console.log("EXISTING USERS:", existingUsers)
+
                         if (existingUsers.length > 0) {
                             // User exists, verify password
                             const [results] = (await pool.execute(
                                 `SELECT * FROM ${selectedRole.toLowerCase()} WHERE username = ? AND password = ?`,
                                 [username, password]
                             )) as any
+
+                            console.log("RESULTS:", results)
 
                             if (results.length > 0) {
                                 const user = results[0]
@@ -165,7 +180,13 @@ const server = serve({
     },
     error(error) {
         console.error(error)
-        return new Response("Internal Server Error", { status: 500, headers: corsHeaders })
+        return Response.json(
+            {
+                success: false,
+                message: "Internal Server Error",
+            },
+            { status: 500, headers: corsHeaders }
+        )
     },
 })
 
