@@ -74,6 +74,14 @@
                     .then((response) => response.json())
                     .then((data) => {
                         if (data.success) {
+                            localStorage.setItem(
+                                "ACCOUNT_STORAGE",
+                                JSON.stringify({
+                                    selectedRole,
+                                    username,
+                                })
+                            )
+
                             // Redirect based on role
                             switch (selectedRole) {
                                 case "student":

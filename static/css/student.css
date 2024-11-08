@@ -29,6 +29,7 @@ body {
     background-color: #6d93b6;
     padding: 10px;
     position: absolute;
+    margin-bottom: 10px;
     top: 0;
     left: 0;
     z-index: 1000;
