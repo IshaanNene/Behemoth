@@ -4,16 +4,15 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Login Page</title>
-        <!-- <link rel="stylesheet" href="/static/css/login.css"> -->
         <link rel="stylesheet" href="../css/login.css" />
     </head>
     <body>
         <div class="img-container">
-            <img class="bg-img" src="/static/photos/login_bg_logo.png" />
+            <img class="bg-img" src="../photos/login_bg_logo.png" />
         </div>
 
         <div class="logo-container">
-            <img src="/static/photos/logoPesu.png" alt="College Logo" class="logo" />
+            <img src="../photos/logoPesu.png" alt="College Logo" class="logo" />
             <button class="home-btn">HOME</button>
         </div>
 
@@ -21,19 +20,19 @@
             <h1>Login</h1>
             <div class="role-selector">
                 <button class="student-btn" onclick="showForm('student')">
-                    <img class="student-btn-img" src="/static/photos/student-btn-img.png" />
+                    <img class="student-btn-img" src="../photos/student-btn-img.png" />
                     STUDENT
                 </button>
                 <br />
 
                 <button class="interviewer-btn" onclick="showForm('interviewer')">
-                    <img class="interviewer-btn-img" src="/static/photos/interviewer-btn-img.png" />
+                    <img class="interviewer-btn-img" src="../photos/interviewer-btn-img.png" />
                     INTERVIEWER
                 </button>
                 <br />
 
                 <button class="admin-btn" onclick="showForm('admin')">
-                    <img class="admin-btn-img" src="/static/photos/admin-btn-img.png" />
+                    <img class="admin-btn-img" src="../photos/admin-btn-img.png" />
                     ADMIN
                 </button>
             </div>
@@ -95,10 +94,10 @@
                             window.location.href = "../student/student.html"
                             break
                         case "interviewer":
-                            window.location.href = "/static/interviewer/interviewer.html"
+                            window.location.href = "../interviewer/interviewer.html"
                             break
                         case "admin":
-                            window.location.href = "/static/admin/admin.html"
+                            window.location.href = "../admin/admin.html"
                             break
                         default:
                             break
