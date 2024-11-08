@@ -1,138 +1,121 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Page</title>
-    <!-- <link rel="stylesheet" href="/static/css/login.css"> -->
-    <link rel="stylesheet" href="../../static/css/login.css">
-</head>
-<body>
-
-    <div class="img-container">
-        <img class="bg-img" src="/static/photos/login_bg_logo.png">
-    </div>
-
-    <div class="logo-container">
-        <img src="/static/photos/logoPesu.png" alt="College Logo" class="logo">
-        <button class="home-btn">HOME</button>  
-    </div>
-
-    <div class="login-container">
-
-        <h1>Login</h1>
-        <div class="role-selector">
-            <button class="student-btn" onclick="showForm('student')"> 
-                <img class="student-btn-img" src="/static/photos/student-btn-img.png">
-                STUDENT 
-            </button>
-            <br>
-
-            <button class="interviewer-btn" onclick="showForm('interviewer')"> 
-                <img class="interviewer-btn-img" src="/static/photos/interviewer-btn-img.png">
-                INTERVIEWER
-            </button>
-            <br>
-
-            <button class="admin-btn" onclick="showForm('admin')"> 
-                <img class="admin-btn-img" src="/static/photos/admin-btn-img.png">
-                ADMIN 
-            </button>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Login Page</title>
+        <!-- <link rel="stylesheet" href="/static/css/login.css"> -->
+        <link rel="stylesheet" href="../css/login.css" />
+    </head>
+    <body>
+        <div class="img-container">
+            <img class="bg-img" src="/static/photos/login_bg_logo.png" />
         </div>
 
-
-
-        <!-- FORM -->
-        <div class="login-form" id="login-form">
-            <form action="/login" method="post">
-                <input type="text" name="username" placeholder="Username" required>
-                <input type="password" name="password" placeholder="Password" required>
-                <input type="submit" value="Login">
-                <div id="error-message" style="color: red; display: none;"></div>
-            </form>
-            <a href="https://www.google.co.in/" class="forgot-pwd" target="_blank"> Forgot Password? </a>
+        <div class="logo-container">
+            <img src="/static/photos/logoPesu.png" alt="College Logo" class="logo" />
+            <button class="home-btn">HOME</button>
         </div>
-    </div>
 
+        <div class="login-container">
+            <h1>Login</h1>
+            <div class="role-selector">
+                <button class="student-btn" onclick="showForm('student')">
+                    <img class="student-btn-img" src="/static/photos/student-btn-img.png" />
+                    STUDENT
+                </button>
+                <br />
 
-    <script>
+                <button class="interviewer-btn" onclick="showForm('interviewer')">
+                    <img class="interviewer-btn-img" src="/static/photos/interviewer-btn-img.png" />
+                    INTERVIEWER
+                </button>
+                <br />
 
-        let selectedRole = '';  //Storing whether it is admin, student or interviewer
+                <button class="admin-btn" onclick="showForm('admin')">
+                    <img class="admin-btn-img" src="/static/photos/admin-btn-img.png" />
+                    ADMIN
+                </button>
+            </div>
 
-        function showForm(role) 
-        {
-            selectedRole = role;
+            <!-- FORM -->
+            <div class="login-form" id="login-form">
+                <form action="/login" method="post">
+                    <input type="text" name="username" placeholder="Username" required />
+                    <input type="password" name="password" placeholder="Password" required />
+                    <input type="submit" value="Login" />
+                    <div id="error-message" style="color: red; display: none"></div>
+                </form>
+                <a href="https://www.google.co.in/" class="forgot-pwd" target="_blank"> Forgot Password? </a>
+            </div>
+        </div>
 
-            const buttons = document.querySelectorAll('.role-selector button');
-            buttons.forEach(button => {
-                button.style.opacity = '0';
-                setTimeout(() => {
-                    button.style.display = 'none'; 
-                }, 500); 
-            });
+        <script>
+            let selectedRole = "" //Storing whether it is admin, student or interviewer
 
-            const loginForm = document.getElementById('login-form');
-            loginForm.classList.add('show');
-        }
+            function showForm(role) {
+                selectedRole = role
 
-        document.querySelector('.home-btn').addEventListener('click', () => {
-            window.location.href = 'login.html';
-        });
+                const buttons = document.querySelectorAll(".role-selector button")
+                buttons.forEach((button) => {
+                    button.style.opacity = "0"
+                    setTimeout(() => {
+                        button.style.display = "none"
+                    }, 500)
+                })
 
-
-        function validateForm() 
-        {
-            const username = document.querySelector('input[name="username"]').value;
-            const password = document.querySelector('input[name="password"]').value;
-            const errorMessage = document.getElementById('error-message');
-
-            //Backend dependancy
-            const Username = "admin"; // Hardcoded value
-            const Password = "password123"; // Hardcoded value 
-
-            if (!username || !password) 
-            {
-                errorMessage.textContent = 'Both fields are required.';
-                errorMessage.style.display = 'block';
-                return false;
+                const loginForm = document.getElementById("login-form")
+                loginForm.classList.add("show")
             }
 
-            //If the username and password match
-            if (username === Username && password === Password) 
-            {
-                // Redirect to the desired page
-                switch (selectedRole) 
-                {
-                    case 'student':
-                        window.location.href = "../student/student.html";
-                        break;
-                    case 'interviewer':
-                        window.location.href = "/static/interviewer/interviewer.html";
-                        break;
-                    case 'admin':
-                        window.location.href = "/static/admin/admin.html";
-                        break;
-                    default:
-                        break;
+            document.querySelector(".home-btn").addEventListener("click", () => {
+                window.location.href = "login.html"
+            })
+
+            function validateForm() {
+                const username = document.querySelector('input[name="username"]').value
+                const password = document.querySelector('input[name="password"]').value
+                const errorMessage = document.getElementById("error-message")
+
+                //Backend dependancy
+                const Username = "admin" // Hardcoded value
+                const Password = "password123" // Hardcoded value
+
+                if (!username || !password) {
+                    errorMessage.textContent = "Both fields are required."
+                    errorMessage.style.display = "block"
+                    return false
                 }
-                return false; 
-            } 
-            else 
-            {
-                errorMessage.textContent = 'Invalid username or password.';
-                errorMessage.style.display = 'block';
-                return false;
+
+                //If the username and password match
+                if (username === Username && password === Password) {
+                    // Redirect to the desired page
+                    switch (selectedRole) {
+                        case "student":
+                            window.location.href = "../student/student.html"
+                            break
+                        case "interviewer":
+                            window.location.href = "/static/interviewer/interviewer.html"
+                            break
+                        case "admin":
+                            window.location.href = "/static/admin/admin.html"
+                            break
+                        default:
+                            break
+                    }
+                    return false
+                } else {
+                    errorMessage.textContent = "Invalid username or password."
+                    errorMessage.style.display = "block"
+                    return false
+                }
             }
-        }
 
-        document.querySelector('form').addEventListener('submit', function(event) {
-            if (!validateForm()) 
-            {
-                event.preventDefault(); 
-            }
-        });
-
-    </script>
-
-</body>
+            document.querySelector("form").addEventListener("submit", function (event) {
+                if (!validateForm()) {
+                    event.preventDefault()
+                }
+            })
+        </script>
+    </body>
 </html>

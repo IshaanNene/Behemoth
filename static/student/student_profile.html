@@ -1,60 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Student Profile</title>
-    <link rel="stylesheet" href="/static/css/student-styles.css">
-</head>
-<body>
-    <div class="form-container">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Student Profile</title>
+        <link rel="stylesheet" href="/static/css/student-styles.css" />
+    </head>
+    <body>
+        <div class="form-container">
+            <h1>Student Profile</h1>
 
-        <h1>Student Profile</h1>
+            <div class="profile-container">
+                <div class="profile-pic">
+                    <img id="profile-pic-preview" src="/static/photos/default-profile-pic.png" alt="Profile Picture" />
+                    <input type="file" id="profile-pic-input" accept="image/*" />
+                </div>
+            </div>
 
-        <div class="profile-container">
-            <div class="profile-pic">
-                <img id="profile-pic-preview" src="/static/photos/default-profile-pic.png" alt="Profile Picture">
-                <input type="file" id="profile-pic-input" accept="image/*">
+            <div class="profile-info">
+                <p><strong>Name:</strong> John Doe</p>
+                <p><strong>Date of Birth:</strong> 2000-01-01</p>
+                <p><strong>Year of Passing:</strong> 2024</p>
+                <p><strong>PESU ID:</strong> PES1234567</p>
+                <p><strong>SRN:</strong> PESUUG2021CS1234</p>
+                <p><strong>Branch:</strong> Computer Science Engineering (CSE)</p>
+                <p><strong>Program:</strong> B.Tech</p>
+                <p><strong>Semester:</strong> 6</p>
+                <p><strong>CGPA:</strong> 8.75</p>
+                <p><strong>10th Marks:</strong> 90%</p>
+                <p><strong>12th Marks:</strong> 85%</p>
+                <p><strong>Father's Name:</strong> Richard Doe</p>
+                <p><strong>Mother's Name:</strong> Mary Doe</p>
+                <p><strong>Address:</strong> 1234 Elm Street, Springfield</p>
+                <p><strong>Email:</strong> johndoe@example.com</p>
+                <p><strong>Contact Number:</strong> 1234567890</p>
+
+                <div class="resume">
+                    <br />
+                    <a href="https://www.google.com/" class="resume-link" target="_blank">Click to view resume</a>
+                </div>
             </div>
         </div>
-        
-        <div class="profile-info">
-            <p><strong>Name:</strong> John Doe</p>
-            <p><strong>Date of Birth:</strong> 2000-01-01</p>
-            <p><strong>Year of Passing:</strong> 2024</p>
-            <p><strong>PESU ID:</strong> PES1234567</p>
-            <p><strong>SRN:</strong> PESUUG2021CS1234</p>
-            <p><strong>Branch:</strong> Computer Science Engineering (CSE)</p>
-            <p><strong>Program:</strong> B.Tech</p>
-            <p><strong>Semester:</strong> 6</p>
-            <p><strong>CGPA:</strong> 8.75</p>
-            <p><strong>10th Marks:</strong> 90%</p>
-            <p><strong>12th Marks:</strong> 85%</p>
-            <p><strong>Father's Name:</strong> Richard Doe</p>
-            <p><strong>Mother's Name:</strong> Mary Doe</p>
-            <p><strong>Address:</strong> 1234 Elm Street, Springfield</p>
-            <p><strong>Email:</strong> johndoe@example.com</p>
-            <p><strong>Contact Number:</strong> 1234567890</p>
 
-            <div class="resume">
-                <br>
-                <a href="https://www.google.com/" class="resume-link" target="_blank">Click to view resume</a>
-            </div>
-        </div>
-    </div>
+        <script>
+            document.getElementById("profile-pic-input").addEventListener("change", function (event) {
+                const file = event.target.files[0]
+                const reader = new FileReader()
 
-    <script>
-        document.getElementById('profile-pic-input').addEventListener('change', function(event) {
-            const file = event.target.files[0];
-            const reader = new FileReader();
+                reader.onload = function (e) {
+                    document.getElementById("profile-pic-preview").src = e.target.result
+                }
 
-            reader.onload = function(e) {
-                document.getElementById('profile-pic-preview').src = e.target.result;
-            };
-
-            if (file) {
-                reader.readAsDataURL(file);
-            }
-        });
-    </script>
-</body>
+                if (file) {
+                    reader.readAsDataURL(file)
+                }
+            })
+        </script>
+    </body>
 </html>

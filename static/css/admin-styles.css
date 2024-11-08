@@ -1,12 +1,10 @@
-* 
-{
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-body 
-{
+body {
     font-family: Arial, sans-serif;
     background-color: #f4f4f4;
     padding: 20px;
@@ -16,10 +14,8 @@ body
     margin: 0;
 }
 
-
 /*MAIN CONTENT START*/
-.main-content 
-{
+.main-content {
     background: white;
     margin-left: 5px;
     padding: 20px;
@@ -29,10 +25,8 @@ body
 }
 /*MAIN CONTENT END*/
 
-
 /*HEADER TAGS START*/
-h1
-{
+h1 {
     margin-top: 2%;
     margin-bottom: 20px;
     text-align: center;
@@ -41,8 +35,7 @@ h1
     color: #333;
 }
 
-h2
-{
+h2 {
     margin-top: 6%;
     margin-bottom: 20px;
     text-align: center;
@@ -51,10 +44,8 @@ h2
 }
 /*HEADER TAGS END*/
 
-
 /*TABLE START*/
-.add-user-btn 
-{
+.add-user-btn {
     margin-bottom: 20px;
     padding: 10px 15px;
     background-color: #246cb4;
@@ -66,36 +57,31 @@ h2
     font-weight: bold;
 }
 
-.add-user-btn:hover 
-{
+.add-user-btn:hover {
     background-color: #1e5b8a;
     scale: 1.05;
     box-shadow: 5px 3px 10px rgb(81, 80, 80);
 }
 
-.table
-{
+.table {
     width: 100%;
     border-collapse: collapse;
 }
 
-.table th, 
-.table td 
-{
+.table th,
+.table td {
     border: 1px solid #ddd;
     padding: 8px;
     text-align: left;
     border-radius: 3px;
 }
 
-.table th
-{
+.table th {
     background-color: #246ea7;
     color: white;
 }
 
-.table td button
-{
+.table td button {
     padding: 5px 10px;
     margin-right: 5px;
     border: none;
@@ -105,34 +91,29 @@ h2
     transition: background-color 0.3s, box-shadow 0.5s, scale 0.5s;
 }
 
-.table td .edit-btn, 
-.close-issue-btn
-{
+.table td .edit-btn,
+.close-issue-btn {
     background-color: #f5821e;
     color: white;
 }
 
-.table td .delete-btn, 
+.table td .delete-btn,
 .delete-issue-btn,
-.delete-message-btn
-{
+.delete-message-btn {
     background-color: #db1111;
     color: white;
 }
 
-.table td button:hover
-{
+.table td button:hover {
     opacity: 0.8;
     scale: 1.05;
     box-shadow: 5px 3px 10px rgb(81, 80, 80);
 }
 /*TABLE END*/
 
-
 /*FORM START*/
 form,
-.search-bar 
-{
+.search-bar {
     background-color: #fff;
     padding: 20px;
     border-radius: 5px;
@@ -141,21 +122,18 @@ form,
 }
 
 .form-group,
-.search-bar
-{
+.search-bar {
     margin-bottom: 15px;
 }
 
-label 
-{
+label {
     display: block;
     margin-bottom: 5px;
     margin-top: 10px;
     font-weight: bold;
 }
 
-textarea 
-{
+textarea {
     width: 100%;
     margin-top: 10px;
     padding: 10px;
@@ -164,8 +142,7 @@ textarea
     resize: vertical;
 }
 
-input[type="checkbox"]
-{
+input[type="checkbox"] {
     width: 30px;
     height: 15px;
 }
@@ -174,8 +151,7 @@ input[type="text"],
 input[type="date"],
 input[type="time"],
 select,
-textarea 
-{
+textarea {
     width: 100%;
     padding: 10px;
     border: 3px solid #ddd;
@@ -191,8 +167,7 @@ button[type="submit"],
 #add-interview-btn,
 #add-template-btn,
 #generate-report-btn,
-#view-data-btn
-{
+#view-data-btn {
     width: 80%;
     margin-left: 10%;
     margin-top: 30px;
@@ -213,8 +188,7 @@ button[type="submit"]:hover,
 #add-interview-btn:hover,
 #add-template-btn:hover,
 #generate-report-btn:hover,
-#view-data-btn:hover
-{
+#view-data-btn:hover {
     background-color: #3da240;
     color: #dbeadb;
     box-shadow: 5px 3px 10px rgb(81, 80, 80);
@@ -222,15 +196,13 @@ button[type="submit"]:hover,
 }
 /*FORM END*/
 
-
 /*EXPORT AND DOWNLOAD BUTTONS START*/
 #export-csv-btn,
 #export-excel-btn,
 #export-pdf-btn,
 #download-csv-btn,
 #download-excel-btn,
-#download-pdf-btn
-{
+#download-pdf-btn {
     display: inline;
     width: 18%;
     margin-left: 10%;
@@ -253,8 +225,7 @@ button[type="submit"]:hover,
 #export-pdf-btn:hover,
 #download-csv-btn:hover,
 #download-excel-btn:hover,
-#download-pdf-btn:hover
-{
+#download-pdf-btn:hover {
     background-color: #3da240;
     color: #dbeadb;
     box-shadow: 5px 3px 10px rgb(81, 80, 80);
@@ -262,27 +233,21 @@ button[type="submit"]:hover,
 }
 /*EXPORT AND DOWNLOAD BUTTONS END*/
 
-
-@media (max-width: 768px) 
-{
-  .form-container 
-  {
-    width: 90%;
-    margin: 20px auto;
-  }
+@media (max-width: 768px) {
+    .form-container {
+        width: 90%;
+        margin: 20px auto;
+    }
 }
 
-@media (max-width: 480px) 
-{
-  .form-container 
-  {
-    width: 100%;
-    margin: 10px auto;
-  }
-  .form-group 
-  {
-    margin-bottom: 15px;
-  }
+@media (max-width: 480px) {
+    .form-container {
+        width: 100%;
+        margin: 10px auto;
+    }
+    .form-group {
+        margin-bottom: 15px;
+    }
 }
 
 /* Results and feedback display */
@@ -292,8 +257,7 @@ button[type="submit"]:hover,
 #report-results,
 #slot-management,
 #feedback-history,
-#communication-results 
-{
+#communication-results {
     margin-top: 20px;
     padding: 15px;
     background-color: #fff;

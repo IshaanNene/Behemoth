@@ -1,13 +1,11 @@
 /* Basic reset */
-* 
-{
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-body 
-{
+body {
     font-family: Arial, sans-serif;
     background-color: #f4f4f4;
     padding: 20px;
@@ -15,8 +13,7 @@ body
     color: #333;
 }
 
-h1 
-{
+h1 {
     text-align: center;
     text-decoration: underline;
     margin-bottom: 20px;
@@ -24,16 +21,13 @@ h1
     color: #333;
 }
 
-h2
-{
+h2 {
     text-align: center;
 }
 
-
 /* Form styles */
 form,
-.search-bar 
-{
+.search-bar {
     background-color: #fff;
     padding: 20px;
     border-radius: 5px;
@@ -42,30 +36,25 @@ form,
 }
 
 .form-group,
-.search-bar
-{
+.search-bar {
     margin-bottom: 15px;
 }
 
-label 
-{
+label {
     display: block;
     margin-bottom: 5px;
     font-weight: bold;
 }
 
-textarea 
-{
+textarea {
     resize: vertical;
 }
-
 
 input[type="text"],
 input[type="date"],
 input[type="time"],
 select,
-textarea 
-{
+textarea {
     width: 100%;
     padding: 10px;
     border: 2px solid #ddd;
@@ -74,8 +63,7 @@ textarea
 }
 
 button[type="submit"],
-.search-btn
-{
+.search-btn {
     width: 80%;
     margin-left: 10%;
     margin-top: 30px;
@@ -92,8 +80,7 @@ button[type="submit"],
 }
 
 button[type="submit"]:hover,
-.search-btn:hover
-{
+.search-btn:hover {
     background-color: #3da240;
     color: #dbeadb;
     box-shadow: 5px 3px 10px rgb(81, 80, 80);
@@ -101,8 +88,7 @@ button[type="submit"]:hover,
 }
 
 /*TABLE START*/
-.add-user-btn 
-{
+.add-user-btn {
     margin-bottom: 20px;
     padding: 10px 15px;
     background-color: #246cb4;
@@ -114,36 +100,31 @@ button[type="submit"]:hover,
     font-weight: bold;
 }
 
-.add-user-btn:hover 
-{
+.add-user-btn:hover {
     background-color: #1e5b8a;
     scale: 1.05;
     box-shadow: 5px 3px 10px rgb(81, 80, 80);
 }
 
-.table
-{
+.table {
     width: 100%;
     border-collapse: collapse;
 }
 
-.table th, 
-.table td 
-{
+.table th,
+.table td {
     border: 1px solid #ddd;
     padding: 8px;
     text-align: left;
     border-radius: 3px;
 }
 
-.table th
-{
+.table th {
     background-color: #246ea7;
     color: white;
 }
 
-.table td button
-{
+.table td button {
     padding: 5px 10px;
     margin-right: 5px;
     border: none;
@@ -153,17 +134,15 @@ button[type="submit"]:hover,
     transition: background-color 0.3s, box-shadow 0.5s, scale 0.5s;
 }
 
-.table td .edit-btn, 
-.close-issue-btn
-{
+.table td .edit-btn,
+.close-issue-btn {
     background-color: #f5821e;
     color: white;
 }
 
-.table td .delete-btn, 
+.table td .delete-btn,
 .delete-issue-btn,
-.delete-message-btn
-{
+.delete-message-btn {
     background-color: #db1111;
     color: white;
 }
@@ -176,26 +155,21 @@ button[type="submit"]:hover,
 } */
 /*TABLE END*/
 
-@media (max-width: 768px) 
-{
-  .form-container 
-  {
-    width: 90%;
-    margin: 20px auto;
-  }
+@media (max-width: 768px) {
+    .form-container {
+        width: 90%;
+        margin: 20px auto;
+    }
 }
 
-@media (max-width: 480px) 
-{
-  .form-container 
-  {
-    width: 100%;
-    margin: 10px auto;
-  }
-  .form-group 
-  {
-    margin-bottom: 15px;
-  }
+@media (max-width: 480px) {
+    .form-container {
+        width: 100%;
+        margin: 10px auto;
+    }
+    .form-group {
+        margin-bottom: 15px;
+    }
 }
 
 /* Results and feedback display */
@@ -205,8 +179,7 @@ button[type="submit"]:hover,
 #report-results,
 #slot-management,
 #feedback-history,
-#communication-results 
-{
+#communication-results {
     margin-top: 20px;
     padding: 15px;
     background-color: #fff;

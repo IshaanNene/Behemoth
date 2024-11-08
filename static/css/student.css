@@ -1,20 +1,17 @@
-* 
-{
+* {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
 
-body 
-{
+body {
     font-family: Arial, sans-serif;
     line-height: 1.6;
     color: #333;
     background-color: #f0f0f0;
 }
 
-.align
-{
+.align {
     display: flex;
     flex-wrap: wrap;
     padding: 20px;
@@ -22,15 +19,13 @@ body
 }
 
 /*LOGO START*/
-.logo 
-{
+.logo {
     height: 100%;
     width: 15%;
 }
 
-.logo-container
-{
-    width:100%;
+.logo-container {
+    width: 100%;
     background-color: #6d93b6;
     padding: 10px;
     position: absolute;
@@ -41,15 +36,13 @@ body
 /*LOGO END*/
 
 /*MAIN CONTENT START*/
-.main-content 
-{
+.main-content {
     margin-left: 100px;
     padding: 20px;
     justify-content: center;
 }
 
-.main-content iframe 
-{
+.main-content iframe {
     width: 80%;
     height: 100vh;
     border: none;
@@ -59,11 +52,8 @@ body
 }
 /*MAIN CONTENT END*/
 
-
-
 /*HOME BUTTON START*/
-.home-btn
-{
+.home-btn {
     position: absolute;
     top: 70px;
     right: 60px;
@@ -80,8 +70,7 @@ body
     width: 10%;
 }
 
-.home-btn:hover
-{
+.home-btn:hover {
     color: #333232;
     background-color: #db1111;
     font-weight: bold;
@@ -90,23 +79,19 @@ body
     scale: 1.05;
 }
 
-.home-btn:active
-{
+.home-btn:active {
     opacity: 0.7;
     transition: opacity 0.2s;
 }
 /*HOME BUTTON END*/
 
-
 /*CARDS START */
-.card-img
-{
+.card-img {
     width: 120px;
     height: 120px;
 }
 
-.card-container 
-{
+.card-container {
     -webkit-perspective: 1200px;
     -moz-perspective: 1200px;
     perspective: 1200px;
@@ -115,7 +100,6 @@ body
     margin-left: 25px;
     border-radius: 14px;
 }
-
 
 /*CARD BACK BUTTON*/
 
@@ -126,8 +110,7 @@ body
 .view-feedback-btn,
 .track-progress-btn,
 .edit-profile-btn,
-.contact-support-btn
-{
+.contact-support-btn {
     font-weight: bold;
     text-align: center;
     transition: background-color 0.3s, color 0.3s, box-shadow 0.5s;
@@ -141,29 +124,26 @@ body
 .view-feedback-btn:hover,
 .track-progress-btn:hover,
 .edit-profile-btn:hover,
-.contact-support-btn:hover
-{
+.contact-support-btn:hover {
     font-weight: bold;
     text-align: center;
     box-shadow: 5px 5px 10px rgb(56, 56, 56);
 }
 
-.card-vertical 
-{
+.card-vertical {
     height: 250px;
     width: 250px;
     box-shadow: 0 6px 8px #bbb;
     -moz-transform-style: preserve-3d;
     -webkit-transform-style: preserve-3d;
     transform-style: preserve-3d;
-    transition: all .4s ease;
+    transition: all 0.4s ease;
     position: relative;
     border-radius: 14px;
 }
 
-.card-front, 
-.card-back 
-{
+.card-front,
+.card-back {
     color: #fafafa;
     height: 100%;
     width: 100%;
@@ -182,8 +162,7 @@ body
     border-radius: 14px;
 }
 
-.card-back 
-{
+.card-back {
     -moz-transform: rotateY(179.9deg);
     -webkit-transform: rotateY(179.9deg);
     transform: rotateY(179.9deg);
@@ -192,29 +171,25 @@ body
     border-radius: 14px;
 }
 
-.card-front-content, 
-.card-back-content 
-{
+.card-front-content,
+.card-back-content {
     text-align: center;
     font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
     padding: 1em;
 }
 
-.card-back-content 
-{
+.card-back-content {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
 }
 
-.card-back-content img 
-{
+.card-back-content img {
     margin-bottom: 10px;
 }
 
-.card-back-content button 
-{
+.card-back-content button {
     width: 80%;
     height: auto;
     padding: 10px 20px;
@@ -225,24 +200,21 @@ body
     border-radius: 5px;
     cursor: pointer;
     box-shadow: 2px 2px 5px rgb(50, 50, 50);
-    transition: background-color 0.3s, color 0.3s; 
+    transition: background-color 0.3s, color 0.3s;
 }
 
-.card-back-content button:hover 
-{
+.card-back-content button:hover {
     background-color: #fff;
     color: #f5821e;
 }
 
-.card-vertical:hover 
-{
+.card-vertical:hover {
     -webkit-transform: rotateY(179.9deg);
     -moz-transform: rotateY(179.9deg);
     transform: rotateY(179.9deg);
 }
 
-p
-{
+p {
     color: #2e2e2e;
     font-weight: bold;
     font-size: large;
@@ -251,21 +223,16 @@ p
 }
 /*CARDS END*/
 
-
-@media (max-width: 768px) 
-{
-    .align 
-    {
+@media (max-width: 768px) {
+    .align {
         flex-direction: column;
         align-items: center;
     }
-    .card-vertical 
-    {
+    .card-vertical {
         width: 100%;
         margin: 10px 0;
     }
-    .logo 
-    {
-        width: 50%; 
+    .logo {
+        width: 50%;
     }
 }

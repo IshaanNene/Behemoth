@@ -1,5 +1,4 @@
-body 
-{
+body {
     font-family: Arial, sans-serif;
     background-color: #f4f4f4;
     display: flex;
@@ -10,8 +9,7 @@ body
 }
 
 /*IMAGE CONTAINER START*/
-.img-container
-{
+.img-container {
     position: absolute;
     left: 0%;
     width: 40%;
@@ -20,10 +18,8 @@ body
 }
 /*IMAGE CONTAINER END*/
 
-
 /*BACKGROUND IMAGE START*/
-.bg-img
-{
+.bg-img {
     align-content: center;
     opacity: 0.9;
     height: 100%;
@@ -33,10 +29,8 @@ body
 }
 /*BACKGROUND IMAGE END*/
 
-
 /*LOGIN CONTAINER START*/
-.login-container 
-{
+.login-container {
     position: absolute;
     right: 0%;
     top: 15%;
@@ -49,8 +43,7 @@ body
 /*LOGIN CONTAINER END*/
 
 /*LOGO CONTAINER START*/
-.logo 
-{
+.logo {
     height: 92px;
     width: 200px;
     margin-right: 30px;
@@ -59,8 +52,7 @@ body
     align-content: center;
 }
 
-.logo-container
-{
+.logo-container {
     position: absolute;
     right: 0%;
     top: 0%;
@@ -70,8 +62,7 @@ body
 /*LOGO CONTAINER END*/
 
 /*HOME BUTTON START*/
-.home-btn
-{
+.home-btn {
     position: absolute;
     top: 65px;
     right: 20px;
@@ -86,8 +77,7 @@ body
     cursor: pointer;
 }
 
-.home-btn:hover
-{
+.home-btn:hover {
     color: #333232;
     background-color: #db1111;
     font-weight: bold;
@@ -96,19 +86,16 @@ body
     scale: 1.05;
 }
 
-.home-btn:active
-{
+.home-btn:active {
     opacity: 0.7;
     transition: opacity 0.2s;
 }
 /*HOME BUTTON END*/
 
-
 /*STUDENT AND INTERVIEWER BUTTONS START*/
 .student-btn,
 .interviewer-btn,
-.admin-btn
-{
+.admin-btn {
     background-color: rgb(112, 134, 223);
     display: flex;
     flex-wrap: wrap;
@@ -130,8 +117,7 @@ body
 
 .student-btn:hover,
 .interviewer-btn:hover,
-.admin-btn:hover
-{
+.admin-btn:hover {
     background-color: rgb(131, 227, 176);
     color: rgb(59, 58, 58);
     border-width: 3px;
@@ -143,24 +129,21 @@ body
 
 .student-btn img,
 .interviewer-btn img,
-.admin-btn img
-{
+.admin-btn img {
     width: 15%;
     height: auto;
-    margin-right: 15%; 
+    margin-right: 15%;
 }
 
-.role-selector 
-{
+.role-selector {
     align-content: center;
-    margin-top: 8%;  
+    margin-top: 8%;
     display: flex;
     flex-wrap: wrap;
 }
 /*STUDENT AND INTERVIEWER BUTTONS END*/
 
-h1 
-{
+h1 {
     text-align: center;
     font-weight: bold;
     margin-bottom: 12px;
@@ -169,12 +152,9 @@ h1
     text-decoration: underline;
 }
 
-
-
 /*FORM START*/
 input[type="text"],
-input[type="password"] 
-{
+input[type="password"] {
     width: 77%;
     padding: 15px;
     margin-top: 20px;
@@ -184,8 +164,7 @@ input[type="password"]
     border-width: 3px;
 }
 
-input[type="submit"] 
-{
+input[type="submit"] {
     width: 70%;
     padding: 15px;
     margin-top: 20px;
@@ -201,44 +180,37 @@ input[type="submit"]
     transition: background-color 0.5s, box-shadow 0.5s, opacity 0.5s, scale 0.5s;
 }
 
-input[type="submit"]:hover 
-{
+input[type="submit"]:hover {
     background-color: #4cae4c;
     box-shadow: 5px 3px 10px rgb(81, 80, 80);
     scale: 1.05;
 }
 
-#error-message 
-{
+#error-message {
     color: red;
     margin-top: 10px;
 }
 
-.forgot-pwd
-{
+.forgot-pwd {
     margin: 10px;
 }
 
-.login-container 
-{
+.login-container {
     text-align: center;
 }
 
-.role-selector button 
-{
+.role-selector button {
     transition: opacity 0.5s ease;
 }
 
-.login-form 
-{
-    display: none; 
-    opacity: 0; 
-    transition: opacity 0.5s ease; 
+.login-form {
+    display: none;
+    opacity: 0;
+    transition: opacity 0.5s ease;
 }
 
-.login-form.show 
-{
-    display: block; 
-    opacity: 1; 
+.login-form.show {
+    display: block;
+    opacity: 1;
 }
 /*FORM END*/

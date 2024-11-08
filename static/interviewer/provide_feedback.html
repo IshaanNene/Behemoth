@@ -1,32 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Provide Feedback</title>
-    <link rel="stylesheet" href="/static/css/interviewer-styles.css">
-</head>
-<body>
-    <form action="/provide-feedback" method="post">
-        <h1>Provide Feedback</h1>
-        <div class="form-group">
-            <label for="candidate">Select Candidate:</label>
-            <select id="candidate" name="candidate" required>
-                <option value="">--Select Candidate--</option>
-                <!-- Options will be dynamically populated -->
-            </select>
-        </div>
+    <head>
+        <meta charset="UTF-8" />
+        <title>Provide Feedback</title>
+        <link rel="stylesheet" href="/static/css/interviewer-styles.css" />
+    </head>
+    <body>
+        <form action="/provide-feedback" method="post">
+            <h1>Provide Feedback</h1>
+            <div class="form-group">
+                <label for="candidate">Select Candidate:</label>
+                <select id="candidate" name="candidate" required>
+                    <option value="">--Select Candidate--</option>
+                    <!-- Options will be dynamically populated -->
+                </select>
+            </div>
 
-        <div class="form-group">
-            <label for="feedback">Feedback:</label>
-            <textarea id="feedback" name="feedback" rows="5" required></textarea>
-        </div>
+            <div class="form-group">
+                <label for="feedback">Feedback:</label>
+                <textarea id="feedback" name="feedback" rows="5" required></textarea>
+            </div>
 
-        <div class="form-group">
-            <button type="submit">Submit Feedback</button>
+            <div class="form-group">
+                <button type="submit">Submit Feedback</button>
+            </div>
+        </form>
+        <div id="feedback-results">
+            <!-- Submitted feedback will be displayed here -->
         </div>
-    </form>
-    <div id="feedback-results">
-        <!-- Submitted feedback will be displayed here -->
-    </div>
-</body>
+    </body>
 </html>
