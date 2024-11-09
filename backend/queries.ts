@@ -8,7 +8,6 @@ export const CREATE_STUDENTS_TABLE = `
         year_of_passing INT NULL,
         srn VARCHAR(20) UNIQUE NULL,
         branch VARCHAR(50) NULL,
-        program VARCHAR(50) NULL,
         semester INT NULL,
         cgpa DECIMAL(4,2) NULL,
         marks_10 DECIMAL(5,2) NULL,
