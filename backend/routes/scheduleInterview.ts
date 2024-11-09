@@ -8,8 +8,6 @@ export async function scheduleInterview(req: Request, pool: any, corsHeaders: an
                 scheduledTime: string
             }
 
-            console.log({ studentId, interviewerId, scheduledTime })
-
             if (!studentId || !interviewerId || !scheduledTime) {
                 return Response.json(
                     {
@@ -20,45 +18,32 @@ export async function scheduleInterview(req: Request, pool: any, corsHeaders: an
                 )
             }
 
-            // Verify student exists
-            const [students] = await pool.execute("SELECT id FROM student WHERE id = ?", [studentId])
-
-            if (!students || students.length === 0) {
-                return Response.json(
-                    {
-                        success: false,
-                        error: "Student not found",
-                    },
-                    { status: 404, headers: corsHeaders }
-                )
-            }
-
-            // Verify interviewer exists
-            const [interviewers] = await pool.execute("SELECT id FROM interviewer WHERE id = ?", [interviewerId])
-
-            if (!interviewers || interviewers.length === 0) {
-                return Response.json(
-                    {
-                        success: false,
-                        error: "Interviewer not found",
-                    },
-                    { status: 404, headers: corsHeaders }
-                )
-            }
-
-            // Schedule the interview
-            const interviewId = Math.random().toString(36).substr(2, 9)
-            await pool.execute(
-                `INSERT INTO interview_slot (id, student_id, interviewer_id, scheduled_time, status) 
-                VALUES (?, ?, ?, ?, ?)`,
-                [interviewId, studentId, interviewerId, scheduledTime, "scheduled"]
+            // Call the stored procedure
+            const [results] = await pool.execute(
+                "CALL schedule_interview(?, ?, ?, @interview_id, @success, @message)",
+                [studentId, interviewerId, scheduledTime]
             )
+
+            // Get the output parameters
+            const [[outputParams]] = await pool.execute(
+                "SELECT @interview_id as interviewId, @success as success, @message as message"
+            )
+
+            if (!outputParams.success) {
+                return Response.json(
+                    {
+                        success: false,
+                        error: outputParams.message,
+                    },
+                    { status: 400, headers: corsHeaders }
+                )
+            }
 
             return Response.json(
                 {
                     success: true,
-                    message: "Interview scheduled successfully",
-                    interviewId,
+                    message: outputParams.message,
+                    interviewId: outputParams.interviewId,
                 },
                 { headers: corsHeaders }
             )

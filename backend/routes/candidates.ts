@@ -11,7 +11,6 @@ export async function candidates(req: Request, pool: any, corsHeaders: any) {
                     year_of_passing,
                     srn,
                     branch,
-                    program,
                     semester,
                     cgpa,
                     marks_10,

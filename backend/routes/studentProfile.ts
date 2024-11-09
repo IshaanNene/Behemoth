@@ -23,7 +23,6 @@ export async function studentProfile(req: Request, pool: any, corsHeaders: any) 
                     year_of_passing as yearOfPassing,
                     srn,
                     branch,
-                    program, 
                     semester,
                     cgpa,
                     marks_10 as tenthMarks,

@@ -23,6 +23,7 @@ import {
     GRANT_INTERVIEWER_SELECT_STUDENT,
     CREATE_DATABASE,
     USE_DATABASE,
+    CREATE_SCHEDULE_INTERVIEW_PROCEDURE,
 } from "./queries"
 import {
     login,
@@ -81,6 +82,9 @@ const initDb = async () => {
             GRANT_STUDENT_SELF,
             GRANT_STUDENT_FEEDBACK,
             FLUSH_PRIVILEGES,
+
+            // Add stored procedures
+            CREATE_SCHEDULE_INTERVIEW_PROCEDURE,
         ]
 
         for (const query of setupSequence) {
@@ -101,7 +105,7 @@ initDb()
 async function serveStatic(path: string) {
     const filePath = join(import.meta.dir, "..", path)
     try {
-        const f = await file(filePath)
+        const f = file(filePath)
         return new Response(f)
     } catch (err) {
         return new Response("File not found", { status: 404 })
