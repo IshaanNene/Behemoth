@@ -10,8 +10,7 @@ import {
     CREATE_FEEDBACK_TABLE,
     CREATE_INTERVIEW_SLOTS_TABLE,
 } from "./queries"
-import { login } from "./routes"
-import { editProfile } from "./routes/edit_profile"
+import { login, editProfile, studentProfile } from "./routes"
 
 // mysql://root:uGrAydpKmiGsVQAyyEAfcAzZLMiePrkC@autorack.proxy.rlwy.net:37165/railway
 // Database connection pool
@@ -112,6 +111,9 @@ const server = serve({
 
             case "/edit-profile":
                 return editProfile(req, pool, corsHeaders)
+
+            case "/student-profile":
+                return studentProfile(req, pool, corsHeaders)
 
             default:
                 return new Response("Not found", { status: 404, headers: corsHeaders })

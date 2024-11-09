@@ -16,32 +16,72 @@
                 </div>
             </div>
 
-            <div class="profile-info">
-                <p><strong>Name:</strong> John Doe</p>
-                <p><strong>Date of Birth:</strong> 2000-01-01</p>
-                <p><strong>Year of Passing:</strong> 2024</p>
-                <p><strong>PESU ID:</strong> PES1234567</p>
-                <p><strong>SRN:</strong> PESUUG2021CS1234</p>
-                <p><strong>Branch:</strong> Computer Science Engineering (CSE)</p>
-                <p><strong>Program:</strong> B.Tech</p>
-                <p><strong>Semester:</strong> 6</p>
-                <p><strong>CGPA:</strong> 8.75</p>
-                <p><strong>10th Marks:</strong> 90%</p>
-                <p><strong>12th Marks:</strong> 85%</p>
-                <p><strong>Father's Name:</strong> Richard Doe</p>
-                <p><strong>Mother's Name:</strong> Mary Doe</p>
-                <p><strong>Address:</strong> 1234 Elm Street, Springfield</p>
-                <p><strong>Email:</strong> johndoe@example.com</p>
-                <p><strong>Contact Number:</strong> 1234567890</p>
-
-                <div class="resume">
-                    <br />
-                    <a href="https://www.google.com/" class="resume-link" target="_blank">Click to view resume</a>
-                </div>
+            <div id="profile-info" class="profile-info">
+                <!-- Profile info will be dynamically populated here -->
             </div>
         </div>
 
         <script>
+            // Check user authentication and role
+            const accountData = JSON.parse(localStorage.getItem("ACCOUNT_STORAGE") || "{}")
+            const { username, selectedRole } = accountData
+
+            if (!username || !selectedRole) {
+                window.location.href = "../login/login.html"
+            }
+
+            // Function to fetch and display profile data
+            async function fetchProfileData() {
+                try {
+                    const response = await fetch(`http://localhost:6969/student-profile?username=${username}`)
+                    if (!response.ok) {
+                        throw new Error("Failed to fetch profile data")
+                    }
+                    const profileData = await response.json()
+
+                    console.log("PROFILE DATA", profileData)
+
+                    // Update profile picture if exists
+                    if (profileData.profilePicture) {
+                        document.getElementById("profile-pic-preview").src = profileData.profilePicture
+                    }
+
+                    // Create and populate profile info HTML
+                    const profileInfoHTML = `
+                        <p><strong>Name:</strong> ${profileData.name}</p>
+                        <p><strong>Date of Birth:</strong> ${profileData.dateOfBirth}</p>
+                        <p><strong>Year of Passing:</strong> ${profileData.yearOfPassing}</p>
+                        <p><strong>SRN:</strong> ${profileData.srn}</p>
+                        <p><strong>Branch:</strong> ${profileData.branch}</p>
+                        <p><strong>Program:</strong> ${profileData.program}</p>
+                        <p><strong>Semester:</strong> ${profileData.semester}</p>
+                        <p><strong>CGPA:</strong> ${profileData.cgpa}</p>
+                        <p><strong>10th Marks:</strong> ${profileData.tenthMarks}</p>
+                        <p><strong>12th Marks:</strong> ${profileData.twelfthMarks}</p>
+                        <p><strong>Father's Name:</strong> ${profileData.fatherName}</p>
+                        <p><strong>Mother's Name:</strong> ${profileData.motherName}</p>
+                        <p><strong>Address:</strong> ${profileData.address}</p>
+                        <p><strong>Email:</strong> ${profileData.email}</p>
+                        <p><strong>Contact Number:</strong> ${profileData.contactNumber}</p>
+                        
+                        <div class="resume">
+                            <br />
+                            <a href="${profileData.resumeLink}" class="resume-link" target="_blank">Click to view resume</a>
+                        </div>
+                    `
+
+                    document.getElementById("profile-info").innerHTML = profileInfoHTML
+                } catch (error) {
+                    console.error("Error fetching profile data:", error)
+                    document.getElementById("profile-info").innerHTML =
+                        "<p>Error loading profile data. Please try again later.</p>"
+                }
+            }
+
+            // Fetch profile data when page loads
+            fetchProfileData()
+
+            // Handle profile picture upload
             document.getElementById("profile-pic-input").addEventListener("change", function (event) {
                 const file = event.target.files[0]
                 const reader = new FileReader()

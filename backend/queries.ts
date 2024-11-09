@@ -6,7 +6,6 @@ export const CREATE_STUDENTS_TABLE = `
         fullname VARCHAR(100) NULL,
         dob DATE NULL,
         year_of_passing INT NULL,
-        prn VARCHAR(20) UNIQUE NULL,
         srn VARCHAR(20) UNIQUE NULL,
         branch VARCHAR(50) NULL,
         program VARCHAR(50) NULL,
@@ -19,7 +18,6 @@ export const CREATE_STUDENTS_TABLE = `
         address TEXT NULL,
         email VARCHAR(100) NULL,
         contact VARCHAR(20) NULL,
-        resume TEXT NULL,
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
     )
