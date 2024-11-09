@@ -47,10 +47,8 @@
                             if (!candidateMap.has(candidate.username)) {
                                 candidateMap.set(candidate.username, {
                                     ...candidate,
-                                    interviewCount: 0,
+                                    hasInterview: candidate.has_interview
                                 })
-                            } else {
-                                candidateMap.get(candidate.username).interviewCount++
                             }
                         })
 
@@ -84,7 +82,7 @@
                             <p><strong>CGPA:</strong> ${candidate.cgpa || "N/A"}</p>
                             <p><strong>Email:</strong> ${candidate.email || "N/A"}</p>
                             <p><strong>Contact:</strong> ${candidate.contact || "N/A"}</p>
-                            <p><strong>Scheduled Interviews:</strong> ${candidate.interviewCount}</p>
+                            <p><strong>Interview Status:</strong> ${candidate.hasInterview ? "Scheduled" : "Not Scheduled"}</p>
                         </div>
                     </div>
                 `
