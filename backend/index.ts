@@ -17,6 +17,7 @@ import {
     candidates,
     scheduleInterview,
     candidateProfileJoin,
+    provideFeedback,
 } from "./routes"
 
 // Database connection pool
@@ -130,6 +131,9 @@ const server = serve({
 
             case "/schedule-interview":
                 return scheduleInterview(req, pool, corsHeaders)
+
+            case "/provide-feedback":
+                return provideFeedback(req, pool, corsHeaders)
 
             default:
                 return new Response("Not found", { status: 404, headers: corsHeaders })

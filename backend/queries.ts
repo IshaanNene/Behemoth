@@ -45,13 +45,12 @@ export const CREATE_ADMINS_TABLE = `
 export const CREATE_FEEDBACK_TABLE = `
     CREATE TABLE IF NOT EXISTS feedback (
         id INT AUTO_INCREMENT PRIMARY KEY,
-        candidate_srn VARCHAR(20) NOT NULL,
+        candidate_id VARCHAR(20) NOT NULL,
         interviewer_id VARCHAR(20) NOT NULL,
         comments TEXT NOT NULL,
-        score INT NOT NULL,
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-        FOREIGN KEY (candidate_srn) REFERENCES student(srn),
+        FOREIGN KEY (candidate_id) REFERENCES student(id),
         FOREIGN KEY (interviewer_id) REFERENCES interviewer(id)
     )
 `
