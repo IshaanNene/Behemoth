@@ -18,23 +18,9 @@ export async function interviewerProfile(req: Request, pool: any, corsHeaders: a
             const [rows] = await pool.execute(
                 `SELECT 
                     id,
-                    fullname as name,
-                    dob as dateOfBirth,
-                    year_of_passing as yearOfPassing,
-                    srn,
-                    branch,
-                    program, 
-                    semester,
-                    cgpa,
-                    marks_10 as tenthMarks,
-                    marks_12 as twelfthMarks,
-                    father_name as fatherName,
-                    mother_name as motherName,
-                    address,
-                    email,
-                    contact as contactNumber,
-                    created_at,
-                    updated_at
+                    username,
+                    fullname,
+                    email
                 FROM interviewer 
                 WHERE username = ?`,
                 [username]

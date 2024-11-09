@@ -6,6 +6,7 @@ export async function candidates(req: Request, pool: any, corsHeaders: any) {
                 `SELECT 
                     id,
                     fullname,
+                    username,
                     dob,
                     year_of_passing,
                     srn,

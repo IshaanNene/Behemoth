@@ -2,24 +2,26 @@ export async function scheduleInterview(req: Request, pool: any, corsHeaders: an
     if (req.method === "POST") {
         try {
             const body = await req.json()
-            const { studentUsername, interviewerUsername, scheduledTime } = body as {
-                studentUsername: string
-                interviewerUsername: string
+            const { studentId, interviewerId, scheduledTime } = body as {
+                studentId: string
+                interviewerId: string
                 scheduledTime: string
             }
 
-            if (!studentUsername || !interviewerUsername || !scheduledTime) {
+            console.log({ studentId, interviewerId, scheduledTime })
+
+            if (!studentId || !interviewerId || !scheduledTime) {
                 return Response.json(
                     {
                         success: false,
-                        error: "Student username, interviewer username and scheduled time are required",
+                        error: "Student id, interviewer id and scheduled time are required",
                     },
                     { status: 400, headers: corsHeaders }
                 )
             }
 
             // Verify student exists
-            const [students] = await pool.execute("SELECT id FROM student WHERE username = ?", [studentUsername])
+            const [students] = await pool.execute("SELECT id FROM student WHERE id = ?", [studentId])
 
             if (!students || students.length === 0) {
                 return Response.json(
@@ -32,9 +34,7 @@ export async function scheduleInterview(req: Request, pool: any, corsHeaders: an
             }
 
             // Verify interviewer exists
-            const [interviewers] = await pool.execute("SELECT id FROM interviewer WHERE username = ?", [
-                interviewerUsername,
-            ])
+            const [interviewers] = await pool.execute("SELECT id FROM interviewer WHERE id = ?", [interviewerId])
 
             if (!interviewers || interviewers.length === 0) {
                 return Response.json(
@@ -49,9 +49,9 @@ export async function scheduleInterview(req: Request, pool: any, corsHeaders: an
             // Schedule the interview
             const interviewId = Math.random().toString(36).substr(2, 9)
             await pool.execute(
-                `INSERT INTO interview_slot (id, student_username, interviewer_username, scheduled_time, status) 
+                `INSERT INTO interview_slot (id, student_id, interviewer_id, scheduled_time, status) 
                 VALUES (?, ?, ?, ?, ?)`,
-                [interviewId, studentUsername, interviewerUsername, scheduledTime, "scheduled"]
+                [interviewId, studentId, interviewerId, scheduledTime, "scheduled"]
             )
 
             return Response.json(

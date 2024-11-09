@@ -93,7 +93,14 @@
                 e.preventDefault()
 
                 const accountData = JSON.parse(localStorage.getItem("ACCOUNT_STORAGE") || "{}")
-                const { username } = accountData
+                const { username, selectedRole } = accountData
+
+                // require to be logged in as the student
+                if (!username || !selectedRole) {
+                    window.location.href = "../login/login.html"
+                } else if (selectedRole !== "student") {
+                    window.location.href = `../${selectedRole}/${selectedRole}.html`
+                }
 
                 const formData = {
                     username: username,
