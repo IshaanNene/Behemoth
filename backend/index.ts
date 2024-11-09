@@ -10,9 +10,7 @@ import {
     CREATE_INTERVIEW_SLOTS_TABLE,
     CREATE_FEEDBACK_TRIGGER,
     FLUSH_PRIVILEGES,
-    GRANT_STUDENT_PRIVILEGES,
     CREATE_STUDENT_USER,
-    GRANT_INTERVIEWER_PRIVILEGES,
     CREATE_INTERVIEWER_USER,
     GRANT_ADMIN_PRIVILEGES,
     CREATE_ADMIN_USER,
@@ -23,6 +21,8 @@ import {
     GRANT_INTERVIEWER_SLOT,
     GRANT_INTERVIEWER_FEEDBACK,
     GRANT_INTERVIEWER_SELECT_STUDENT,
+    CREATE_DATABASE,
+    USE_DATABASE,
 } from "./queries"
 import {
     login,
@@ -52,25 +52,23 @@ const initDb = async () => {
     try {
         const connection = await pool.getConnection()
 
-        // Drop all existing tables first
-        // await connection.query("DROP TABLE IF EXISTS feedback")
-        // await connection.query("DROP TABLE IF EXISTS interview_slot")
-        // await connection.query("DROP TABLE IF EXISTS student")
-        // await connection.query("DROP TABLE IF EXISTS interviewer")
-        // await connection.query("DROP TABLE IF EXISTS admin")
+        // Create and use database first
+        await connection.query(CREATE_DATABASE)
+        await connection.query(USE_DATABASE)
 
-        // Recreate tables
-        const tables = [
-            // tables
+        // Then create tables and other objects in correct order
+        const setupSequence = [
+            // Create tables first
             CREATE_STUDENTS_TABLE,
             CREATE_INTERVIEWERS_TABLE,
             CREATE_ADMINS_TABLE,
             CREATE_FEEDBACK_TABLE,
             CREATE_INTERVIEW_SLOTS_TABLE,
 
-            // triggers
+            // Then create trigger
             CREATE_FEEDBACK_TRIGGER,
 
+            // Finally set up users and privileges
             CREATE_ADMIN_USER,
             GRANT_ADMIN_PRIVILEGES,
             CREATE_INTERVIEWER_USER,
@@ -85,14 +83,14 @@ const initDb = async () => {
             FLUSH_PRIVILEGES,
         ]
 
-        for (const table of tables) {
-            await connection.query(table)
+        for (const query of setupSequence) {
+            await connection.query(query)
         }
 
         connection.release()
-        console.log(">>> Database tables dropped and recreated successfully\n")
+        console.log(">>> Database initialized successfully\n")
     } catch (err) {
-        console.error("Error reinitializing database tables:", err)
+        console.error("Error initializing database:", err)
     }
 }
 
