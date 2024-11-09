@@ -139,7 +139,7 @@ FLUSH PRIVILEGES;
 `
 
 export const CREATE_SCHEDULE_INTERVIEW_PROCEDURE = `
-CREATE PROCEDURE IF NOT EXISTS schedule_interview(
+CREATE PROCEDURE IF NOT EXISTS railway.schedule_interview(
     IN p_student_id VARCHAR(20),
     IN p_interviewer_id VARCHAR(20),
     IN p_scheduled_time DATETIME,
@@ -160,17 +160,17 @@ BEGIN
     
     -- Check if student exists
     SELECT COUNT(*) INTO student_exists 
-    FROM student 
+    FROM railway.student 
     WHERE id = p_student_id;
     
     -- Check if interviewer exists
     SELECT COUNT(*) INTO interviewer_exists 
-    FROM interviewer 
+    FROM railway.interviewer 
     WHERE id = p_interviewer_id;
     
     -- Check for existing interviews at the same time
     SELECT COUNT(*) INTO existing_interview 
-    FROM interview_slot 
+    FROM railway.interview_slot 
     WHERE (student_id = p_student_id OR interviewer_id = p_interviewer_id)
     AND scheduled_time = p_scheduled_time
     AND status = 'scheduled';
@@ -186,7 +186,7 @@ BEGIN
         SET p_success = FALSE;
         SET p_message = 'Time slot already booked';
     ELSE
-        INSERT INTO interview_slot (
+        INSERT INTO railway.interview_slot (
             id, 
             student_id, 
             interviewer_id, 

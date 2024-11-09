@@ -47,7 +47,7 @@
                             if (!candidateMap.has(candidate.username)) {
                                 candidateMap.set(candidate.username, {
                                     ...candidate,
-                                    interviewCount: 1,
+                                    interviewCount: 0,
                                 })
                             } else {
                                 candidateMap.get(candidate.username).interviewCount++
