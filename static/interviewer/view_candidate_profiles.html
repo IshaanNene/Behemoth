@@ -29,11 +29,32 @@
 
             async function fetchCandidates() {
                 try {
-                    const response = await fetch("http://localhost:6969/candidates")
+                    const interviewerData = await fetch(
+                        `http://localhost:6969/interviewer-profile?username=${interviewerUsername}`
+                    ).then((res) => res.json())
+
+                    const response = await fetch(
+                        `http://localhost:6969/candidate-profile-join?interviewerId=${interviewerData.id}`
+                    )
                     const data = await response.json()
 
+                    console.log("RESPONSE DATA", data)
+
                     if (data.success) {
-                        allCandidates = data.candidates
+                        // Group candidates by their username to handle multiple interviews
+                        const candidateMap = new Map()
+                        data.candidates.forEach((candidate) => {
+                            if (!candidateMap.has(candidate.username)) {
+                                candidateMap.set(candidate.username, {
+                                    ...candidate,
+                                    interviewCount: 1,
+                                })
+                            } else {
+                                candidateMap.get(candidate.username).interviewCount++
+                            }
+                        })
+
+                        allCandidates = Array.from(candidateMap.values())
                         displayCandidates(allCandidates)
                     } else {
                         console.error("Failed to fetch candidates:", data.error)
@@ -63,6 +84,7 @@
                             <p><strong>CGPA:</strong> ${candidate.cgpa || "N/A"}</p>
                             <p><strong>Email:</strong> ${candidate.email || "N/A"}</p>
                             <p><strong>Contact:</strong> ${candidate.contact || "N/A"}</p>
+                            <p><strong>Scheduled Interviews:</strong> ${candidate.interviewCount}</p>
                         </div>
                     </div>
                 `

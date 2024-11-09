@@ -42,21 +42,6 @@ export const CREATE_ADMINS_TABLE = `
     )
 `
 
-export const CREATE_INTERVIEWS_TABLE = `
-    CREATE TABLE IF NOT EXISTS interview (
-        id INT AUTO_INCREMENT PRIMARY KEY,
-        candidate_srn VARCHAR(20) NOT NULL,
-        interview_date DATE NOT NULL,
-        interviewer_id VARCHAR(20) NOT NULL,
-        slot_id INT NOT NULL,
-        status ENUM('scheduled', 'completed', 'cancelled') DEFAULT 'scheduled',
-        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-        updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-        FOREIGN KEY (candidate_srn) REFERENCES student(srn),
-        FOREIGN KEY (interviewer_id) REFERENCES interviewer(id)
-    )
-`
-
 export const CREATE_FEEDBACK_TABLE = `
     CREATE TABLE IF NOT EXISTS feedback (
         id INT AUTO_INCREMENT PRIMARY KEY,

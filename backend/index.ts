@@ -5,12 +5,19 @@ import { file } from "bun"
 import {
     CREATE_ADMINS_TABLE,
     CREATE_INTERVIEWERS_TABLE,
-    CREATE_INTERVIEWS_TABLE,
     CREATE_STUDENTS_TABLE,
     CREATE_FEEDBACK_TABLE,
     CREATE_INTERVIEW_SLOTS_TABLE,
 } from "./queries"
-import { login, editProfile, studentProfile, interviewerProfile, candidates, scheduleInterview } from "./routes"
+import {
+    login,
+    editProfile,
+    studentProfile,
+    interviewerProfile,
+    candidates,
+    scheduleInterview,
+    candidateProfileJoin,
+} from "./routes"
 
 // Database connection pool
 const pool = mysql.createPool({
@@ -32,7 +39,6 @@ const initDb = async () => {
         // Drop all existing tables first
         // await connection.query("DROP TABLE IF EXISTS feedback")
         // await connection.query("DROP TABLE IF EXISTS interview_slot")
-        // await connection.query("DROP TABLE IF EXISTS interview")
         // await connection.query("DROP TABLE IF EXISTS student")
         // await connection.query("DROP TABLE IF EXISTS interviewer")
         // await connection.query("DROP TABLE IF EXISTS admin")
@@ -42,7 +48,6 @@ const initDb = async () => {
             CREATE_STUDENTS_TABLE,
             CREATE_INTERVIEWERS_TABLE,
             CREATE_ADMINS_TABLE,
-            CREATE_INTERVIEWS_TABLE,
             CREATE_FEEDBACK_TABLE,
             CREATE_INTERVIEW_SLOTS_TABLE,
         ]
@@ -119,6 +124,9 @@ const server = serve({
 
             case "/candidates":
                 return candidates(req, pool, corsHeaders)
+
+            case "/candidate-profile-join":
+                return candidateProfileJoin(req, pool, corsHeaders)
 
             case "/schedule-interview":
                 return scheduleInterview(req, pool, corsHeaders)
