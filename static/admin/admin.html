@@ -11,6 +11,7 @@
         <div class="logo-container">
             <img src="../photos/logoPesu.png" alt="College Logo" class="logo" />
             <button class="home-btn">HOME</button>
+            <div id="user-info"></div>
         </div>
         <div class="main-content">
             <div class="align">
@@ -178,6 +179,19 @@
         </div>
 
         <script>
+            // Check user authentication and role
+            const accountData = JSON.parse(localStorage.getItem("ACCOUNT_STORAGE") || "{}")
+            const { username, selectedRole } = accountData
+
+            if (!username || !selectedRole) {
+                window.location.href = "../login/login.html"
+            } else if (selectedRole !== "admin") {
+                window.location.href = `../${selectedRole}/${selectedRole}.html`
+            }
+
+            // Display user info
+            document.getElementById("user-info").innerHTML = `Currently signed in as: <b>${username}</b>`
+
             const loadContent = (src) => {
                 document.querySelector(".main-content").innerHTML = ""
                 const iframe = document.createElement("iframe")
