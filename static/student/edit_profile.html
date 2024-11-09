@@ -8,40 +8,65 @@
     <body class="edit-profile">
         <div class="form-container">
             <h1>Edit Profile</h1>
-            <form>
+            <form id="editProfileForm">
                 <div class="form-group">
                     <label for="name">Name</label>
-                    <input type="text" id="name" name="name" value="John Doe" required />
+                    <input type="text" id="name" name="name" placeholder="Enter your full name" required />
                 </div>
 
                 <div class="form-group">
-                    <label for="dob">Date of Birth</label>
-                    <input type="date" id="dob" name="dob" value="2000-01-01" required />
+                    <label for="srn">SRN</label>
+                    <input type="text" id="srn" name="srn" placeholder="Enter your SRN" required />
                 </div>
 
-                <div class="form-group">
-                    <label for="fatherName">Father's Name</label>
-                    <input type="text" id="fatherName" name="fatherName" value="Richard Doe" required />
-                </div>
-
-                <div class="form-group">
-                    <label for="motherName">Mother's Name</label>
-                    <input type="text" id="motherName" name="motherName" value="Mary Doe" required />
-                </div>
-
-                <div class="form-group">
-                    <label for="address">Address</label>
-                    <textarea id="address" name="address" rows="3" required>1234 Elm Street, Springfield</textarea>
-                </div>
-
-                <div class="form-group">
+                <div class="form-group"></div>
                     <label for="email">Email</label>
-                    <input type="email" id="email" name="email" value="johndoe@example.com" required />
+                    <input type="email" id="email" name="email" placeholder="Enter your email address" required />
                 </div>
 
                 <div class="form-group">
                     <label for="contact">Contact Number</label>
-                    <input type="tel" id="contact" name="contact" value="1234567890" required />
+                    <input type="tel" id="contact" name="contact" placeholder="Enter your contact number" required />
+                </div>
+
+                <div class="form-group">
+                    <label for="dob">Date of Birth</label>
+                    <input type="date" id="dob" name="dob" placeholder="Select your date of birth" required />
+                </div>
+
+                <div class="form-group">
+                    <label for="yearOfPassing">Year of Passing</label>
+                    <input type="number" id="yearOfPassing" name="yearOfPassing" min="2000" max="2100" required />
+                </div>
+
+                <div class="form-group">
+                    <label for="fatherName">Father's Name</label>
+                    <input
+                        type="text"
+                        id="fatherName"
+                        name="fatherName"
+                        placeholder="Enter your father's name"
+                        required />
+                </div>
+
+                <div class="form-group">
+                    <label for="motherName">Mother's Name</label>
+                    <input
+                        type="text"
+                        id="motherName"
+                        name="motherName"
+                        placeholder="Enter your mother's name"
+                        required />
+                </div>
+
+                <div class="form-group">
+                    <label for="address">Address</label>
+                    <textarea
+                        id="address"
+                        name="address"
+                        rows="3"
+                        placeholder="Enter your full address"
+                        required></textarea>
                 </div>
 
                 <div class="form-group">
@@ -49,5 +74,52 @@
                 </div>
             </form>
         </div>
+
+        <script>
+            // Check user authentication and role
+            const accountData = JSON.parse(localStorage.getItem("ACCOUNT_STORAGE") || "{}")
+            const { username, selectedRole } = accountData
+
+            if (!username || !selectedRole) {
+                window.location.href = "../login/login.html"
+            }
+
+            document.getElementById("editProfileForm").addEventListener("submit", async (e) => {
+                e.preventDefault()
+
+                const formData = {
+                    username,
+                    name: document.getElementById("name").value,
+                    dob: document.getElementById("dob").value,
+                    fatherName: document.getElementById("fatherName").value,
+                    motherName: document.getElementById("motherName").value,
+                    address: document.getElementById("address").value,
+                    email: document.getElementById("email").value,
+                    contact: document.getElementById("contact").value,
+                    yearOfPassing: document.getElementById("yearOfPassing").value,
+                    srn: document.getElementById("srn").value,
+                }
+                console.log("FORMAT DATA:", formData)
+
+                try {
+                    const response = await fetch("/api/student/profile", {
+                        method: "PUT",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify(formData),
+                    })
+
+                    if (response.ok) {
+                        alert("Profile updated successfully!")
+                    } else {
+                        alert("Failed to update profile. Please try again.")
+                    }
+                } catch (error) {
+                    console.error("Error:", error)
+                    alert("An error occurred while updating profile.")
+                }
+            })
+        </script>
     </body>
 </html>
