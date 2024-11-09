@@ -110,7 +110,7 @@ const server = serve({
             case "/login":
                 return login(req, pool, corsHeaders)
 
-            case "/api/student/profile":
+            case "/edit-profile":
                 return editProfile(req, pool, corsHeaders)
 
             default:
