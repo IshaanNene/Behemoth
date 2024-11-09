@@ -1,4 +1,4 @@
-export async function studentProfile(req: Request, pool: any, corsHeaders: any) {
+export async function interviewerProfile(req: Request, pool: any, corsHeaders: any) {
     if (req.method === "GET") {
         try {
             const url = new URL(req.url)
@@ -14,7 +14,7 @@ export async function studentProfile(req: Request, pool: any, corsHeaders: any) 
                 )
             }
 
-            // Fetch student profile
+            // Fetch interviewer profile
             const [rows] = await pool.execute(
                 `SELECT 
                     id,
@@ -35,7 +35,7 @@ export async function studentProfile(req: Request, pool: any, corsHeaders: any) 
                     contact as contactNumber,
                     created_at,
                     updated_at
-                FROM student 
+                FROM interviewer 
                 WHERE username = ?`,
                 [username]
             )
@@ -44,7 +44,7 @@ export async function studentProfile(req: Request, pool: any, corsHeaders: any) 
                 return Response.json(
                     {
                         success: false,
-                        error: "Student not found",
+                        error: "Interviewer not found",
                     },
                     { status: 404, headers: corsHeaders }
                 )
@@ -52,7 +52,7 @@ export async function studentProfile(req: Request, pool: any, corsHeaders: any) 
 
             return Response.json(rows[0], { headers: corsHeaders })
         } catch (err) {
-            console.error("Error fetching student profile:", err)
+            console.error("Error fetching interviewer profile:", err)
             return Response.json(
                 {
                     success: false,

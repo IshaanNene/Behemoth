@@ -40,6 +40,19 @@
                 </div>
 
                 <div class="form-group">
+                    <label for="cgpa">CGPA</label>
+                    <input
+                        type="number"
+                        id="cgpa"
+                        name="cgpa"
+                        step="0.01"
+                        min="0"
+                        max="10"
+                        placeholder="8.50"
+                        required />
+                </div>
+
+                <div class="form-group">
                     <label for="contact">Contact Number</label>
                     <input type="tel" id="contact" name="contact" placeholder="1234567890" required />
                 </div>
@@ -96,6 +109,7 @@
                         new Date().getFullYear() + (8 - parseInt(document.getElementById("semester").value)) / 2,
                     branch: document.getElementById("branch").value,
                     semester: document.getElementById("semester").value,
+                    cgpa: document.getElementById("cgpa").value,
                 }
 
                 try {

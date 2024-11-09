@@ -10,15 +10,14 @@ import {
     CREATE_FEEDBACK_TABLE,
     CREATE_INTERVIEW_SLOTS_TABLE,
 } from "./queries"
-import { login, editProfile, studentProfile } from "./routes"
+import { login, editProfile, studentProfile, interviewerProfile, candidates, scheduleInterview } from "./routes"
 
-// mysql://root:uGrAydpKmiGsVQAyyEAfcAzZLMiePrkC@autorack.proxy.rlwy.net:37165/railway
 // Database connection pool
 const pool = mysql.createPool({
-    host: "autorack.proxy.rlwy.net",
-    port: 37165,
+    host: "junction.proxy.rlwy.net",
+    port: 26523,
     user: "root",
-    password: "uGrAydpKmiGsVQAyyEAfcAzZLMiePrkC",
+    password: "GzSIqTzJJmJyeosAjwghQDRtvSQpBJXy",
     database: "railway",
     waitForConnections: true,
     connectionLimit: 10,
@@ -114,6 +113,15 @@ const server = serve({
 
             case "/student-profile":
                 return studentProfile(req, pool, corsHeaders)
+
+            case "/interviewer-profile":
+                return interviewerProfile(req, pool, corsHeaders)
+
+            case "/candidates":
+                return candidates(req, pool, corsHeaders)
+
+            case "/schedule-interview":
+                return scheduleInterview(req, pool, corsHeaders)
 
             default:
                 return new Response("Not found", { status: 404, headers: corsHeaders })

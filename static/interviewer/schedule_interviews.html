@@ -6,13 +6,12 @@
         <link rel="stylesheet" href="../css/interviewer-styles.css" />
     </head>
     <body>
-        <form action="/schedule-interviews" method="post">
+        <form id="schedule-form">
             <h1>Schedule Interviews</h1>
             <div class="form-group">
                 <label for="candidate">Select Candidate:</label>
                 <select id="candidate" name="candidate" required>
                     <option value="">--Select Candidate--</option>
-                    <!-- Options will be dynamically populated -->
                 </select>
             </div>
 
@@ -27,19 +26,86 @@
             </div>
 
             <div class="form-group">
-                <label for="interviewer">Select Interviewer:</label>
-                <select id="interviewer" name="interviewer" required>
-                    <option value="">--Select Interviewer--</option>
-                    <!-- Options will be dynamically populated -->
-                </select>
-            </div>
-
-            <div class="form-group">
                 <button type="submit">Schedule Interview</button>
             </div>
         </form>
         <div id="schedule-results">
             <!-- Scheduled interviews will be displayed here -->
         </div>
+
+        <script>
+            // Fetch candidates from backend when page loads
+            window.addEventListener("load", async () => {
+                try {
+                    const response = await fetch("http://localhost:6969/candidates")
+                    const data = await response.json()
+
+                    if (data.success) {
+                        const candidateSelect = document.getElementById("candidate")
+                        data.candidates.forEach((candidate) => {
+                            const option = document.createElement("option")
+                            option.value = candidate.srn
+                            option.textContent = `${candidate.fullname} (${candidate.srn})`
+                            candidateSelect.appendChild(option)
+                        })
+                    } else {
+                        console.error("Failed to fetch candidates:", data.error)
+                    }
+                } catch (error) {
+                    console.error("Error fetching candidates:", error)
+                }
+            })
+
+            // Handle form submission
+            document.getElementById("schedule-form").addEventListener("submit", async (e) => {
+                e.preventDefault()
+
+                const candidateSrn = document.getElementById("candidate").value
+                const interviewDate = document.getElementById("interview-date").value
+                const interviewTime = document.getElementById("interview-time").value
+
+                const studentData = await fetch(`http://localhost:6969/student-profile?username=${candidateSrn}`).then(
+                    (res) => res.json()
+                )
+                const interviewerData = await fetch(
+                    `http://localhost:6969/interviewer-profile?username=${localStorage.getItem("username")}`
+                ).then((res) => res.json())
+
+                console.log({ studentData, interviewerData })
+                
+                // Combine date and time
+                const scheduledDateTime = `${interviewDate}T${interviewTime}`
+
+                try {
+                    const response = await fetch("http://localhost:6969/schedule-interview", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({
+                            studentId: studentData.id,
+                            interviewerId: interviewerData.id,
+                            candidateSrn,
+                            scheduledDateTime,
+                        }),
+                    })
+
+                    const data = await response.json()
+
+                    if (data.success) {
+                        const resultsDiv = document.getElementById("schedule-results")
+                        resultsDiv.innerHTML = `<p class="success">Interview scheduled successfully!</p>`
+                        document.getElementById("schedule-form").reset()
+                    } else {
+                        const resultsDiv = document.getElementById("schedule-results")
+                        resultsDiv.innerHTML = `<p class="error">Failed to schedule interview: ${data.error}</p>`
+                    }
+                } catch (error) {
+                    console.error("Error scheduling interview:", error)
+                    const resultsDiv = document.getElementById("schedule-results")
+                    resultsDiv.innerHTML = `<p class="error">Error scheduling interview. Please try again.</p>`
+                }
+            })
+        </script>
     </body>
 </html>

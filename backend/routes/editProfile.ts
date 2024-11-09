@@ -15,6 +15,7 @@ export async function editProfile(req: Request, pool: any, corsHeaders: any) {
                 yearOfPassing,
                 branch,
                 semester,
+                cgpa,
             } = body
 
             // Update user profile
@@ -30,7 +31,8 @@ export async function editProfile(req: Request, pool: any, corsHeaders: any) {
                     year_of_passing = ?,
                     srn = ?,
                     branch = ?,
-                    semester = ?
+                    semester = ?,
+                    cgpa = ?
                 WHERE username = ?`,
                 [
                     name,
@@ -44,6 +46,7 @@ export async function editProfile(req: Request, pool: any, corsHeaders: any) {
                     srn,
                     branch,
                     semester,
+                    cgpa,
                     username,
                 ]
             )

@@ -67,18 +67,21 @@ export const CREATE_FEEDBACK_TABLE = `
         score INT NOT NULL,
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-        FOREIGN KEY (candidate_srn) REFERENCES student_extended(srn),
+        FOREIGN KEY (candidate_srn) REFERENCES student(srn),
         FOREIGN KEY (interviewer_id) REFERENCES interviewer(id)
     )
 `
 
 export const CREATE_INTERVIEW_SLOTS_TABLE = `
     CREATE TABLE IF NOT EXISTS interview_slot (
-        id INT AUTO_INCREMENT PRIMARY KEY,
-        date DATE NOT NULL,
-        time TIME NOT NULL,
-        available BOOLEAN DEFAULT true,
+        id VARCHAR(20) PRIMARY KEY,
+        student_id VARCHAR(100) NOT NULL,
+        interviewer_id VARCHAR(100) NOT NULL,
+        scheduled_time DATETIME NOT NULL,
+        status ENUM('scheduled', 'completed', 'cancelled') DEFAULT 'scheduled',
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-        updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+        updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+        FOREIGN KEY (student_id) REFERENCES student(id),
+        FOREIGN KEY (interviewer_id) REFERENCES interviewer(id)
     )
 `
