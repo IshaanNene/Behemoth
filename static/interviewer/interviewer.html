@@ -155,7 +155,14 @@
             }
 
             // Display user info
-            document.getElementById("user-info").innerHTML = `Currently signed in as: <b>${username}</b>`
+            document.getElementById(
+                "user-info"
+            ).innerHTML = `Currently signed in as: <b>${username}</b> | <a href="#" onclick="logout()">Logout</a>`
+
+            const logout = () => {
+                localStorage.removeItem("ACCOUNT_STORAGE")
+                window.location.href = "../login/login.html"
+            }
 
             const loadContent = (src) => {
                 document.querySelector(".main-content").innerHTML = ""
