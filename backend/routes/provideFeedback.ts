@@ -35,7 +35,7 @@ export async function provideFeedback(req: Request, pool: any, corsHeaders: any)
             const studentId = studentRows[0].id
             const interviewerId = interviewerRows[0].id
 
-            // Insert feedback
+            // Insert feedback (status update will happen automatically via trigger)
             await pool.execute(
                 `INSERT INTO feedback (
                     candidate_id,
@@ -43,14 +43,6 @@ export async function provideFeedback(req: Request, pool: any, corsHeaders: any)
                     comments
                 ) VALUES (?, ?, ?)`,
                 [studentId, interviewerId, comments]
-            )
-
-            // Update interview slot status to completed
-            await pool.execute(
-                `UPDATE interview_slot 
-                SET status = 'completed'
-                WHERE student_id = ? AND interviewer_id = ?`,
-                [studentId, interviewerId]
             )
 
             return Response.json(
