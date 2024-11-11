@@ -36,12 +36,13 @@ import {
     provideFeedback,
 } from "./routes"
 
+// mysql://root:LetgSNtgJEyMARVfQZQYeteTVduuSGaR@junction.proxy.rlwy.net:31853/railway
 // Database connection pool
 const pool = mysql.createPool({
     host: "junction.proxy.rlwy.net",
-    port: 26523,
+    port: 31853,
     user: "root",
-    password: "GzSIqTzJJmJyeosAjwghQDRtvSQpBJXy",
+    password: "LetgSNtgJEyMARVfQZQYeteTVduuSGaR",
     database: "railway",
     waitForConnections: true,
     connectionLimit: 10,

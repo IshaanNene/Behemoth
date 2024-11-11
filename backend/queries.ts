@@ -77,6 +77,37 @@ export const CREATE_INTERVIEW_SLOTS_TABLE = `
     )
 `
 
+// Aggregation query to get interview stats per interviewer
+export const GET_INTERVIEWER_STATS = `
+    SELECT 
+        i.id,
+        i.fullname,
+        COUNT(DISTINCT s.id) as total_interviews,
+        COUNT(DISTINCT CASE WHEN s.status = 'completed' THEN s.id END) as completed_interviews,
+        AVG(CASE WHEN s.status = 'completed' THEN 1 ELSE 0 END) * 100 as completion_rate
+    FROM interviewer i
+    LEFT JOIN interview_slot s ON i.id = s.interviewer_id 
+    GROUP BY i.id, i.fullname
+`
+
+// Nested query to find students who have interviews but no feedback
+export const GET_PENDING_FEEDBACK_STUDENTS = `
+    SELECT s.* 
+    FROM student s
+    WHERE s.id IN (
+        SELECT DISTINCT sl.student_id
+        FROM interview_slot sl
+        WHERE sl.status = 'scheduled'
+        AND NOT EXISTS (
+            SELECT 1 
+            FROM feedback f 
+            WHERE f.candidate_id = sl.student_id
+            AND f.interviewer_id = sl.interviewer_id
+        )
+    )
+`
+
+
 export const CREATE_FEEDBACK_TRIGGER = `
     CREATE TRIGGER IF NOT EXISTS after_feedback_insert
     AFTER INSERT ON feedback
