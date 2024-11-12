@@ -107,7 +107,6 @@ export const GET_PENDING_FEEDBACK_STUDENTS = `
     )
 `
 
-
 export const CREATE_FEEDBACK_TRIGGER = `
     CREATE TRIGGER IF NOT EXISTS after_feedback_insert
     AFTER INSERT ON feedback
@@ -235,4 +234,35 @@ BEGIN
         SET p_message = 'Interview scheduled successfully';
     END IF;
 END;
+`
+
+export const COUNT_STUDENTS = `
+    SELECT COUNT(*) AS total_students FROM student;
+`
+
+export const GET_INTERVIEW_SLOTS_FOR_STUDENT = `
+    SELECT * FROM interview_slot 
+    WHERE student_id = (
+        SELECT id FROM student 
+        WHERE username = ?  -- Replace with the appropriate username or condition
+    );
+`
+export const AVERAGE_CGPA_BY_BRANCH = `
+    SELECT branch, AVG(cgpa) AS average_cgpa
+    FROM student
+    GROUP BY branch
+    HAVING AVG(cgpa) IS NOT NULL;
+`
+export const INTERVIEWERS_FOR_HIGH_CGPA_STUDENTS = `
+    SELECT DISTINCT i.fullname, i.email
+    FROM interviewer i
+    WHERE i.id IN (
+        SELECT DISTINCT is.interviewer_id
+        FROM interview_slot is
+        WHERE is.student_id IN (
+            SELECT id
+            FROM student
+            WHERE cgpa > ?  -- Replace with the desired CGPA threshold
+        )
+    );
 `
