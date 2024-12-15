@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Support and Issue Resolution</title>
+        <link rel="stylesheet" href="../css/admin-styles.css" />
+    </head>
+    <body>
+        <div class="main-content">
+            <h1>Support and Issue Resolution</h1>
+
+            <div class="report-issue">
+                <h2>Report an Issue</h2>
+                <form id="issue-form">
+                    <input type="text" name="issueTitle" placeholder="Issue Title" required />
+                    <textarea name="issueDescription" placeholder="Issue Description" required></textarea>
+                    <button type="submit">Submit Issue</button>
+                </form>
+            </div>
+
+            <div class="ticket-display">
+                <h2>Support Tickets</h2>
+                <table class="table" id="table">
+                    <thead>
+                        <tr>
+                            <th>Issue ID</th>
+                            <th>Title</th>
+                            <th>Description</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="issue-table-body">
+                        <!-- More issues will be added dynamically here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <script>
+            const tickets = [] // Array for ticket data
+            let ticketId = 1
+
+            //Form for reporting issue
+            document.getElementById("issue-form").addEventListener("submit", function (event) {
+                event.preventDefault()
+
+                const title = this.issueTitle.value
+                const description = this.issueDescription.value
+                const newTicket = {
+                    id: ticketId++, //Increment ID
+                    title,
+                    description,
+                    status: "Open",
+                }
+
+                tickets.push(newTicket)
+                this.reset() //Reset form
+                displayTickets() //Refresh ticket display
+            })
+
+            //Display tickets in table
+            function displayTickets() {
+                const ticketTableBody = document.querySelector("#table tbody")
+                ticketTableBody.innerHTML = "" //Clear existing tickets
+
+                tickets.forEach((ticket) => {
+                    const row = document.createElement("tr")
+                    row.innerHTML = `
+                    <td>${ticket.id}</td>
+                    <td>${ticket.title}</td>
+                    <td>${ticket.description}</td>
+                    <td>${ticket.status}</td>
+                    <td>
+                        <button class="close-issue-btn" data-id="${ticket.id}">Close Issue</button>
+                        <button class="delete-issue-btn" data-id="${ticket.id}">Delete Issue</button>
+                    </td>
+                `
+                    ticketTableBody.appendChild(row)
+                })
+
+                attachEventListeners()
+            }
+
+            //Attach event listeners for close and delete
+            function attachEventListeners() {
+                document.querySelectorAll(".close-issue-btn").forEach((button) => {
+                    button.addEventListener("click", () => {
+                        const ticketId = button.getAttribute("data-id")
+                        const ticket = tickets.find((t) => t.id == ticketId)
+                        if (ticket) {
+                            ticket.status = "Closed" //Change to Closed
+                            displayTickets() //Refresh display
+                        }
+                    })
+                })
+
+                document.querySelectorAll(".delete-issue-btn").forEach((button) => {
+                    button.addEventListener("click", () => {
+                        const ticketId = button.getAttribute("data-id")
+                        const index = tickets.findIndex((t) => t.id == ticketId)
+                        if (index > -1) {
+                            tickets.splice(index, 1) //Remove ticket from array
+                            displayTickets() //Refresh display
+                        }
+                    })
+                })
+            }
+        </script>
+    </body>
+</html>

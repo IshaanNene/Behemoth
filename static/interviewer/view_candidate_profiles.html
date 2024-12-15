@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <title>View Candidate Profiles</title>
+        <link rel="stylesheet" href="../css/interviewer-styles.css" />
+    </head>
+    <body>
+        <div class="search-bar">
+            <h1>View Candidate Profiles</h1>
+            <input type="text" id="search" placeholder="Search candidates..." />
+            <button class="search-btn" id="search-btn">Search</button>
+        </div>
+        <div id="candidate-profiles">
+            <!-- Candidate profiles will be displayed here -->
+        </div>
+
+        <script>
+            const accountData = JSON.parse(localStorage.getItem("ACCOUNT_STORAGE") || "{}")
+            const { username: interviewerUsername, selectedRole } = accountData
+
+            if (!interviewerUsername || !selectedRole) {
+                window.location.href = "../login/login.html"
+            } else if (selectedRole !== "interviewer") {
+                window.location.href = `../${selectedRole}/${selectedRole}.html`
+            }
+
+            let allCandidates = []
+
+            async function fetchCandidates() {
+                try {
+                    const interviewerData = await fetch(
+                        `http://localhost:6969/interviewer-profile?username=${interviewerUsername}`
+                    ).then((res) => res.json())
+
+                    const response = await fetch(
+                        `http://localhost:6969/candidate-profile-join?interviewerId=${interviewerData.id}`
+                    )
+                    const data = await response.json()
+
+                    console.log("RESPONSE DATA", data)
+
+                    if (data.success) {
+                        // Group candidates by their username to handle multiple interviews
+                        const candidateMap = new Map()
+                        data.candidates.forEach((candidate) => {
+                            if (!candidateMap.has(candidate.username)) {
+                                candidateMap.set(candidate.username, {
+                                    ...candidate,
+                                    hasInterview: candidate.has_interview
+                                })
+                            }
+                        })
+
+                        allCandidates = Array.from(candidateMap.values())
+                        displayCandidates(allCandidates)
+                    } else {
+                        console.error("Failed to fetch candidates:", data.error)
+                        document.getElementById(
+                            "candidate-profiles"
+                        ).innerHTML = `<p class="error">Failed to load candidates: ${data.error}</p>`
+                    }
+                } catch (error) {
+                    console.error("Error fetching candidates:", error)
+                    document.getElementById(
+                        "candidate-profiles"
+                    ).innerHTML = `<p class="error">Error loading candidates. Please try again.</p>`
+                }
+            }
+
+            function displayCandidates(candidates) {
+                const profilesContainer = document.getElementById("candidate-profiles")
+                profilesContainer.innerHTML = candidates
+                    .map(
+                        (candidate) => `
+                    <div class="candidate-profile">
+                        <h2>${candidate.fullname}</h2>
+                        <div class="profile-details">
+                            <p><strong>SRN:</strong> ${candidate.srn || "N/A"}</p>
+                            <p><strong>Branch:</strong> ${candidate.branch || "N/A"}</p>
+                            <p><strong>Year of Passing:</strong> ${candidate.year_of_passing || "N/A"}</p>
+                            <p><strong>CGPA:</strong> ${candidate.cgpa || "N/A"}</p>
+                            <p><strong>Email:</strong> ${candidate.email || "N/A"}</p>
+                            <p><strong>Contact:</strong> ${candidate.contact || "N/A"}</p>
+                            <p><strong>Interview Status:</strong> ${candidate.hasInterview ? "Scheduled" : "Not Scheduled"}</p>
+                        </div>
+                    </div>
+                `
+                    )
+                    .join("")
+            }
+
+            function searchCandidates(searchTerm) {
+                const filteredCandidates = allCandidates.filter((candidate) => {
+                    const searchString = (
+                        candidate.fullname +
+                        " " +
+                        candidate.srn +
+                        " " +
+                        candidate.branch +
+                        " " +
+                        candidate.program +
+                        " " +
+                        candidate.email
+                    ).toLowerCase()
+                    return searchString.includes(searchTerm.toLowerCase())
+                })
+                displayCandidates(filteredCandidates)
+            }
+
+            // Initial load
+            fetchCandidates()
+
+            // Search functionality
+            document.getElementById("search").addEventListener("input", (e) => {
+                searchCandidates(e.target.value)
+            })
+
+            document.getElementById("search-btn").addEventListener("click", () => {
+                const searchTerm = document.getElementById("search").value
+                searchCandidates(searchTerm)
+            })
+        </script>
+    </body>
+</html>

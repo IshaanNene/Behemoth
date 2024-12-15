@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" content="width=device-width, initial-scale=1.0" />
+        <title>InFeed</title>
+        <link rel="stylesheet" href="../css/student.css" />
+    </head>
+    <body>
+        <!--PESU LOGO-->
+        <div class="logo-container">
+            <img src="../photos/logoPesu.png" alt="College Logo" class="logo" />
+            <button class="home-btn">HOME</button>
+            <div id="user-info"></div>
+        </div>
+
+        <div class="main-content">
+            <div class="align">
+                <!--Apply for interview-->
+                <div class="card-container">
+                    <div class="card-vertical">
+                        <div class="card-front">
+                            <article class="card-front-content">
+                                <img src="../photos/interviewer.png" class="card-img" alt="interviewer" />
+                                <h1><b>Apply for interview</b></h1>
+                            </article>
+                        </div>
+                        <div class="card-back">
+                            <article class="card-back-content">
+                                <p>Apply for Interview for a Company</p>
+                                <button class="apply-interviews-btn">Apply for Interviews</button>
+                            </article>
+                        </div>
+                    </div>
+                </div>
+
+                <!--Student profile-->
+                <div class="card-container">
+                    <div class="card-vertical">
+                        <div class="card-front">
+                            <article class="card-front-content">
+                                <img src="../photos/profile.png" class="card-img" alt="profile" />
+                                <h1><b>Student Profile</b></h1>
+                            </article>
+                        </div>
+                        <div class="card-back">
+                            <article class="card-back-content">
+                                <p>View your Profile and Resume</p>
+                                <button class="student-btn">View Student Profile</button>
+                            </article>
+                        </div>
+                    </div>
+                </div>
+
+                <!--Register-->
+                <div class="card-container">
+                    <div class="card-vertical">
+                        <div class="card-front">
+                            <article class="card-front-content">
+                                <img src="../photos/register.png" class="card-img" alt="register" />
+                                <h1><b>Register</b></h1>
+                            </article>
+                        </div>
+                        <div class="card-back">
+                            <article class="card-back-content">
+                                <p>Register for Placements and Interviews</p>
+                                <button class="register-btn">Register</button>
+                            </article>
+                        </div>
+                    </div>
+                </div>
+
+                <!--View interview schedule-->
+                <div class="card-container">
+                    <div class="card-vertical">
+                        <div class="card-front">
+                            <article class="card-front-content">
+                                <img src="../photos/schedule.png" class="card-img" alt="interview-schedule" />
+                                <h1><b>View Interview Schedule</b></h1>
+                            </article>
+                        </div>
+                        <div class="card-back">
+                            <article class="card-back-content">
+                                <p>View your Interview Schedule</p>
+                                <button class="view-interview-schedule-btn">View Schedule</button>
+                            </article>
+                        </div>
+                    </div>
+                </div>
+
+                <!--View feedback-->
+                <div class="card-container">
+                    <div class="card-vertical">
+                        <div class="card-front">
+                            <article class="card-front-content">
+                                <img src="../photos/feedback.png" class="card-img" alt="feedback" />
+                                <h1><b>View Feedback</b></h1>
+                            </article>
+                        </div>
+                        <div class="card-back">
+                            <article class="card-back-content">
+                                <p>View your Interview Feedbacks</p>
+                                <button class="view-feedback-btn">View Feedback</button>
+                            </article>
+                        </div>
+                    </div>
+                </div>
+
+                <!--Track progress-->
+                <div class="card-container">
+                    <div class="card-vertical">
+                        <div class="card-front">
+                            <article class="card-front-content">
+                                <img src="../photos/progress.png" class="card-img" alt="progress" />
+                                <h1><b>Track Progress</b></h1>
+                            </article>
+                        </div>
+                        <div class="card-back">
+                            <article class="card-back-content">
+                                <p>View your Applications, Interviews and Offers</p>
+                                <button class="track-progress-btn">Track Progress</button>
+                            </article>
+                        </div>
+                    </div>
+                </div>
+
+                <!--Edit profile-->
+                <div class="card-container">
+                    <div class="card-vertical">
+                        <div class="card-front">
+                            <article class="card-front-content">
+                                <img src="../photos/edit-profile.png" class="card-img" alt="edit" />
+                                <h1><b>Edit Profile</b></h1>
+                            </article>
+                        </div>
+                        <div class="card-back">
+                            <article class="card-back-content">
+                                <p>Edit your Profile Information</p>
+                                <button class="edit-profile-btn">Edit Profile</button>
+                            </article>
+                        </div>
+                    </div>
+                </div>
+
+                <!--Contact support-->
+                <div class="card-container">
+                    <div class="card-vertical">
+                        <div class="card-front">
+                            <article class="card-front-content">
+                                <img src="../photos/support.png" class="card-img" alt="support" />
+                                <h1><b>Contact Support</b></h1>
+                            </article>
+                        </div>
+                        <div class="card-back">
+                            <article class="card-back-content">
+                                <p>Contact Help and Support</p>
+                                <button class="contact-support-btn">Contact Support</button>
+                            </article>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            // Check user authentication and role
+            const accountData = JSON.parse(localStorage.getItem("ACCOUNT_STORAGE") || "{}")
+            const { username, selectedRole } = accountData
+
+            if (!username || !selectedRole) {
+                window.location.href = "../login/login.html"
+            } else if (selectedRole !== "student") {
+                window.location.href = `../${selectedRole}/${selectedRole}.html`
+            }
+
+            // Display user info
+            document.getElementById(
+                "user-info"
+            ).innerHTML = `Currently signed in as: <b>${username}</b> | <a href="#" onclick="logout()">Logout</a>`
+
+            const logout = () => {
+                localStorage.removeItem("ACCOUNT_STORAGE")
+                window.location.href = "../login/login.html"
+            }
+
+            const loadContent = (src) => {
+                document.querySelector(".main-content").innerHTML = ""
+                const iframe = document.createElement("iframe")
+                iframe.src = src
+                iframe.frameBorder = "0"
+                iframe.width = "100%"
+                iframe.height = "100%"
+                document.querySelector(".main-content").appendChild(iframe)
+            }
+
+            document.querySelector(".home-btn").addEventListener("click", () => {
+                window.location.href = "student.html"
+            })
+            document.querySelector(".register-btn").addEventListener("click", () => loadContent("Register.html"))
+            document.querySelector(".student-btn").addEventListener("click", () => loadContent("student_profile.html"))
+            document
+                .querySelector(".apply-interviews-btn")
+                .addEventListener("click", () => loadContent("apply_for_interviews.html"))
+            document
+                .querySelector(".view-interview-schedule-btn")
+                .addEventListener("click", () => loadContent("view_interview_schedule.html"))
+            document
+                .querySelector(".view-feedback-btn")
+                .addEventListener("click", () => loadContent("view_feedback.html"))
+            document
+                .querySelector(".track-progress-btn")
+                .addEventListener("click", () => loadContent("track_progress.html"))
+            document
+                .querySelector(".edit-profile-btn")
+                .addEventListener("click", () => loadContent("edit_profile.html"))
+            document
+                .querySelector(".contact-support-btn")
+                .addEventListener("click", () => loadContent("contact_support.html"))
+        </script>
+    </body>
+</html>

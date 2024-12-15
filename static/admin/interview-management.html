@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Interview Management</title>
+        <link rel="stylesheet" href="../css/admin-styles.css" />
+    </head>
+    <body>
+        <div class="main-content">
+            <h1>Interview Management</h1>
+
+            <div class="form-container">
+                <input type="text" id="interview-title" placeholder="Interview Title" required />
+                <input type="date" id="interview-date" required />
+                <button id="add-interview-btn">Add Interview</button>
+            </div>
+
+            <h2>Scheduled Interviews</h2>
+            <table class="table" id="interview-table">
+                <thead>
+                    <tr>
+                        <th>Interview Title</th>
+                        <th>Date</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="interview-list"></tbody>
+            </table>
+        </div>
+
+        <script>
+            document.getElementById("add-interview-btn").addEventListener("click", function () {
+                const title = document.getElementById("interview-title").value
+                const date = document.getElementById("interview-date").value
+
+                if (title && date) {
+                    const tableBody = document.getElementById("interview-list")
+                    const newRow = document.createElement("tr")
+
+                    newRow.innerHTML = `
+                    <td>${title}</td>
+                    <td>${date}</td>
+                    <td><button class="delete-btn">Delete</button></td>
+                `
+
+                    tableBody.appendChild(newRow)
+
+                    //Clear input
+                    document.getElementById("interview-title").value = ""
+                    document.getElementById("interview-date").value = ""
+
+                    //Delete button
+                    newRow.querySelector(".delete-btn").addEventListener("click", function () {
+                        tableBody.removeChild(newRow)
+                    })
+                } else {
+                    alert("Please fill in both fields.")
+                }
+            })
+        </script>
+    </body>
+</html>

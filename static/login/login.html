@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Login</title>
+        <link rel="stylesheet" href="../css/login.css" />
+    </head>
+    <body>
+        <div class="img-container">
+            <img class="bg-img" src="../photos/login_bg_logo.png" />
+        </div>
+
+        <div class="logo-container">
+            <img src="../photos/logoPesu.png" alt="College Logo" class="logo" />
+            <button class="home-btn">HOME</button>
+        </div>
+
+        <div class="login-container">
+            <h1>Login/Signup</h1>
+            <div class="role-selector">
+                <button class="student-btn" onclick="showForm('student')">
+                    <img class="student-btn-img" src="../photos/student-btn-img.png" />
+                    STUDENT
+                </button>
+                <br />
+
+                <button class="interviewer-btn" onclick="showForm('interviewer')">
+                    <img class="interviewer-btn-img" src="../photos/interviewer-btn-img.png" />
+                    INTERVIEWER
+                </button>
+                <br />
+
+                <button class="admin-btn" onclick="showForm('admin')">
+                    <img class="admin-btn-img" src="../photos/admin-btn-img.png" />
+                    ADMIN
+                </button>
+            </div>
+
+            <!-- FORM -->
+            <div class="login-form" id="login-form">
+                <form action="/login" method="post">
+                    <input type="text" name="username" placeholder="Username" required />
+                    <input type="password" name="password" placeholder="Password" required />
+                    <input type="submit" value="Login" />
+                    <div id="error-message" style="color: red; display: none"></div>
+                </form>
+                <a href="https://www.google.com/" class="forgot-pwd" target="_blank"> Forgot Password? </a>
+            </div>
+        </div>
+
+        <script>
+            let selectedRole = "" //Storing whether it is admin, student or interviewer
+
+            function validateForm() {
+                const username = document.querySelector('input[name="username"]').value
+                const password = document.querySelector('input[name="password"]').value
+                const errorMessage = document.getElementById("error-message")
+
+                if (!username || !password) {
+                    errorMessage.textContent = "Both fields are required."
+                    errorMessage.style.display = "block"
+                    return false
+                }
+
+                // Make API call to backend
+                fetch("http://localhost:6969/login", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({ username, password, selectedRole }),
+                })
+                    .then((response) => response.json())
+                    .then((data) => {
+                        if (data.success) {
+                            localStorage.setItem(
+                                "ACCOUNT_STORAGE",
+                                JSON.stringify({
+                                    selectedRole,
+                                    username,
+                                })
+                            )
+
+                            // Redirect based on role
+                            switch (selectedRole) {
+                                case "student":
+                                    window.location.href = "../student/student.html"
+                                    break
+                                case "interviewer":
+                                    window.location.href = "../interviewer/interviewer.html"
+                                    break
+                                case "admin":
+                                    window.location.href = "../admin/admin.html"
+                                    break
+                                default:
+                                    break
+                            }
+                        } else {
+                            errorMessage.textContent = data.message
+                            errorMessage.style.display = "block"
+                        }
+                    })
+                    .catch((error) => {
+                        console.error("Error:", error)
+                        errorMessage.textContent = "An error occurred. Please try again."
+                        errorMessage.style.display = "block"
+                    })
+
+                return false
+            }
+
+            document.querySelector("form").addEventListener("submit", function (event) {
+                if (!validateForm()) {
+                    event.preventDefault()
+                }
+            })
+
+            function showForm(role) {
+                selectedRole = role
+
+                const buttons = document.querySelectorAll(".role-selector button")
+                buttons.forEach((button) => {
+                    button.style.opacity = "0"
+                    setTimeout(() => {
+                        button.style.display = "none"
+                    }, 500)
+                })
+
+                const loginForm = document.getElementById("login-form")
+                loginForm.classList.add("show")
+            }
+
+            document.querySelector(".home-btn").addEventListener("click", () => {
+                window.location.href = "login.html"
+            })
+        </script>
+    </body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Manage Interview Slots</title>
+        <link rel="stylesheet" href="../css/interviewer-styles.css" />
+    </head>
+    <body>
+        <form action="/manage-interview-slots" method="post">
+            <h1>Manage Interview Slots</h1>
+            <div class="form-group">
+                <label for="interviewer">Select Interviewer:</label>
+                <select id="interviewer" name="interviewer" required>
+                    <option value="">--Select Interviewer--</option>
+                    <!-- Options will be dynamically populated -->
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="slot-date">Date:</label>
+                <input type="date" id="slot-date" name="slot-date" required />
+            </div>
+
+            <div class="form-group">
+                <label for="slot-time">Time:</label>
+                <input type="time" id="slot-time" name="slot-time" required />
+            </div>
+
+            <div class="form-group">
+                <button type="submit">Update Slot</button>
+            </div>
+        </form>
+        <div id="slot-management">
+            <!-- Interview slots will be managed here -->
+        </div>
+    </body>
+</html>

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>View and Export Data</title>
+        <link rel="stylesheet" href="../css/admin-styles.css" />
+
+        <!-- FOR MAKING PDF -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    </head>
+    <body>
+        <div class="main-content">
+            <h1>View and Export Data</h1>
+
+            <div class="data-selection">
+                <label for="data-type">Select Data Type:</label>
+                <select id="data-type">
+                    <option value="interviews">Interviews Data</option>
+                    <option value="feedback">Feedback Data</option>
+                    <option value="users">User Data</option>
+                </select>
+                <button id="view-data-btn">View Data</button>
+            </div>
+
+            <div class="data-display">
+                <h2>Data Summary</h2>
+                <table class="table" id="table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Details</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Data will be populated here -->
+                    </tbody>
+                </table>
+            </div>
+            <button id="export-csv-btn">Export Data as CSV</button>
+            <button id="export-excel-btn">Export Data as Excel</button>
+            <button id="export-pdf-btn">Export Data as PDF</button>
+        </div>
+
+        <script>
+            document.getElementById("view-data-btn").addEventListener("click", () => {
+                const dataType = document.getElementById("data-type").value
+                const dataTableBody = document.querySelector("#table tbody")
+
+                //Clear previous data
+                dataTableBody.innerHTML = ""
+
+                //Sample data
+                let data = []
+
+                if (dataType === "interviews") {
+                    data = [
+                        { id: 1, name: "Interview with Student A", details: "Completed successfully" },
+                        { id: 2, name: "Interview with Student B", details: "Pending feedback" },
+                    ]
+                } else if (dataType === "feedback") {
+                    data = [
+                        { id: 1, name: "Feedback on Interview 1", details: "Positive feedback received" },
+                        { id: 2, name: "Feedback on Interview 2", details: "Needs improvement" },
+                    ]
+                } else if (dataType === "users") {
+                    data = [
+                        { id: 1, name: "User A", details: "Active" },
+                        { id: 2, name: "User B", details: "Inactive" },
+                    ]
+                }
+
+                //Populate table
+                data.forEach((item) => {
+                    const row = document.createElement("tr")
+                    row.innerHTML = `
+                    <td>${item.id}</td>
+                    <td>${item.name}</td>
+                    <td>${item.details}</td>
+                `
+                    dataTableBody.appendChild(row)
+                })
+            })
+
+            //CSV
+            document.getElementById("export-csv-btn").addEventListener("click", () => {
+                const dataTable = document.getElementById("table")
+                const rows = Array.from(dataTable.querySelectorAll("tr"))
+                const csvContent = rows
+                    .map((row) => {
+                        const cols = Array.from(row.querySelectorAll("td, th")).map((col) => col.innerText)
+                        return cols.join(",")
+                    })
+                    .join("\n")
+
+                //Link to download CSV
+                const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" })
+                const link = document.createElement("a")
+                const url = URL.createObjectURL(blob)
+                link.setAttribute("href", url)
+                link.setAttribute("download", "data_export.csv")
+                link.style.display = "none"
+                document.body.appendChild(link)
+                link.click()
+                document.body.removeChild(link)
+            })
+
+            //EXCEL
+            document.getElementById("export-excel-btn").addEventListener("click", () => {
+                const dataTable = document.getElementById("table")
+                const excelBlob = new Blob([dataTable.outerHTML], { type: "application/vnd.ms-excel" })
+                const link = document.createElement("a")
+                const url = URL.createObjectURL(excelBlob)
+                link.setAttribute("href", url)
+                link.setAttribute("download", "data_export.xls")
+                link.style.display = "none"
+                document.body.appendChild(link)
+                link.click()
+                document.body.removeChild(link)
+            })
+
+            //PDF
+            document.getElementById("export-pdf-btn").addEventListener("click", () => {
+                const element = document.getElementById("table")
+                html2pdf().from(element).save("data_export.pdf")
+            })
+        </script>
+    </body>
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Student Profile</title>
+        <link rel="stylesheet" href="../css/student-styles.css" />
+    </head>
+    <body>
+        <div class="form-container">
+            <h1>Student Profile</h1>
+
+            <div class="profile-container">
+                <div class="profile-pic">
+                    <img id="profile-pic-preview" src="../photos/default-profile-pic.png" alt="Profile Picture" />
+                    <input type="file" id="profile-pic-input" accept="image/*" />
+                </div>
+            </div>
+
+            <div id="profile-info" class="profile-info">
+                <!-- Profile info will be dynamically populated here -->
+            </div>
+        </div>
+
+        <script>
+            // Check user authentication and role
+            const accountData = JSON.parse(localStorage.getItem("ACCOUNT_STORAGE") || "{}")
+            const { username, selectedRole } = accountData
+
+            if (!username || !selectedRole) {
+                window.location.href = "../login/login.html"
+            }
+
+            // Function to fetch and display profile data
+            async function fetchProfileData() {
+                try {
+                    const response = await fetch(`http://localhost:6969/student-profile?username=${username}`)
+                    if (!response.ok) {
+                        throw new Error("Failed to fetch profile data")
+                    }
+                    const profileData = await response.json()
+
+                    console.log("PROFILE DATA", profileData)
+
+                    // Update profile picture if exists
+                    if (profileData.profilePicture) {
+                        document.getElementById("profile-pic-preview").src = profileData.profilePicture
+                    }
+
+                    // Create and populate profile info HTML
+                    const profileInfoHTML = `
+                        <p><strong>Name:</strong> ${profileData.name}</p>
+                        <p><strong>Date of Birth:</strong> ${profileData.dateOfBirth}</p>
+                        <p><strong>Year of Passing:</strong> ${profileData.yearOfPassing}</p>
+                        <p><strong>SRN:</strong> ${profileData.srn}</p>
+                        <p><strong>Branch:</strong> ${profileData.branch}</p>
+                        <p><strong>Semester:</strong> ${profileData.semester}</p>
+                        <p><strong>CGPA:</strong> ${profileData.cgpa}</p>
+                        <p><strong>10th Marks:</strong> ${profileData.tenthMarks}</p>
+                        <p><strong>12th Marks:</strong> ${profileData.twelfthMarks}</p>
+                        <p><strong>Father's Name:</strong> ${profileData.fatherName}</p>
+                        <p><strong>Mother's Name:</strong> ${profileData.motherName}</p>
+                        <p><strong>Address:</strong> ${profileData.address}</p>
+                        <p><strong>Email:</strong> ${profileData.email}</p>
+                        <p><strong>Contact Number:</strong> ${profileData.contactNumber}</p>
+                        
+                        <div class="resume">
+                            <br />
+                            <a href="${profileData.resumeLink}" class="resume-link" target="_blank">Click to view resume</a>
+                        </div>
+                    `
+
+                    document.getElementById("profile-info").innerHTML = profileInfoHTML
+                } catch (error) {
+                    console.error("Error fetching profile data:", error)
+                    document.getElementById("profile-info").innerHTML =
+                        "<p>Error loading profile data. Please try again later.</p>"
+                }
+            }
+
+            // Fetch profile data when page loads
+            fetchProfileData()
+
+            // Handle profile picture upload
+            document.getElementById("profile-pic-input").addEventListener("change", function (event) {
+                const file = event.target.files[0]
+                const reader = new FileReader()
+
+                reader.onload = function (e) {
+                    document.getElementById("profile-pic-preview").src = e.target.result
+                }
+
+                if (file) {
+                    reader.readAsDataURL(file)
+                }
+            })
+        </script>
+    </body>
+</html>

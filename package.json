@@ -1,0 +1,12 @@
+{
+    "name": "interview-scheduler",
+    "version": "1.0.0",
+    "type": "module",
+    "scripts": {
+        "start": "bun run backend/index.ts",
+        "dev": "bun --hot run backend/index.ts"
+    },
+    "dependencies": {
+        "mysql2": "^3.6.0"
+    }
+}

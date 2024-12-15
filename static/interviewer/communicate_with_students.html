@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Communicate with Students</title>
+        <link rel="stylesheet" href="../css/interviewer-styles.css" />
+    </head>
+    <body>
+        <form action="/communicate-with-students" method="post">
+            <h1>Communicate with Students</h1>
+            <div class="form-group">
+                <label for="student">Select Student:</label>
+                <select id="student" name="student" required>
+                    <option value="">--Select Student--</option>
+                    <!-- Options will be dynamically populated -->
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="message">Message:</label>
+                <textarea id="message" name="message" rows="5" required></textarea>
+            </div>
+
+            <div class="form-group">
+                <button type="submit">Send Message</button>
+            </div>
+        </form>
+        <div id="communication-results">
+            <!-- Communication results will be displayed here -->
+        </div>
+    </body>
+</html>

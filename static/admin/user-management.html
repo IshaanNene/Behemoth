@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <title>User Management</title>
+        <link rel="stylesheet" href="../css/admin-styles.css" />
+    </head>
+    <body>
+        <div class="main-content">
+            <h1>User Management</h1>
+
+            <button class="add-user-btn">Add User</button>
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Role</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="user-list">
+                    <!-- User data will be dynamically populated here -->
+                </tbody>
+            </table>
+        </div>
+
+        <script>
+            const users = [
+                { id: 1, name: "Alice Johnson", email: "alice@example.com", role: "Interviewer" },
+                { id: 2, name: "Bob Smith", email: "bob@example.com", role: "Admin" },
+                // Add more user data as needed
+            ]
+
+            const userList = document.getElementById("user-list")
+
+            const renderUsers = () => {
+                userList.innerHTML = ""
+                users.forEach((user) => {
+                    const row = document.createElement("tr")
+                    row.innerHTML = `
+                    <td>${user.id}</td>
+                    <td>${user.name}</td>
+                    <td>${user.email}</td>
+                    <td>${user.role}</td>
+                    <td>
+                        <button class="edit-btn" data-id="${user.id}">Edit</button>
+                        <button class="delete-btn" data-id="${user.id}">Delete</button>
+                    </td>
+                `
+                    userList.appendChild(row)
+                })
+            }
+
+            const addUser = () => {
+                const name = prompt("Enter user name:")
+                const email = prompt("Enter user email:")
+                const role = prompt("Enter user role:")
+                const newUser = {
+                    id: users.length + 1,
+                    name,
+                    email,
+                    role,
+                }
+                users.push(newUser)
+                renderUsers()
+            }
+
+            const deleteUser = (id) => {
+                const index = users.findIndex((user) => user.id === id)
+                if (index !== -1) {
+                    users.splice(index, 1)
+                    renderUsers()
+                }
+            }
+
+            const editUser = (id) => {
+                const user = users.find((user) => user.id === id)
+                if (user) {
+                    user.name = prompt("Edit user name:", user.name) || user.name
+                    user.email = prompt("Edit user email:", user.email) || user.email
+                    user.role = prompt("Edit user role:", user.role) || user.role
+                    renderUsers()
+                }
+            }
+
+            document.querySelector(".add-user-btn").addEventListener("click", addUser)
+            userList.addEventListener("click", (event) => {
+                if (event.target.classList.contains("delete-btn")) {
+                    const id = parseInt(event.target.dataset.id)
+                    deleteUser(id)
+                } else if (event.target.classList.contains("edit-btn")) {
+                    const id = parseInt(event.target.dataset.id)
+                    editUser(id)
+                }
+            })
+
+            renderUsers()
+        </script>
+    </body>
+</html>

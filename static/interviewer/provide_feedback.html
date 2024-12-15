@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Provide Feedback</title>
+        <link rel="stylesheet" href="../css/interviewer-styles.css" />
+    </head>
+    <body>
+        <form id="feedback-form">
+            <h1>Provide Feedback</h1>
+            <div class="form-group">
+                <label for="candidate">Select Candidate:</label>
+                <select id="candidate" name="candidate" required>
+                    <option value="">--Select Candidate--</option>
+                    <!-- Options will be dynamically populated -->
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="feedback">Feedback:</label>
+                <textarea id="feedback" name="feedback" rows="5" required></textarea>
+            </div>
+
+            <div class="form-group">
+                <button type="submit">Submit Feedback</button>
+            </div>
+        </form>
+        <div id="feedback-results">
+            <!-- Submitted feedback will be displayed here -->
+        </div>
+
+        <script>
+            const accountData = JSON.parse(localStorage.getItem("ACCOUNT_STORAGE") || "{}")
+            const { username: interviewerUsername, selectedRole } = accountData
+
+            if (!interviewerUsername || !selectedRole) {
+                window.location.href = "../login/login.html"
+            } else if (selectedRole !== "interviewer") {
+                window.location.href = `../${selectedRole}/${selectedRole}.html`
+            }
+
+            // Fetch candidates from backend when page loads
+            window.addEventListener("load", async () => {
+                try {
+                    const response = await fetch("http://localhost:6969/candidates")
+                    const data = await response.json()
+
+                    if (data.success) {
+                        console.log("data.candidates:", data.candidates)
+                        const candidateSelect = document.getElementById("candidate")
+                        data.candidates.forEach((candidate) => {
+                            const option = document.createElement("option")
+                            option.value = candidate.username
+                            option.textContent = `${candidate.fullname} (${candidate.srn})`
+                            option.dataset.username = candidate.username // Store username in dataset
+                            candidateSelect.appendChild(option)
+                        })
+                    } else {
+                        console.error("Failed to fetch candidates:", data.error)
+                    }
+                } catch (error) {
+                    console.error("Error fetching candidates:", error)
+                }
+            })
+
+            // Handle form submission
+            document.getElementById("feedback-form").addEventListener("submit", async (e) => {
+                e.preventDefault()
+
+                const candidateSelect = document.getElementById("candidate")
+                const selectedOption = candidateSelect.options[candidateSelect.selectedIndex]
+                const selectedUsername = selectedOption.value
+                const feedback = document.getElementById("feedback").value
+
+                console.log({ candidateSelect, selectedUsername, feedback })
+
+                try {
+                    const response = await fetch("http://localhost:6969/provide-feedback", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({
+                            studentUsername: selectedUsername,
+                            interviewerUsername: interviewerUsername,
+                            comments: feedback,
+                        }),
+                    })
+
+                    const data = await response.json()
+
+                    if (data.success) {
+                        const resultsDiv = document.getElementById("feedback-results")
+                        resultsDiv.innerHTML = `<p class="success">Feedback submitted successfully!</p>`
+                        document.getElementById("feedback-form").reset()
+                    } else {
+                        const resultsDiv = document.getElementById("feedback-results")
+                        resultsDiv.innerHTML = `<p class="error">Failed to submit feedback: ${data.error}</p>`
+                    }
+                } catch (error) {
+                    console.error("Error submitting feedback:", error)
+                    const resultsDiv = document.getElementById("feedback-results")
+                    resultsDiv.innerHTML = `<p class="error">Error submitting feedback. Please try again.</p>`
+                }
+            })
+        </script>
+    </body>
+</html>

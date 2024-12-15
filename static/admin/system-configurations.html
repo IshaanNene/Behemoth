@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>System Configurations</title>
+        <link rel="stylesheet" href="../css/admin-styles.css" />
+    </head>
+    <body>
+        <div class="main-content">
+            <h1>System Configurations</h1>
+
+            <div class="configuration-form">
+                <h2>Update System Settings</h2>
+                <form id="config-form">
+                    <label for="app-name">Application Name:</label>
+                    <input type="text" id="app-name" name="appName" required />
+
+                    <label for="app-name">Application Version:</label>
+                    <input type="text" id="app-version" name="appVersion" required />
+
+                    <label for="theme">Select Theme:</label>
+                    <select id="theme" name="theme">
+                        <option value="light">Light</option>
+                        <option value="dark">Dark</option>
+                    </select>
+
+                    <label for="notifications"
+                        >Enable Notifications: <input type="checkbox" id="notifications" name="notifications" />
+                    </label>
+
+                    <button type="submit">Save Configurations</button>
+                </form>
+            </div>
+
+            <div class="current-configurations">
+                <h2>Current Configurations</h2>
+                <table class="table" id="config-table">
+                    <thead>
+                        <tr>
+                            <th>Configuration</th>
+                            <th>Value</th>
+                        </tr>
+                    </thead>
+                    <tbody id="config-table-body">
+                        <tr>
+                            <td>Application Name</td>
+                            <td id="current-app-name">My Application</td>
+                        </tr>
+                        <tr>
+                            <td>Application Version</td>
+                            <td id="current-app-version">v1.0.1</td>
+                        </tr>
+                        <tr>
+                            <td>Theme</td>
+                            <td id="current-theme">Light</td>
+                        </tr>
+                        <tr>
+                            <td>Notifications</td>
+                            <td id="current-notifications">Enabled</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <script>
+            document.addEventListener("DOMContentLoaded", () => {
+                //Default settings
+                const configurations = {
+                    appName: "My Application",
+                    appVersion: "v1.0.1",
+                    theme: "light",
+                    notifications: true,
+                }
+
+                //Display existing configurations
+                displayConfigurations()
+
+                //Handle form submission for updating configurations
+                document.getElementById("config-form").addEventListener("submit", function (event) {
+                    event.preventDefault()
+
+                    configurations.appName = this.appName.value
+                    configurations.appVersion = this.appVersion.value
+                    configurations.theme = this.theme.value
+                    configurations.notifications = this.notifications.checked
+
+                    displayConfigurations() //Refresh displayed configurations
+                    this.reset() //Reset the form
+                })
+
+                //Display current configurations
+                function displayConfigurations() {
+                    document.getElementById("current-app-name").innerText = configurations.appName
+                    document.getElementById("current-app-version").innerText = configurations.appVersion
+                    document.getElementById("current-theme").innerText =
+                        configurations.theme.charAt(0).toUpperCase() + configurations.theme.slice(1)
+                    document.getElementById("current-notifications").innerText = configurations.notifications
+                        ? "Enabled"
+                        : "Disabled"
+                }
+            })
+        </script>
+    </body>
+</html>

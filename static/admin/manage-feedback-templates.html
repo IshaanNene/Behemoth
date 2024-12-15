@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Manage Feedback Templates</title>
+        <link rel="stylesheet" href="../css/admin-styles.css" />
+    </head>
+    <body>
+        <div class="main-content">
+            <h1>Manage Feedback Templates</h1>
+
+            <div class="form-container">
+                <input type="text" id="template-title" placeholder="Template Title" required />
+                <textarea id="template-content" placeholder="Template Content" rows="4" required></textarea>
+                <button id="add-template-btn">Add Template</button>
+            </div>
+
+            <h2>Feedback Templates</h2>
+            <table class="table" id="template-table">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Content</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="template-list"></tbody>
+            </table>
+        </div>
+
+        <script>
+            document.getElementById("add-template-btn").addEventListener("click", function () {
+                const title = document.getElementById("template-title").value
+                const content = document.getElementById("template-content").value
+
+                if (title && content) {
+                    const tableBody = document.getElementById("template-list")
+                    const newRow = document.createElement("tr")
+
+                    newRow.innerHTML = `
+                    <td>${title}</td>
+                    <td>${content}</td>
+                    <td><button class="delete-btn">Delete</button></td>
+                `
+
+                    tableBody.appendChild(newRow)
+
+                    //Clear input
+                    document.getElementById("template-title").value = ""
+                    document.getElementById("template-content").value = ""
+
+                    //Delete button
+                    newRow.querySelector(".delete-btn").addEventListener("click", function () {
+                        tableBody.removeChild(newRow)
+                    })
+                } else {
+                    alert("Please fill in both fields.")
+                }
+            })
+        </script>
+    </body>
+</html>

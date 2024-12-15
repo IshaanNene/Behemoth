@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Edit Profile</title>
+        <link rel="stylesheet" href="../css/student-styles.css" />
+    </head>
+    <body class="edit-profile">
+        <div class="form-container">
+            <h1>Edit Profile</h1>
+            <form id="editProfileForm">
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" name="name" placeholder="John Doe" required />
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" placeholder="johndoe@example.com" required />
+                </div>
+
+                <div class="form-group">
+                    <label for="srn">SRN</label>
+                    <input type="text" id="srn" name="srn" placeholder="PES2UG22CS..." required />
+                </div>
+
+                <div class="form-group">
+                    <label for="branch">Branch</label>
+                    <input
+                        type="text"
+                        id="branch"
+                        name="branch"
+                        placeholder="Computer Science and Engineering"
+                        required />
+                </div>
+
+                <div class="form-group">
+                    <label for="semester">Semester</label>
+                    <input type="number" id="semester" name="semester" placeholder="4" required />
+                </div>
+
+                <div class="form-group">
+                    <label for="cgpa">CGPA</label>
+                    <input
+                        type="number"
+                        id="cgpa"
+                        name="cgpa"
+                        step="0.01"
+                        min="0"
+                        max="10"
+                        placeholder="8.50"
+                        required />
+                </div>
+
+                <div class="form-group">
+                    <label for="contact">Contact Number</label>
+                    <input type="tel" id="contact" name="contact" placeholder="1234567890" required />
+                </div>
+
+                <div class="form-group">
+                    <label for="dob">Date of Birth</label>
+                    <input type="date" id="dob" name="dob" placeholder="2000-01-01" required />
+                </div>
+
+                <div class="form-group">
+                    <label for="fatherName">Father's Name</label>
+                    <input type="text" id="fatherName" name="fatherName" placeholder="Richard Doe" required />
+                </div>
+
+                <div class="form-group">
+                    <label for="motherName">Mother's Name</label>
+                    <input type="text" id="motherName" name="motherName" placeholder="Mary Doe" required />
+                </div>
+
+                <div class="form-group">
+                    <label for="address">Address</label>
+                    <textarea
+                        id="address"
+                        name="address"
+                        rows="3"
+                        placeholder="1234 Elm Street, Springfield"
+                        required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <button type="submit" class="submit-btn">Save Changes</button>
+                </div>
+            </form>
+        </div>
+
+        <script>
+            document.getElementById("editProfileForm").addEventListener("submit", async (e) => {
+                e.preventDefault()
+
+                const accountData = JSON.parse(localStorage.getItem("ACCOUNT_STORAGE") || "{}")
+                const { username, selectedRole } = accountData
+
+                // require to be logged in as the student
+                if (!username || !selectedRole) {
+                    window.location.href = "../login/login.html"
+                } else if (selectedRole !== "student") {
+                    window.location.href = `../${selectedRole}/${selectedRole}.html`
+                }
+
+                const formData = {
+                    username: username,
+                    name: document.getElementById("name").value,
+                    email: document.getElementById("email").value,
+                    srn: document.getElementById("srn").value,
+                    dob: document.getElementById("dob").value,
+                    fatherName: document.getElementById("fatherName").value,
+                    motherName: document.getElementById("motherName").value,
+                    address: document.getElementById("address").value,
+                    contact: document.getElementById("contact").value,
+                    yearOfPassing:
+                        new Date().getFullYear() + (8 - parseInt(document.getElementById("semester").value)) / 2,
+                    branch: document.getElementById("branch").value,
+                    semester: document.getElementById("semester").value,
+                    cgpa: document.getElementById("cgpa").value,
+                }
+
+                try {
+                    const response = await fetch("http://localhost:6969/edit-profile", {
+                        method: "PUT",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify(formData),
+                    })
+
+                    const data = await response.json()
+
+                    if (data.success) {
+                        alert("Profile updated successfully!")
+                    } else {
+                        alert("Failed to update profile: " + data.error)
+                    }
+                } catch (error) {
+                    console.error("Error:", error)
+                    alert("An error occurred while updating profile")
+                }
+            })
+        </script>
+    </body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Analytics and Reporting</title>
+        <link rel="stylesheet" href="../css/admin-styles.css" />
+    </head>
+    <body>
+        <div class="main-content">
+            <h1>Analytics and Reporting</h1>
+
+            <div class="report-section">
+                <h2>Generate Reports</h2>
+                <label for="report-type">Select Report Type:</label>
+                <select id="report-type">
+                    <option value="interviews">Interviews Report</option>
+                    <option value="feedback">Feedback Report</option>
+                    <option value="users">User Report</option>
+                </select>
+                <button id="generate-report-btn">Generate Report</button>
+            </div>
+
+            <div class="report-display">
+                <h2>Report Summary</h2>
+                <table class="table" id="table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Title</th>
+                            <th>Details</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Reports will be populated here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <script>
+            document.getElementById("generate-report-btn").addEventListener("click", () => {
+                const reportType = document.getElementById("report-type").value
+                const reportTableBody = document.querySelector("#table tbody")
+
+                //Clear previous entries
+                reportTableBody.innerHTML = ""
+
+                //Sample data
+                let reportData = []
+
+                if (reportType === "interviews") {
+                    reportData = [
+                        { id: 1, title: "Interview with Student A", details: "Completed successfully" },
+                        { id: 2, title: "Interview with Student B", details: "Pending feedback" },
+                    ]
+                } else if (reportType === "feedback") {
+                    reportData = [
+                        { id: 1, title: "Feedback on Interview 1", details: "Positive feedback received" },
+                        { id: 2, title: "Feedback on Interview 2", details: "Needs improvement" },
+                    ]
+                } else if (reportType === "users") {
+                    reportData = [
+                        { id: 1, title: "Total Users", details: "150 active users" },
+                        { id: 2, title: "New Users This Month", details: "10 new registrations" },
+                    ]
+                }
+
+                //Populate table
+                reportData.forEach((report) => {
+                    const row = document.createElement("tr")
+                    row.innerHTML = `
+                    <td>${report.id}</td>
+                    <td>${report.title}</td>
+                    <td>${report.details}</td>
+                `
+                    reportTableBody.appendChild(row)
+                })
+            })
+        </script>
+    </body>
+</html>

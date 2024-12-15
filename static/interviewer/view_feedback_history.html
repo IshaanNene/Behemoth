@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <title>View Feedback History</title>
+        <link rel="stylesheet" href="../css/interviewer-styles.css" />
+    </head>
+    <body>
+        <form action="/view-feedback-history" method="post">
+            <h1>View Feedback History</h1>
+            <div class="form-group">
+                <label for="candidate">Select Candidate:</label>
+                <select id="candidate" name="candidate" required>
+                    <option value="">--Select Candidate--</option>
+                    <!-- Options will be dynamically populated -->
+                </select>
+            </div>
+
+            <div class="form-group">
+                <button type="submit">View Feedback History</button>
+            </div>
+        </form>
+        <div id="feedback-history">
+            <!-- Feedback history will be displayed here -->
+        </div>
+    </body>
+</html>

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Schedule Interviews</title>
+        <link rel="stylesheet" href="../css/interviewer-styles.css" />
+    </head>
+    <body>
+        <form id="schedule-form">
+            <h1>Schedule Interviews</h1>
+            <div class="form-group">
+                <label for="candidate">Select Candidate:</label>
+                <select id="candidate" name="candidate" required>
+                    <option value="">--Select Candidate--</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="interview-date">Interview Date:</label>
+                <input type="date" id="interview-date" name="interview-date" required />
+            </div>
+
+            <div class="form-group">
+                <label for="interview-time">Interview Time:</label>
+                <input type="time" id="interview-time" name="interview-time" required />
+            </div>
+
+            <div class="form-group">
+                <button type="submit">Schedule Interview</button>
+            </div>
+        </form>
+        <div id="schedule-results">
+            <!-- Scheduled interviews will be displayed here -->
+        </div>
+
+        <script>
+            const accountData = JSON.parse(localStorage.getItem("ACCOUNT_STORAGE") || "{}")
+            const { username: interviewerUsername, selectedRole } = accountData
+
+            console.log({ interviewerUsername, selectedRole })
+
+            if (!interviewerUsername || !selectedRole) {
+                window.location.href = "../login/login.html"
+            } else if (selectedRole !== "interviewer") {
+                window.location.href = `../${selectedRole}/${selectedRole}.html`
+            }
+
+            // Fetch candidates from backend when page loads
+            window.addEventListener("load", async () => {
+                try {
+                    const response = await fetch("http://localhost:6969/candidates")
+                    const data = await response.json()
+
+                    if (data.success) {
+                        console.log("data.candidates:", data.candidates)
+                        const candidateSelect = document.getElementById("candidate")
+                        data.candidates.forEach((candidate) => {
+                            const option = document.createElement("option")
+                            option.value = candidate.username
+                            option.textContent = `${candidate.fullname} (${candidate.srn})`
+                            option.dataset.username = candidate.username // Store username in dataset
+                            candidateSelect.appendChild(option)
+                        })
+                    } else {
+                        console.error("Failed to fetch candidates:", data.error)
+                    }
+                } catch (error) {
+                    console.error("Error fetching candidates:", error)
+                }
+            })
+
+            // Handle form submission
+            document.getElementById("schedule-form").addEventListener("submit", async (e) => {
+                e.preventDefault()
+
+                const interviewDate = document.getElementById("interview-date").value
+                const interviewTime = document.getElementById("interview-time").value
+
+                const candidateSelect = document.getElementById("candidate")
+                const selectedOption = candidateSelect.options[candidateSelect.selectedIndex]
+                const selectedUsername = selectedOption.value
+
+                console.log("Selected candidate:", {
+                    selectedOption,
+                    username: selectedUsername,
+                    text: selectedOption.text,
+                })
+
+                const studentData = await fetch(
+                    `http://localhost:6969/student-profile?username=${selectedUsername}`
+                ).then((res) => res.json())
+                const interviewerData = await fetch(
+                    `http://localhost:6969/interviewer-profile?username=${interviewerUsername}`
+                ).then((res) => res.json())
+
+                console.log({ studentData, interviewerData })
+
+                // Combine date and time
+                const scheduledDateTime = `${interviewDate}T${interviewTime}`
+
+                try {
+                    const response = await fetch("http://localhost:6969/schedule-interview", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({
+                            studentId: studentData.id,
+                            interviewerId: interviewerData.id,
+                            scheduledTime: scheduledDateTime,
+                        }),
+                    })
+
+                    const data = await response.json()
+                    console.log("RESPONSE DATA:", data)
+
+                    if (data.success) {
+                        const resultsDiv = document.getElementById("schedule-results")
+                        resultsDiv.innerHTML = `<p class="success">Interview scheduled successfully!</p>`
+                        document.getElementById("schedule-form").reset()
+                    } else {
+                        const resultsDiv = document.getElementById("schedule-results")
+                        resultsDiv.innerHTML = `<p class="error">Failed to schedule interview: ${data.error}</p>`
+                    }
+                } catch (error) {
+                    console.error("Error scheduling interview:", error)
+                    const resultsDiv = document.getElementById("schedule-results")
+                    resultsDiv.innerHTML = `<p class="error">Error scheduling interview. Please try again.</p>`
+                }
+            })
+        </script>
+    </body>
+</html>

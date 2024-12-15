@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" content="width=device-width, initial-scale=1.0" />
+        <title>InFeed</title>
+        <link rel="stylesheet" href="../css/student-styles.css" />
+    </head>
+    <body class="Register">
+        <div class="register-form-container">
+            <h1>Registration Form</h1>
+            <form action="/register" method="POST" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" name="name" required />
+                </div>
+
+                <div class="form-group">
+                    <label for="dob">Date of Birth</label>
+                    <input type="date" id="dob" name="dob" required />
+                </div>
+
+                <div class="form-group">
+                    <label for="yearOfPassing">Year of Passing</label>
+                    <input type="number" id="yearOfPassing" name="yearOfPassing" min="2000" max="2100" required />
+                </div>
+
+                <div class="form-group">
+                    <label for="pesuId">PESU ID</label>
+                    <input
+                        type="text"
+                        id="pesuId"
+                        name="pesuId"
+                        pattern="^PES\d{6,7}(\d{3}|\d{4})$"
+                        title="PES followed by 6 or 7 digits, then 3 or 4 digits"
+                        required />
+                </div>
+
+                <div class="form-group">
+                    <label for="srn">SRN</label>
+                    <input
+                        type="text"
+                        id="srn"
+                        name="srn"
+                        pattern="^PES[12]UG[0-9]{1}[0-9](CS|EC|ME)[0-9]{3}$"
+                        title="Format: PESUUG followed by 2 digits, then CS/EC/ME, and 3 or 4 digits"
+                        required />
+                </div>
+
+                <div class="form-group">
+                    <label for="branch">Branch</label>
+                    <select id="branch" name="branch" required>
+                        <option value="CSE">Computer Science Engineering (CSE)</option>
+                        <option value="ECE">Electronics and Communication Engineering (ECE)</option>
+                        <option value="ME">Mechanical Engineering (ME)</option>
+                        <option value="EEE">Electrical and Electronics Engineering (EEE)</option>
+                        <option value="CE">Civil Engineering (CE)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="semester">Semester</label>
+                    <select id="semester" name="semester" required>
+                        <option value="1">Semester 1</option>
+                        <option value="2">Semester 2</option>
+                        <option value="3">Semester 3</option>
+                        <option value="4">Semester 4</option>
+                        <option value="5">Semester 5</option>
+                        <option value="6">Semester 6</option>
+                        <option value="7">Semester 7</option>
+                        <option value="8">Semester 8</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="cgpa">CGPA</label>
+                    <input type="number" id="cgpa" name="cgpa" step="0.01" min="0" max="10" required />
+                </div>
+
+                <div class="form-group">
+                    <label for="marks10">10th Marks (%)</label>
+                    <input type="number" id="marks10" name="marks10" step="0.01" min="0" max="100" required />
+                </div>
+
+                <div class="form-group">
+                    <label for="marks12">12th Marks (%)</label>
+                    <input type="number" id="marks12" name="marks12" step="0.01" min="0" max="100" required />
+                </div>
+
+                <div class="form-group">
+                    <label for="fatherName">Father's Name</label>
+                    <input type="text" id="fatherName" name="fatherName" required />
+                </div>
+
+                <div class="form-group">
+                    <label for="motherName">Mother's Name</label>
+                    <input type="text" id="motherName" name="motherName" required />
+                </div>
+
+                <div class="form-group">
+                    <label for="address">Address</label>
+                    <textarea id="address" name="address" rows="3" required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+                        title="Enter a valid email address"
+                        required />
+                </div>
+
+                <div class="form-group">
+                    <label for="contact">Contact Number</label>
+                    <input
+                        type="tel"
+                        id="contact"
+                        name="contact"
+                        pattern="[0-9]{10}"
+                        title="Enter a valid 10-digit phone number"
+                        required />
+                </div>
+
+                <div class="form-group">
+                    <label for="resume">Upload Resume (PDF only)</label>
+                    <input type="file" id="resume" name="resume" accept=".pdf" class="upload-btn" required />
+                </div>
+
+                <div class="form-group">
+                    <button type="submit" class="submit-btn">SUBMIT</button>
+                </div>
+            </form>
+        </div>
+    </body>
+</html>

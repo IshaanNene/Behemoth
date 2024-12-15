@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Audit Logs</title>
+        <link rel="stylesheet" href="../css/admin-styles.css" />
+
+        <!-- FOR MAKING PDF -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    </head>
+    <body>
+        <div class="main-content">
+            <h1>Audit Logs</h1>
+
+            <div class="filter-section">
+                <h2>Filter Logs</h2>
+                <form id="filter-form">
+                    <label for="dateFrom">Date From:</label>
+                    <input type="date" id="dateFrom" name="dateFrom" />
+
+                    <label for="dateTo">Date To:</label>
+                    <input type="date" id="dateTo" name="dateTo" />
+
+                    <label for="actionType">Action Type:</label>
+                    <select id="actionType" name="actionType">
+                        <option value="">All</option>
+                        <option value="CREATE">Create</option>
+                        <option value="UPDATE">Update</option>
+                        <option value="DELETE">Delete</option>
+                    </select>
+
+                    <button type="submit">Filter</button>
+                </form>
+            </div>
+
+            <div class="log-display">
+                <h2>Audit Log Entries</h2>
+                <table class="table" id="log-table">
+                    <thead>
+                        <tr>
+                            <th>Timestamp</th>
+                            <th>User</th>
+                            <th>Action</th>
+                            <th>Details</th>
+                        </tr>
+                    </thead>
+                    <tbody id="log-table-body">
+                        <!-- Log entries will be dynamically added here -->
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="download-section">
+                <h2>Download Logs</h2>
+                <button id="download-csv-btn">Download CSV</button>
+                <button id="download-excel-btn">Download Excel</button>
+                <button id="download-pdf-btn">Download PDF</button>
+            </div>
+        </div>
+
+        <script>
+            const auditLogs = [
+                { timestamp: "2023-10-01 10:00", user: "admin1", action: "CREATE", details: "Created a new user." },
+                { timestamp: "2023-10-02 11:30", user: "admin2", action: "UPDATE", details: "Updated user settings." },
+                { timestamp: "2023-10-03 14:00", user: "admin1", action: "DELETE", details: "Deleted a user." },
+                //More log entries (Backend dependancy)
+            ]
+
+            //Display logs in the table
+            function displayLogs(logs) {
+                const logTableBody = document.getElementById("log-table-body")
+                logTableBody.innerHTML = "" //Clear existing logs
+
+                logs.forEach((log) => {
+                    const row = document.createElement("tr")
+                    row.innerHTML = `
+                    <td>${log.timestamp}</td>
+                    <td>${log.user}</td>
+                    <td>${log.action}</td>
+                    <td>${log.details}</td>
+                `
+                    logTableBody.appendChild(row)
+                })
+            }
+
+            //Displaying all logs by default
+            displayLogs(auditLogs)
+
+            //Filter logs based on input
+            document.getElementById("filter-form").addEventListener("submit", function (event) {
+                event.preventDefault()
+                const dateFrom = new Date(this.dateFrom.value)
+                const dateTo = new Date(this.dateTo.value)
+                const actionType = this.actionType.value
+
+                const filteredLogs = auditLogs.filter((log) => {
+                    const logDate = new Date(log.timestamp)
+                    const isDateInRange =
+                        (!this.dateFrom.value || logDate >= dateFrom) && (!this.dateTo.value || logDate <= dateTo)
+                    const isActionTypeMatch = !actionType || log.action === actionType
+
+                    return isDateInRange && isActionTypeMatch
+                })
+
+                displayLogs(filteredLogs)
+            })
+
+            //CSV
+            document.getElementById("download-csv-btn").addEventListener("click", function () {
+                const csvContent =
+                    "data:text/csv;charset=utf-8," +
+                    auditLogs.map((log) => `${log.timestamp},${log.user},${log.action},${log.details}`).join("\n")
+
+                const encodedUri = encodeURI(csvContent)
+                const link = document.createElement("a")
+                link.setAttribute("href", encodedUri)
+                link.setAttribute("download", "audit_logs.csv")
+                document.body.appendChild(link)
+                link.click()
+                document.body.removeChild(link)
+            })
+
+            //EXCEL
+            document.getElementById("download-excel-btn").addEventListener("click", function () {
+                let excelContent = "<table><tr><th>Timestamp</th><th>User</th><th>Action</th><th>Details</th></tr>"
+                auditLogs.forEach((log) => {
+                    excelContent += `<tr><td>${log.timestamp}</td><td>${log.user}</td><td>${log.action}</td><td>${log.details}</td></tr>`
+                })
+                excelContent += "</table>"
+
+                const blob = new Blob([excelContent], { type: "application/vnd.ms-excel" })
+                const link = document.createElement("a")
+                link.href = URL.createObjectURL(blob)
+                link.download = "audit_logs.xls"
+                document.body.appendChild(link)
+                link.click()
+                document.body.removeChild(link)
+            })
+
+            //PDF
+            document.getElementById("download-pdf-btn").addEventListener("click", () => {
+                const element = document.getElementById("log-table")
+                html2pdf().from(element).save("audit_logs.pdf")
+            })
+        </script>
+    </body>
+</html>
